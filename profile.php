@@ -88,7 +88,10 @@
             <div class="col-md-6" m-3>
               <div class="clearfix">
                 <h3 class="float-start"><?= $row['username']; ?></h3>
-                <a class="badge rounded-pill bg-primary text-decoration-none mx-2 mt-2" href="/view/editprofil.php?id=<?= $row['id']; ?>" >Edit Profil</a>
+                <form action="view/editprofile.php" method="post">
+                  <input type="hidden" name="key" value="<?= $row['id']; ?>">
+                  <button class="badge rounded-pill bg-primary border-white shadow-sm mx-2 mt-2">Edit Profile</button>
+                </form>
               </div>
               <div class="d-flex">
                 <h5>Kiriman</h5> 
