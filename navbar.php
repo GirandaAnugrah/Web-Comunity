@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm fixed-top d-none d-xxl-block">
-  <div class="container-fluid col-md-8">
+  <div class="container-fluid col-md-9">
     <a class="navbar-brand" href="#">WEBPROG</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

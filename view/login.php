@@ -4,6 +4,11 @@
         <h5 class="modal-title" id="exampleModalLabel">LOGIN</h5>
     </div>
     <div class="modal-body">
+    <?php if($error != false) : ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $error; ?>
+        </div>
+    <?php endif ?>
     <form action="profile.php" method="post">
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>

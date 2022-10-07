@@ -27,16 +27,12 @@ $conn = mysqli_connect("Localhost", "root", "", "web-comunity");
         $foto = 'default-profile.png';
         $res = mysqli_query($conn, "SELECT user FROM user WHERE username = '$username'");
         if(mysqli_fetch_assoc($res)){
-            echo "<script>
-                alert('Username sudah terdaftar')
-            </script>";
-            return false;
+            header("Location: profile.php?error-message=Username already used");
+            die;
         }
         if($password !== $password2){
-            echo "<script>
-                alert('Password')
-            </script>";
-            return false;
+            header("Location: profile.php?error-message=password does not match");
+            die;
         }
         $password = password_hash($password, PASSWORD_BCRYPT);
         mysqli_query($conn,"INSERT INTO user(username,nama,email,password,foto_profil)  VALUES('$username','$name','$email','$password','$foto')");
@@ -79,9 +75,7 @@ $conn = mysqli_connect("Localhost", "root", "", "web-comunity");
             return false;
         }
         if($size > 1000000) {
-            echo "<script>
-            alert('Gambar yang anda input terlalu besar')
-            </script>";
+            setcookie('error_message','Username has been used', time()+5);
             return false;
         }
         move_uploaded_file($tmpName,'img/profil/'. $namafile);

@@ -1,16 +1,13 @@
 <?php 
     require 'functions.php';
     session_start();
+    $error = false;
     if(isset($_POST['signUp'])){
-      $username = $_POST['username'];
-      if (preg_match('/\s/',"$username")){
-        header("Location: profile.php?signUp=true");
-      }
         if(signUp($_POST) > 0){
             $_SESSION['login'] = true;
             $_SESSION['user_login'] = $_POST['username'];
         }else {
-            header("Location: profile.php");
+          header("Location: profile.php?error-message=Data entry failed");
         }
     }
     if(isset($_POST['login'])){
@@ -23,8 +20,18 @@
                 $_SESSION['login'] = true;
                 $_SESSION['user_login'] = $username; 
                 header("Location: profile.php");
+                die;
+            }else {
+              header("Location: profile.php?error-message=Password does not match");
+              die;
             }
+        }else {
+              header("Location: profile.php?error-message=Username not found");
+              die;
         }
+    }
+    if(isset($_GET['error-message'])){
+      $error = $_GET['error-message'];
     }
 
     if(isset($_POST['changePhoto'])){
@@ -103,7 +110,7 @@
     <?php include('navbar.php'); ?>
     <div id="content" class="container mt-5 col-md-9 visually-hidden bg-white">
         <div class="row m-3 d-flex flex-row border-bottom">
-            <div class="col-md-3 m-3">
+            <div class="col-md-3 m-3 d-md-m-auto">
               <img id="foto-profil" width="150px" height="150px" class="rounded-circle border border-primary" src="img/profil/<?= $row['foto_profil']; ?>" alt="">
               <form id="changeFotoProfile" action="profile.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<?= $row['id']; ?>">
