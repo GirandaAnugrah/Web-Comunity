@@ -1,0 +1,6 @@
+#my-post {
+  height: 550px;
+}
+#my-post::-webkit-scrollbar {
+  display: none;
+}

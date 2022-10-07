@@ -48,6 +48,8 @@ CREATE TABLE `forum` (
   `banner` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+
+
 --
 -- Dumping data untuk tabel `forum`
 --

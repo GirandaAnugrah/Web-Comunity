@@ -22,17 +22,12 @@ function getValue($id,$name){
   </head>
   <body>
     <?php include('navbar.php') ?>
-    <div class="container col-md-6">
+    <div class="container col-md-6 mt-5">
       <?php foreach($postingan as $val) : ?>
         <div class="card shadow-sm col-md-8  mt-4">
           <div class="border-bottom">
             <div class="dflex m-2">
-              <?php if(getValue($val['id_user'],'foto_profil') !== 'NULL'){ ?>
-                <img class="border border-dark rounded-circle" width="40px" height="40px" src="img/profil/<?= getValue($val['id_user'],'foto_profil'); ?>" alt="">
-              <?php }else { ?>
-                <img class="border border-dark rounded-circle" width="40px" height="40px" src="img/profil/default-profile.png" alt="">
-              <?php } ?>
-              
+              <img class="border border-dark rounded-circle" width="40px" height="40px" src="img/profil/<?= getValue($val['id_user'],'foto_profil'); ?>" alt="">
               <a class="text-decoration-none text-dark fw-bold mx-2" href=""><?= getValue($val['id_user'],'username'); ?></a>
             </div>
           </div>
@@ -50,6 +45,9 @@ function getValue($id,$name){
         </div>
         <?php endforeach ?>
       </div>
+      <footer class="fixed-bottom d-xxl-none ">
+      <?php include('footer.php') ?>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </body>
 </html>

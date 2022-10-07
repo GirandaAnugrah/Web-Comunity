@@ -1,9 +1,25 @@
 <?php 
 require '../functions.php';
+session_start();
 if(isset($_POST['key'])){
   $id = $_POST['key'];
   $result = mysqli_query($conn, "SELECT * FROM user WHERE id = '$id'");
   $row = mysqli_fetch_assoc($result);
+}
+
+if(isset($_POST['edit'])){
+  $username = $_POST['username'];
+  if(editProfile($_POST) > 0) {
+    $_SESSION['user_login'] = $username;
+    header("Location: ../index.php");
+}else {
+    echo "
+    <script>
+        alert('data gagal diubah');
+        document.location.href = '../index.php';
+    </script>
+    ";
+}
 }
 ?>
 <!doctype html>
@@ -29,7 +45,8 @@ if(isset($_POST['key'])){
   <body>
     <div class="container col-md-7 mt-5 p-3 rounded">
       <center><img width="150px" height="150px" class="rounded-circle border border-primary" src="../img/profil/default-profile.png" alt=""></center>
-    <form action="profile.php" method="post">
+    <form action="editprofile.php" method="post">
+      <input type="hidden" name="id" value="<?= $row['id']; ?>">
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
             <input type="text" name="username" class="form-control" id="username" value="<?= $row['username']; ?>">
@@ -40,7 +57,7 @@ if(isset($_POST['key'])){
         </div>
         <div class="mb-3">
           <label for="decription" class="form-label">Bio</label>
-          <textarea class="form-control" name="description" id="decription"  rows="3" value="<?= $row['description']; ?>"></textarea>
+          <textarea class="form-control" name="description" id="decription"  rows="3"><?= $row['description']; ?></textarea>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
