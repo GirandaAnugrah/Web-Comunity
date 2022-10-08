@@ -107,6 +107,7 @@
             <script>
             $(document).ready(function(){
                 $("#content").removeClass("visually-hidden");
+                $("#conDefault").addClass("visually-hidden");
             });
             </script>
             ';
@@ -121,6 +122,27 @@
     <?php include('navbar.php'); ?>
     <div id="postingModal" class="modal">
         <?php include('view/postingan.php'); ?>
+    </div>
+    <div id="conDefault" class="container mt-5 col-md-9">
+      <div class="row mb-3 d-flex flex-row justify-content-around border-bottom bg-white shadow-sm">
+        <div class="col-md-3 m-3 d-md-m-auto">
+              <img  width="150px" height="150px" class="rounded-circle border border-primary" src="img/profil/default-profile.png" alt="">
+        </div>
+        <div class="col-md-8 m-3">
+              <div class="clearfix">
+                <h3 class="float-start">User12345</h3>
+                <form action="#" method="post">
+                  <button class="badge rounded-pill bg-primary border-white shadow-sm mx-2 mt-2">Edit Profile</button>
+                </form>
+              </div>
+              <div class="d-flex">
+                <h5>0 Kiriman</h5> 
+                <h5 class="mx-3">0 Followers</h5>
+                <h5 class="mx-3">0 Likes</h5> 
+              </div>
+
+        </div>
+      </div>
     </div>
     <div id="content" class="container mt-5 col-md-9 visually-hidden">
         <div class="row mb-3 d-flex flex-row justify-content-around border-bottom bg-white shadow-sm">

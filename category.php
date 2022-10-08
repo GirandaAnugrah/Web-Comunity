@@ -38,22 +38,22 @@ function getValue($id,$name){
     <p><?= $forum['deskripsi']; ?></p>
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link" href="category.php?id=1">Javascript</a>
+          <a class="nav-link page" href="category.php?id=1">Javascript</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="category.php?id=2">Php</a>
+          <a class="nav-link page" href="category.php?id=2">Php</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="category.php?id=3">Java</a>
+          <a class="nav-link page" href="category.php?id=3">Java</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="category.php?id=4">Golang</a>
+          <a class="nav-link page" href="category.php?id=4">Golang</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="category.php?id=5">Ruby</a>
+          <a class="nav-link page" href="category.php?id=5">Ruby</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="category.php?id=6">C++</a>
+          <a class="nav-link page" href="category.php?id=6">C++</a>
         </li>
       </ul>
       <div class="container col-md-10 mt-5">

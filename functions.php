@@ -68,6 +68,7 @@ $conn = mysqli_connect("Localhost", "root", "", "web-comunity");
         $ekstensiGambarValid = ['jpg','jpeg','png'];
         $ekstensigambar = explode('.',$namafile);
         $ekstensigambar = strtolower( end($ekstensigambar));
+        $namafile = hash("sha256", $namafile).'.'.$ekstensigambar;
         if(!in_array($ekstensigambar,$ekstensiGambarValid)) {
             echo "<script>
             alert('Yang anda upload bukan gambar')
@@ -98,6 +99,7 @@ $conn = mysqli_connect("Localhost", "root", "", "web-comunity");
         $ekstensiGambarValid = ['jpg','jpeg','png'];
         $ekstensigambar = explode('.',$namafile);
         $ekstensigambar = strtolower( end($ekstensigambar));
+        $namafile = hash("sha256", $namafile).'.'.$ekstensigambar;
         if(!in_array($ekstensigambar,$ekstensiGambarValid)) {
             echo "<script>
             alert('Yang anda upload bukan gambar')
