@@ -11,7 +11,7 @@ if(isset($_POST['edit'])){
   $username = $_POST['username'];
   if(editProfile($_POST) > 0) {
     $_SESSION['user_login'] = $username;
-    header("Location: ../index.php");
+    header("Location: ../profile.php");
 }else {
     echo "
     <script>
@@ -44,8 +44,8 @@ if(isset($_POST['edit'])){
   </head>
   <body>
     <div class="container col-md-7 mt-5 p-3 rounded">
-      <center><img width="150px" height="150px" class="rounded-circle border border-primary" src="../img/profil/default-profile.png" alt=""></center>
-    <form action="editprofile.php" method="post">
+      <center><img  width="150px" height="150px" class="rounded-circle border border-primary" src="../img/profil/<?= $row['foto_profil']; ?>" alt=""></center>
+    <form action="editprofile.php" method="post" enctype="multipart/form-data">
       <input type="hidden" name="id" value="<?= $row['id']; ?>">
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
@@ -66,5 +66,7 @@ if(isset($_POST['edit'])){
         <button class="btn btn-success" name="edit">Submit</button>
     </form>
     </div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="../js/script.js"></script>
 </html>

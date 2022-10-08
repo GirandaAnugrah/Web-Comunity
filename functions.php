@@ -64,7 +64,7 @@ $conn = mysqli_connect("Localhost", "root", "", "web-comunity");
         $tmpName = $_FILES["foto_profil"]["tmp_name"];
         $size = $_FILES["foto_profil"]["size"];
         $eror = $_FILES["foto_profil"]["error"];
-    
+        
         $ekstensiGambarValid = ['jpg','jpeg','png'];
         $ekstensigambar = explode('.',$namafile);
         $ekstensigambar = strtolower( end($ekstensigambar));
@@ -85,4 +85,49 @@ $conn = mysqli_connect("Localhost", "root", "", "web-comunity");
              ";
         mysqli_query($conn, $query);
         return $namafile;
+    }
+
+
+    function uploadGambar() {
+        if($_FILES["postingan_gambar"]['name'] == NULL){
+            return -1;
+        }
+        $namafile = $_FILES["postingan_gambar"]['name'];
+        $tmpName = $_FILES["postingan_gambar"]["tmp_name"];
+        $size = $_FILES["postingan_gambar"]["size"];
+        $ekstensiGambarValid = ['jpg','jpeg','png'];
+        $ekstensigambar = explode('.',$namafile);
+        $ekstensigambar = strtolower( end($ekstensigambar));
+        if(!in_array($ekstensigambar,$ekstensiGambarValid)) {
+            echo "<script>
+            alert('Yang anda upload bukan gambar')
+            </script>";
+            return false;
+        }
+        // if($size > 1000000) {
+        //     setcookie('error_message','Username has been used', time()+5);
+        //     return false;
+        // }
+        move_uploaded_file($tmpName,'img/posting/'. $namafile);
+        return $namafile;
+    }
+
+    function posting($data){
+        global $conn;
+        $id = $data['id'];
+        $text = $data['postingan_text'];
+        $kategori = $data['kategori'];
+        $dateNow = date("Y-m-d");
+        $file = $_FILES['postingan_gambar']['name'];
+        if($kategori === 'javascript') $forum = 1;
+        else if($kategori === 'php') $forum = 2;
+        else if($kategori === 'java') $forum = 3;
+        else if($kategori === 'golang') $forum = 4;
+        else if($kategori === 'ruby') $forum = 5;
+        else $forum = 6;
+            $file = uploadGambar();
+            $query = "INSERT INTO postingan(id_user,id_forum,postingan_gambar,postingan_text,tanggal_posting,kategori)
+                      VALUES ('$id','$forum','$file','$text','$dateNow','$kategori')";
+        mysqli_query($conn,$query);
+        return mysqli_affected_rows($conn);
     }

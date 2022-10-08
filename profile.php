@@ -43,9 +43,10 @@
         $username = $_SESSION['user_login'];
         $result = mysqli_query($conn, "SELECT * FROM user WHERE username = '$username'");
         $row = mysqli_fetch_assoc($result);
+        $_SESSION['id_user'] = $row['id'];
         $_SESSION['foto_profil'] = $row['foto_profil'];
         $userid = $row['id'];
-        $postingan = query("SELECT * FROM postingan WHERE id_user = '$userid'");
+        $postingan = query("SELECT * FROM postingan WHERE id_user = '$userid' ORDER BY id DESC");
         $kiriman = 0;
         $jmlLike = 0;
         foreach($postingan as $val) {
@@ -58,6 +59,16 @@
         $jmlFol = query("SELECT id_user FROM follower WHERE id_user = $userid");
         $jmlFol = count($jmlFol);
     }
+
+    if(isset($_POST['send'])){
+      if(posting($_POST) > 0){
+        header("Location: profile.php");
+      }else {
+        header("Location: profile.php?error-message=Data entry failed");
+      }
+    }
+
+
     function getValue($id,$name){
         $query = "SELECT $name FROM user WHERE id = $id";
         $res = getData($query,"$name");
@@ -108,8 +119,11 @@
         else include('view/edit_fotoprofile.php');?>
     </div>
     <?php include('navbar.php'); ?>
-    <div id="content" class="container mt-5 col-md-9 visually-hidden bg-white">
-        <div class="row m-3 d-flex flex-row border-bottom">
+    <div id="postingModal" class="modal">
+        <?php include('view/postingan.php'); ?>
+    </div>
+    <div id="content" class="container mt-5 col-md-9 visually-hidden">
+        <div class="row mb-3 d-flex flex-row justify-content-around border-bottom bg-white shadow-sm">
             <div class="col-md-3 m-3 d-md-m-auto">
               <img id="foto-profil" width="150px" height="150px" class="rounded-circle border border-primary" src="img/profil/<?= $row['foto_profil']; ?>" alt="">
               <form id="changeFotoProfile" action="profile.php" method="post" enctype="multipart/form-data">
@@ -121,7 +135,7 @@
                 <button class="badge rounded-pill bg-primary border-white shadow-sm mt-1" name="changePhoto">Edit Profile</button>
               </form>
             </div>
-            <div class="col-md-6 m-3">
+            <div class="col-md-8 m-3">
               <div class="clearfix">
                 <h3 class="float-start"><?= $row['username']; ?></h3>
                 <form action="view/editprofile.php" method="post">
@@ -138,8 +152,8 @@
             </div>
         </div>
         <!-- Postingan -->
-        <div class="row d-flex justify-content-between">
-          <div class="col-md-5 rounded d-none d-xxl-block">
+        <div class="row col-12 mx-auto d-flex justify-content-between">
+          <div class="col-md-5 rounded d-none d-xxl-block bg-white shadow">
             <?php if(mysqli_fetch_assoc($follower))  :?>
               <h5 class="text-center m-3">Follow</h5>
             <?php endif ?>
@@ -153,16 +167,25 @@
               </div>
           </div>
           <div id="my-post" class="col-md-7 overflow-auto">
+            <div id="postingan_text" class="postingan">
+              <div class="bg-white rounded-3 shadow">
+                <div id="postingan_text" class="p-4">
+                  <div style="background-color: #eeee;" class="border rounded-pill">
+                    <h5 class="mx-3 m-2">What do you think now?</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
           <?php foreach($postingan as $val) : ?>
               <div class="container">
-                <div class="card shadow-sm col-md-10 mt-4" >
+                <div class="card shadow-sm col-md-10 mt-4 mx-auto" >
                   <div class="border-bottom">
                     <div class="dflex m-2">
                       <img class="border border-dark rounded-circle" width="40px" height="40px" src="img/profil/<?= getValue($val['id_user'],'foto_profil'); ?>" alt="">
                       <a class="text-decoration-none text-dark fw-bold mx-2" href=""><?= getValue($val['id_user'],'username'); ?></a>
                     </div>
                   </div>
-                  <?php if($val['postingan_gambar'] !== NULL) : ?>
+                  <?php if($val['postingan_gambar'] !== '-1') : ?>
                     <img src="img/posting/<?= $val['postingan_gambar']; ?>" class="card-img-top" alt="...">
                   <?php endif ?>
                   <div class="card-body">
