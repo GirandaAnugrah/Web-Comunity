@@ -1,0 +1,48 @@
+web-komunitas
+
+->User
+id
+username
+nama_lengkap
+password
+email
+foto_profil
+
+
+->forum
+id
+nama_forum
+deskripsi
+banner
+
+->postingan
+id
+id_user
+id_forum
+postingan_gambar
+postingan_text
+tanggal_posting
+like
+kategori
+
+
+->comment
+id_postingan
+id_user
+comment
+like
+tanggal_comment
+
+
+CREATE TABLE postingan{
+    id CHAR(20) PRIMARY KEY AUTO_INCREMENT,
+    id_user CHAR(20),
+    id_forum CHAR(20),
+    postingan_gambar VARCHAR(120),
+    postingan_text VARCHAR(300),
+    tanggal_posting DATE,
+    like INTEGER,
+    kategori VARCHAR(25),
+    FOREIGN KEY (id_user) REFERENCES user (id),
+    FOREIGN KEY (id_forum) REFERENCES forum (id)
+}
