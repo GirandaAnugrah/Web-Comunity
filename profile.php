@@ -89,7 +89,7 @@
     <title>Profile</title>
     <style>
       body {
-        background-color: #eeee;
+        background-color: #C6CCE0;
       }
     </style>
   </head>
@@ -144,8 +144,8 @@
         </div>
       </div>
     </div>
-    <div id="content" class="container mt-5 col-md-9 visually-hidden">
-        <div class="row mb-3 d-flex flex-row justify-content-around border-bottom bg-white shadow-sm">
+    <div style="background-color: #C6CCE0;" id="content" class="container mt-5 col-md-9 visually-hidden">
+        <div class="row mb-3 d-flex flex-row justify-content-around bg-white border-bottom shadow-sm rounded-3">
             <div class="col-md-3 m-3 d-md-m-auto">
               <img id="foto-profil" width="150px" height="150px" class="rounded-circle border border-primary" src="img/profil/<?= $row['foto_profil']; ?>" alt="">
               <form id="changeFotoProfile" action="profile.php" method="post" enctype="multipart/form-data">

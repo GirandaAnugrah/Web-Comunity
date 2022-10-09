@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm fixed-top d-none d-xxl-block">
+<nav style="background-color: #0D2167;" class="navbar navbar-expand-lg navbar-dark prim shadow-sm fixed-top d-none d-xxl-block">
   <div class="container-fluid col-md-9">
     <a class="navbar-brand" href="#">WEBPROG</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

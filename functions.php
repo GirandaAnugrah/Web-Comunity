@@ -117,7 +117,7 @@ $conn = mysqli_connect("Localhost", "root", "", "web-comunity");
     function posting($data){
         global $conn;
         $id = $data['id'];
-        $text = $data['postingan_text'];
+        $text = htmlspecialchars($data['postingan_text']);
         $kategori = $data['kategori'];
         $dateNow = date("Y-m-d");
         $file = $_FILES['postingan_gambar']['name'];

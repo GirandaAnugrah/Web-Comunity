@@ -25,12 +25,17 @@ function getValue($id,$name){
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-
+  <link rel="stylesheet" href="style.css">
     <title>Category</title>
+    <style>
+    body{
+      background-color: #C6CCE0;
+    }
+  </style>
   </head>
   <body>
   <?php include('navbar.php'); ?>
-  <div class="container col-md-9 mt-5 rounded">
+  <div class="container col-md-9 mt-5 rounded bg-white">
     <div> 
       <img height="400rem" src="img/banner/<?= $forum['banner']; ?>" class="d-block w-100 rounded" alt="...">
     </div>
