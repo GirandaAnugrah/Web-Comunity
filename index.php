@@ -4,6 +4,10 @@ require('functions.php');
 $postingan = query("SELECT * FROM postingan");
 
 if(isset($_POST['send_comment'])){
+  if(!isset($_SESSION['id_user'])){
+    header("Location: profile.php");
+    die;
+  }
   $idpostingan = $_POST['id_postingan'];
   $iduser = $_POST['id_user'];
   $comment = $_POST['comment'];
@@ -42,19 +46,21 @@ function getValue($id,$name){
     <?php include('navbar.php') ?>
     <div class="container col-md-6 mt-5">
       <?php foreach($postingan as $val) : ?>
-        <div class="card shadow-sm col-md-8  mt-4" data-img="<?= $val['postingan_gambar']; ?>" data-username="<?= getValue($val['id_user'],'username'); ?>" data-profil="<?= getValue($val['id_user'],'foto_profil'); ?>" data-text="<?= $val['postingan_text']; ?>">
+        <div class="card shadow-sm col-md-8  mt-4" >
           <div class="border-bottom">
             <div class="dflex m-2">
               <img class="border border-dark rounded-circle" width="40px" height="40px" src="img/profil/<?= getValue($val['id_user'],'foto_profil'); ?>" alt="">
-              <a class="text-decoration-none text-dark fw-bold mx-2" href=""><?= getValue($val['id_user'],'username'); ?></a>
+              <a class="text-decoration-none text-dark fw-bold mx-2" href="detailuser.php?id=<?= $val['id_user']; ?>"><?= getValue($val['id_user'],'username'); ?></a>
             </div>
           </div>
-          <div class="card-body">
-          <p class="card-text"><?= $val['postingan_text']; ?></p>
+          <div class="posting" data-img="<?= $val['postingan_gambar']; ?>" data-username="<?= getValue($val['id_user'],'username'); ?>" data-profil="<?= getValue($val['id_user'],'foto_profil'); ?>" data-text="<?= $val['postingan_text']; ?>">
+            <div class="card-body">
+            <p class="card-text"><?= $val['postingan_text']; ?></p>
+            </div>
+            <?php if($val['postingan_gambar'] !== '-1') : ?>
+              <img src="img/posting/<?= $val['postingan_gambar']; ?>" class="card-img-top border-bottom" alt="...">
+            <?php endif ?>
           </div>
-          <?php if($val['postingan_gambar'] !== '-1') : ?>
-            <img src="img/posting/<?= $val['postingan_gambar']; ?>" class="card-img-top border-bottom" alt="...">
-          <?php endif ?>
             <!-- <h5><?= $val['jml_like']; ?></h5>
             <div class="d-flex border-bottom">
               <h3 class="mx-2"><i class="bi bi-hand-thumbs-up-fill"></i></h3>
@@ -78,7 +84,7 @@ function getValue($id,$name){
 
     <!-- Modal -->
     <div id="detailPosting" class="modal" tabindex="-1">
-      <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div id="besarModal" class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-body">
           <div class="container-fluid">
@@ -86,7 +92,7 @@ function getValue($id,$name){
                 <div id="gambarDt" class="col-md-7 overflow-auto">
                   <img id="imgPosting" src="img/posting/2.jpg" alt="">
                 </div>
-                <div class="col-md-5 ms-auto border-start ">
+                <div id="sesuai" class="col-md-5 ms-auto border-start ">
                   <div class="username d-flex border-bottom">
                   <img id="detailProfile" width="25px" height="25px" class="rounded-circle border border-secondary m-2" alt="">
                     <p id="detailUsername" class="fw-bold m-2"></p>
@@ -94,7 +100,6 @@ function getValue($id,$name){
                   <div class="detailtext">
                     <p id="detailText"></p>
                     <div style="height: 400px;" class="comment">
-
                     </div>
                     <div class="my-2">
                       <form action="index.php" method="post" class="d-flex">

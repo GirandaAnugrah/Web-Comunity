@@ -55,7 +55,7 @@
         }
         $follower = mysqli_query($conn, "SELECT (SELECT foto_profil FROM user WHERE id = id_follower) foto,
                                          (SELECT username FROM user WHERE id = id_follower) myusername FROM follower WHERE id_user = '$userid'");
-
+        // var_dump($follower);die;
         $jmlFol = query("SELECT id_user FROM follower WHERE id_user = $userid");
         $jmlFol = count($jmlFol);
     }
@@ -174,32 +174,33 @@
             </div>
         </div>
         <!-- Postingan -->
-        <div class="row col-12 mx-auto d-flex justify-content-between">
-          <div class="col-md-5 rounded d-none d-xxl-block bg-white shadow">
-            <?php if(mysqli_fetch_assoc($follower))  :?>
-              <h5 class="text-center m-3">Follow</h5>
-            <?php endif ?>
-              <div class="d-flex flex-wrap justify-content-around">
-                <?php for($i = 0; $i < 6; $i++) { $val = mysqli_fetch_assoc($follower) ?>
-                  <div class="p-2">
-                    <img height="120px" width="120px" src="img/profil/<?= $val['foto']; ?>" class="img-thumbnail mt-2" alt="...">
-                    <p class="text-center"><?= $val['myusername']; ?></p>
-                  </div>
-                <?php } ?>
-              </div>
-          </div>
-          <div id="my-post" class="col-md-7 overflow-auto">
-            <div id="postingan_text" class="postingan">
-              <div class="bg-white rounded-3 shadow">
-                <div id="postingan_text" class="p-4">
-                  <div style="background-color: #eeee;" class="border rounded-pill">
-                    <h5 class="mx-3 m-2">What do you think now?</h5>
+        <div class="row container mx-auto">
+            <div class="col-md-6">
+                <?php if($follower != NULL)  :?>
+                <div class="rounded d-none d-xxl-block bg-white shadow">
+                  <h5 class="text-center m-3">Follow</h5>
+                  <div class="d-flex flex-wrap justify-content-around">
+                    <?php while($val = mysqli_fetch_assoc($follower)) { ?>
+                      <div class="p-2">
+                        <img height="120px" width="120px" src="img/profil/<?= $val['foto']; ?>" class="img-thumbnail mt-2" alt="...">
+                        <p class="text-center"><?= $val['myusername']; ?></p>
+                      </div>
+                      <?php } ?>
+                    </div>
+                </div>
+                <?php endif ?>
+            </div>
+            <div class="col-md-6">
+              <div id="postingan_text" class="postingan">
+                <div class="bg-white rounded-3 shadow">
+                  <div id="postingan_text" class="p-4">
+                    <div style="background-color: #eeee;" class="border rounded-pill">
+                      <h5 class="mx-3 m-2">What do you think now?</h5>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          <?php foreach($postingan as $val) : ?>
-              <div class="container">
+              <?php foreach($postingan as $val) : ?>
                 <div class="card shadow-sm col-md-10 mt-4 mx-auto" >
                   <div class="border-bottom">
                     <div class="dflex m-2">
@@ -219,9 +220,8 @@
                   </div>
                   <input class="form-control" type="text" placeholder="Comment..." aria-label="Comment">
                 </div>
-              </div>
             <?php endforeach ?>
-          </div>
+            </div>           
         </div>
     </div>
     <footer class="fixed-bottom d-xxl-none ">
