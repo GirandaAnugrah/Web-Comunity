@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Okt 2022 pada 03.47
+-- Waktu pembuatan: 09 Okt 2022 pada 17.35
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -35,6 +35,58 @@ CREATE TABLE `comment` (
   `tanggal_comment` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data untuk tabel `comment`
+--
+
+INSERT INTO `comment` (`id_postingan`, `id_user`, `comment`, `jml_like`, `tanggal_comment`) VALUES
+(1, 10, 'Keren banget', 2, '2022-10-08'),
+(1, 5, 'Keren Banget', NULL, '2022-10-08'),
+(2, 5, 'sangat bermanfaat', NULL, '2022-10-08'),
+(20, 9, 'Setuju', NULL, '2022-10-09'),
+(2, 5, 'sangat bermanfaat', NULL, '2022-10-09'),
+(24, 23, 'Keren Banget Hamdan', NULL, '2022-10-09'),
+(22, 23, 'Mantap Agus mama kamu pasti bangga', NULL, '2022-10-09');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `follower`
+--
+
+CREATE TABLE `follower` (
+  `id_user` int(11) DEFAULT NULL,
+  `id_follower` int(11) DEFAULT NULL,
+  `date_follow` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `follower`
+--
+
+INSERT INTO `follower` (`id_user`, `id_follower`, `date_follow`) VALUES
+(5, 10, '2022-10-06'),
+(5, 9, '2022-10-06'),
+(5, 7, '2022-10-06'),
+(5, 8, '2022-10-06'),
+(5, 17, '2022-10-06'),
+(5, 18, '2022-10-06'),
+(5, 23, '2022-10-06'),
+(5, 19, '2022-10-06'),
+(5, 22, '2022-10-06'),
+(5, 21, '2022-10-06'),
+(5, 20, '2022-10-06'),
+(9, 5, '2022-10-09'),
+(9, 7, '2022-10-09'),
+(9, 7, '2022-10-09'),
+(17, 5, '2022-10-09'),
+(19, 9, '2022-10-09'),
+(19, 5, '2022-10-09'),
+(19, 5, '2022-10-09'),
+(17, 23, '2022-10-09'),
+(9, 23, '2022-10-09'),
+(19, 23, '2022-10-09');
+
 -- --------------------------------------------------------
 
 --
@@ -48,14 +100,17 @@ CREATE TABLE `forum` (
   `banner` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
-
 --
 -- Dumping data untuk tabel `forum`
 --
 
 INSERT INTO `forum` (`id`, `nama_forum`, `deskripsi`, `banner`) VALUES
-(1, 'Javascript', 'JavaScript is a text-based programming language used both on the client-side and server-side that allows you to make web pages interactive.', 'bann-javascript.png');
+(1, 'Javascript', 'JavaScript is a text-based programming language used both on the client-side and server-side that allows you to make web pages interactive.', 'bann-javascript.png'),
+(2, 'Php', 'PHP: Hypertext Preprocessor atau hanya PHP saja, adalah bahasa skrip dengan fungsi umum yang terutama digunakan untuk pengembangan web.', 'bann-php.png'),
+(3, 'Java', 'Java is a widely used object-oriented programming language and software platform that runs on billions of devices, including notebook computers, mobile devices, gaming consoles, medical devices, and m', 'bann-java.png'),
+(4, 'Golang', 'Go (also called Golang or Go language) is an open-source programming language used for general purposes. Go was developed by Google engineers to create dependable and efficient software. Most similarl', 'bann-golang.png'),
+(5, 'Ruby', 'Ruby is mainly used to build web applications and is useful for other programming projects. It is widely used for building servers and data processing, web scraping, and crawling. The leading framewor', 'bann-ruby.png'),
+(6, 'C++', 'C++ (or “C-plus-plus”) is a general-purpose programming and coding language. C++ is used in developing browsers, operating systems, and applications, as well as in-game programming, software engineeri', 'bann-c++.png');
 
 -- --------------------------------------------------------
 
@@ -80,7 +135,17 @@ CREATE TABLE `postingan` (
 
 INSERT INTO `postingan` (`id`, `id_user`, `id_forum`, `postingan_gambar`, `postingan_text`, `tanggal_posting`, `jml_like`, `kategori`) VALUES
 (1, 5, 1, '2.jpg', 'JavaScript adalah bahasa pemrograman tingkat tinggi dan dinamis. JavaScript populer di internet dan dapat bekerja di sebagian besar penjelajah web populer seperti Google Chrome, Internet Explorer, Mozilla Firefox, Netscape dan Opera. Kode JavaScript dapat disisipkan dalam halaman web menggunakan tag', '2022-10-03', 2, 'javascript'),
-(2, 5, 1, NULL, 'Perbedaan Java dan JavaScript adalah, Java merupakan bahasa pemrograman, sedangkan JavaScript adalah skrip pemrograman. Kode JavaScript ditulis dalam teks dan bisa langsung diinterpretasikan browser, sedangkan Java harus di-compile menjadi bytecode yang bisa dipahami dan dijalankan komputer.', '2022-10-03', 3, 'javascript');
+(2, 5, 1, '-1', 'Perbedaan Java dan JavaScript adalah, Java merupakan bahasa pemrograman, sedangkan JavaScript adalah skrip pemrograman. Kode JavaScript ditulis dalam teks dan bisa langsung diinterpretasikan browser, sedangkan Java harus di-compile menjadi bytecode yang bisa dipahami dan dijalankan komputer.', '2022-10-03', 3, 'javascript'),
+(3, 5, 1, '-1', 'Tahukah kamu bahwa JavaScript adalah bahasa pemrograman yang digunakan dalam pengembangan website agar lebih dinamis dan interaktif. Kalau sebelumnya kamu hanya mengenal HTML dan CSS, nah sekarang kamu jadi tahu bahwa JavaScript dapat meningkatkan fungsionalitas pada halaman web.', '2022-10-08', NULL, 'javascript'),
+(8, 5, 2, 'jk.png', 'PHP: Hypertext Preprocessor atau hanya PHP saja, adalah bahasa skrip dengan fungsi umum yang terutama digunakan untuk pengembangan web. Bahasa ini awalnya dibuat oleh seorang pemrogram Denmark-Kanada Rasmus Lerdorf pada tahun 1994. Implementasi referensi PHP sekarang diproduksi oleh The PHP Group.', '2022-10-08', NULL, 'php'),
+(17, 5, 6, '-1', 'C++ adalah bahasa pemrograman komputer yang dibuat oleh Bjarne Stroustrup, yang merupakan perkembangan dari bahasa C dikembangkan di Bell Labs. Pada awal tahun 1970-an, bahasa itu merupakan peningkatan dari bahasa sebelumnya, yaitu B', '2022-10-08', NULL, 'c++'),
+(18, 5, 4, '-1', 'Saya lagi belajar Golang saat ini ternyata susah banget', '2022-10-08', NULL, 'golang'),
+(19, 5, 6, '-1', 'SELECT @@version', '2022-10-08', NULL, 'all'),
+(20, 5, 2, '-1', 'Belajar PHP sangat menyenangkan saya 1 hari cuman bengong doang hadepin soal web programming yg belum selesai', '2022-10-09', NULL, 'php'),
+(21, 9, 3, '-1', 'Hari ini saya sedang belajar Java, OOP di java mudah melajari sangat cocok bagi orang-orang yang baru belajar OOP', '2022-10-09', NULL, 'java'),
+(22, 17, 4, '-1', 'Hari ini saya belajar golang secara otodidak melaui youtube', '2022-10-09', NULL, 'golang'),
+(23, 19, 1, '-1', 'Belajar javasript sangat menyenangkan', '2022-10-09', NULL, 'javascript'),
+(24, 23, 1, '189a2ee543e2daa4299fdf35f43ac5069a39295539b26ad540212244cdf3aead.png', 'Hi nama saya hamdan kelas 10 SMA kali ini saya sedang memperdalam pemrograman javascript karena ketertarikan saya dengan web design.\r\n-HTML\r\n-Javascript\r\n-NodeJS', '2022-10-09', NULL, 'javascript');
 
 -- --------------------------------------------------------
 
@@ -103,7 +168,21 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `nama`, `email`, `password`, `foto_profil`, `description`) VALUES
-(5, 'renfredCantik', 'Renfred', 'renfred@gmail.com', '$2y$10$Hd5hVkOrQvDQ3OdywCVvzejjsYhQsa1D8htc9nJ5zRDo09LbfDV8C', 'NULL', 'Nama saya Renfred Leeman domisili tangerang, saya suka belajar coding sejak SMA. Kali ini saya sedang memperdalam Php,Laravel, serta oracle.');
+(5, 'renfredLeeman', 'Renfred ', 'renfred@gmail.com', '$2y$10$Hd5hVkOrQvDQ3OdywCVvzejjsYhQsa1D8htc9nJ5zRDo09LbfDV8C', '4c468b3b16999fd9578189576d5f770cb4a16ad9fca0e798a251f00a54a87c5d.jpg', 'Nama saya Renfred Leeman domisili tangerang, saya suka belajar coding sejak SMA. Kali ini saya sedang memperdalam Php,Laravel, C++, Golang, serta tailwind.'),
+(7, 'dodidot', 'Dodi Kurniawan', 'dodi@gmail.com', '$2y$10$k1Oj8FUC8uwer3B/ZC1BUOS8PHpvaHJnNLKlde50vmWum9pz9fbH2', 'default-profile.png', ''),
+(8, 'm4y4cynkR3H4n', 'Maya', 'maya@gmail.com', '$2y$10$aPv1mMf5W8a6dlma9BElre/UZVA5uFNiXEAjuj9ZwGoBPWtAe58JS', 'default-profile.png', ''),
+(9, 'ditoAja', 'Dito', 'dito@gmail.com', '$2y$10$Jom1rI9KnZs4x57GzeRNfeZCVJmwvz0ZmUgxgTw0OwsylLFD5wnIC', 'default-profile.png', ''),
+(10, 'amandacryt', 'Amanda', 'amanda@gmail.com', '$2y$10$gNTD2K1fE.bXYBvzT8o7H.QcVu.eXWSPRAmL0zrtI9xjS7ErI0b4O', 'default-profile.png', ''),
+(12, 'aziz akmal', 'Aziz Akmal', 'aziz@gmail.com', '$2y$10$jZK9lPaC36f.9e8vtStrg.iwjb6XAuxebr8GuHKKHdHeB/4maRxIS', 'default-profile.png', ''),
+(14, 'gio oktada', 'Giofari', 'gio@gmail.com', '$2y$10$jdKGo/pM0Sw7U5TtGSkRoulF9.q76Bwr/Dc8/B8/WBfnGoxHSVYVe', 'default-profile.png', ''),
+(16, 'ahmad muad', 'ahmad', 'ahm@gmail.com', '$2y$10$K..ZNy9Rw7hhnaT949./FutG9ZQiimerv9316wRVJgJKVJjHhByca', 'default-profile.png', ''),
+(17, 'agus', 'Agus', 'agus@gmail.com', '$2y$10$0WHZlDsGHnP23zMv8A8DIuy/ZafhsbHipvfn8h/D8YBus2MMNE4rC', 'c1e926a877e1df4d7129440d1946eefb91e95fbdeaf922bb6bed853203f2fdcf.jpg', ''),
+(18, 'oktookto', 'okto', 'okto@gmail.com', '$2y$10$nsqQP2RbzwdPvrTRgTGZyufp/fxuFNVtr0DaYHY/IE4/zH3OGFIYm', 'default-profile.png', ''),
+(19, 'lauraAja', 'Laura', 'laur@gmail.com', '$2y$10$bFbUl9mUhkYESzBsmG1Xc.8WYwLafQk71Japnyk4nghqSEJWPX.Jq', 'default-profile.png', ''),
+(20, 'sudung', 'sudung', 'sud@gmail.com', '$2y$10$VJMSWkfzbdHgllkEelu9SeB2LFISn7JBUB3/Sww7/AK9Qrsqe7LbK', 'default-profile.png', ''),
+(21, 'ziziziz', 'zizi', 'zizizi@gmail.com', '$2y$10$KikYr8bZWzsFPtnVfzLR2eQcjhmXFq9.eUBGcvICxsqYtRKQ5mtzi', 'default-profile.png', ''),
+(22, 'lisalis', 'lisa', 'lisa@gmail.com', '$2y$10$mBNn7Ig3QfFMkcpYpY18lOYc.clIJhkhSKvrLf1iE7/vqH418cWYS', 'default-profile.png', ''),
+(23, 'hamdan', 'hamdan', 'hamdan@gmail.com', '$2y$10$TpYcF/iQO27tt/rnjv3Fg.tMhcSYYU2ckL/i8PEy66xEzXVyvJ9Nu', 'default-profile.png', '');
 
 --
 -- Indexes for dumped tables
@@ -115,6 +194,13 @@ INSERT INTO `user` (`id`, `username`, `nama`, `email`, `password`, `foto_profil`
 ALTER TABLE `comment`
   ADD KEY `id_postingan` (`id_postingan`),
   ADD KEY `id_user` (`id_user`);
+
+--
+-- Indeks untuk tabel `follower`
+--
+ALTER TABLE `follower`
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_follower` (`id_follower`);
 
 --
 -- Indeks untuk tabel `forum`
@@ -146,19 +232,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `forum`
 --
 ALTER TABLE `forum`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `postingan`
 --
 ALTER TABLE `postingan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -170,6 +256,13 @@ ALTER TABLE `user`
 ALTER TABLE `comment`
   ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`id_postingan`) REFERENCES `postingan` (`id`),
   ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
+
+--
+-- Ketidakleluasaan untuk tabel `follower`
+--
+ALTER TABLE `follower`
+  ADD CONSTRAINT `follower_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `follower_ibfk_2` FOREIGN KEY (`id_follower`) REFERENCES `user` (`id`);
 
 --
 -- Ketidakleluasaan untuk tabel `postingan`

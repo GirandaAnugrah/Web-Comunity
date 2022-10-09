@@ -34,3 +34,9 @@ $(".posting").click(function () {
   $("#detailText").html(text);
   $("#detailPosting").modal("show", "slow");
 });
+
+// media Query
+// $(document).load($(window).bind("resize", checkPosition));
+if (window.matchMedia("(max-width: 768px)").matches) {
+  $("#my-post").removeClass("overflow-auto");
+}

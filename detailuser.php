@@ -6,8 +6,8 @@ if(!isset($_GET['id'])){
     die;
 }
 $id = $_GET['id'];
+$idUser = $_SESSION['id_user'];
 if(isset($_GET['follow'])){
-    $idUser = $_SESSION['id_user'];
     $dateNow = date("Y-m-d");
     $query = "INSERT INTO follower(id_user,id_follower,date_follow)
               VALUES ('$id','$idUser','$dateNow')";
@@ -20,6 +20,13 @@ if($user == NULL){
     header("Location: index.php");
     die;
 }
+$following = false;
+$query = "SELECT date_follow FROM follower WHERE id_user = '$id' AND id_follower = '$idUser'";
+$fol = mysqli_query($conn, $query);
+if(mysqli_fetch_assoc($fol)){
+    $following = true;
+}
+
 $postingan = query("SELECT * FROM postingan WHERE id_user = '$id' ORDER BY id DESC");
 $kiriman = 0;
 $jmlLike = 0;
@@ -65,7 +72,9 @@ function getValue($id,$name){
         <div class="col-md-8 m-3">
               <div class="clearfix">
                 <h3 class="float-start"><?= $user['username']; ?></h3>
+                <?php if(!$following) : ?>
                 <a href="detailuser.php?id=<?= $id; ?>&follow=true" class="badge rounded-pill bg-primary border-white text-decoration-none shadow-sm mx-2 mt-2">Follow</a>
+                <?php endif ?>
               </div>
               <div class="d-flex">
                 <h5><?= $kiriman; ?> Posts</h5> 

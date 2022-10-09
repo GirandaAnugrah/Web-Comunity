@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require('functions.php');
-$postingan = query("SELECT * FROM postingan");
+$postingan = query("SELECT * FROM postingan ORDER BY tanggal_posting DESC");
 
 if(isset($_POST['send_comment'])){
   if(!isset($_SESSION['id_user'])){

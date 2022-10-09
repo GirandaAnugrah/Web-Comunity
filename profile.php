@@ -114,6 +114,9 @@
         }
     ?>
   <body>
+    <div class="fixed-top d-xxl-none bg-primary">
+      <h2>SKEM</h2>
+    </div>
     <div class="modal" id="myModal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <?php if(isset($_GET['signUp'])) include('view/signUp.php');
         else if(!isset($_SESSION['login'])) include('view/login.php');
@@ -180,17 +183,17 @@
                 <div class="rounded d-none d-xxl-block bg-white shadow">
                   <h5 class="text-center m-3">Follow</h5>
                   <div class="d-flex flex-wrap justify-content-around">
-                    <?php while($val = mysqli_fetch_assoc($follower)) { ?>
-                      <div class="p-2">
-                        <img height="120px" width="120px" src="img/profil/<?= $val['foto']; ?>" class="img-thumbnail mt-2" alt="...">
-                        <p class="text-center"><?= $val['myusername']; ?></p>
-                      </div>
-                      <?php } ?>
+                  <?php $i = 0; while($val = mysqli_fetch_assoc($follower)) { $i++;?>
+                  <div class="p-2">
+                    <img height="120px" width="120px" src="img/profil/<?= $val['foto']; ?>" class="img-thumbnail mt-2" alt="...">
+                    <p class="text-center"><?= $val['myusername']; ?></p>
+                  </div>
+                  <?php if($i > 5) break; } ?>
                     </div>
                 </div>
                 <?php endif ?>
             </div>
-            <div class="col-md-6">
+            <div id="my-post" class="col-md-6 overflow-auto">
               <div id="postingan_text" class="postingan">
                 <div class="bg-white rounded-3 shadow">
                   <div id="postingan_text" class="p-4">
@@ -201,7 +204,7 @@
                 </div>
               </div>
               <?php foreach($postingan as $val) : ?>
-                <div class="card shadow-sm col-md-10 mt-4 mx-auto" >
+                <div class="card shadow-sm mt-4 mx-auto" >
                   <div class="border-bottom">
                     <div class="dflex m-2">
                       <img class="border border-dark rounded-circle" width="40px" height="40px" src="img/profil/<?= getValue($val['id_user'],'foto_profil'); ?>" alt="">
