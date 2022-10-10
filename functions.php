@@ -47,12 +47,12 @@ $conn = mysqli_connect("Localhost", "root", "", "web-comunity");
         $description = htmlspecialchars($data["description"]);
         $email = htmlspecialchars($data["email"]);
         $query = "UPDATE user SET
-                 username = '$username',
-                 nama = '$nama',
-                 email = '$email',
-                 description = '$description'
-                 WHERE id = $id;
-                 ";
+                username = '$username',
+                nama = '$nama',
+                email = '$email',
+                description = '$description'
+                WHERE id = $id;
+                ";
         mysqli_query($conn, $query);
         return mysqli_affected_rows($conn);
     }

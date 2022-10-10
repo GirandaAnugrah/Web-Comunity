@@ -54,7 +54,7 @@
           $jmlLike += $val['jml_like'];
         }
         $follower = mysqli_query($conn, "SELECT (SELECT foto_profil FROM user WHERE id = id_follower) foto,
-                                         (SELECT username FROM user WHERE id = id_follower) myusername FROM follower WHERE id_user = '$userid'");
+                                        (SELECT username FROM user WHERE id = id_follower) myusername FROM follower WHERE id_user = '$userid'");
         // var_dump($follower);die;
         $jmlFol = query("SELECT id_user FROM follower WHERE id_user = $userid");
         $jmlFol = count($jmlFol);
