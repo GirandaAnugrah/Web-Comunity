@@ -21,8 +21,9 @@
   <body>    
     <div class="modal-dialog">
         <div class="modal-content">
+        <img src="img/profil/neko.png" alt="nekocare" width="50"/>
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">LOGIN</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Login to NekoCare</h5>
             </div>
             <div class="modal-body">
             <?php if($error != false) : ?>

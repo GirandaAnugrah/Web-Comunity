@@ -29,7 +29,7 @@ function getValue($id,$name){
     <title>Category</title>
     <style>
     body{
-      background-color: #C6CCE0;
+      background-color:	#FFF0F5;
     }
   </style>
   </head>
