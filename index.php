@@ -18,6 +18,16 @@ if(isset($_POST['send_comment'])){
   mysqli_query($conn,$query);
 }
 
+if(isset($_POST['deleteAction'])){
+  $idpostingan = $_POST['commentID'];
+  $query1 = "DELETE FROM comment WHERE id_postingan = '$idpostingan'";
+  mysqli_query($conn,$query1);
+  $query2 = "DELETE FROM postingan WHERE id = '$idpostingan'";
+  mysqli_query($conn,$query2);
+  header("Location: index.php");
+  unset($_POST['deleteAction']);
+}
+
 function getValue($id,$name){
   $query = "SELECT $name FROM user WHERE id = $id";
   $res = getData($query,"$name");
@@ -51,6 +61,10 @@ function getValue($id,$name){
             <div class="dflex m-2">
               <img class="border border-dark rounded-circle" width="40px" height="40px" src="img/profil/<?= getValue($val['id_user'],'foto_profil'); ?>" alt="">
               <a class="text-decoration-none text-dark fw-bold mx-2" href="detailuser.php?id=<?= $val['id_user']; ?>"><?= getValue($val['id_user'],'username'); ?></a>
+              <form action="index.php" method="post">
+                <input type="submit" name="deleteAction" value="Delete"/>
+                <input type="hidden" name="commentID" value="<?= $val['id']?>" />
+              </form>
             </div>
           </div>
           <div class="posting" data-img="<?= $val['postingan_gambar']; ?>" data-username="<?= getValue($val['id_user'],'username'); ?>" data-profil="<?= getValue($val['id_user'],'foto_profil'); ?>" data-text="<?= $val['postingan_text']; ?>">
