@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 09 Okt 2022 pada 17.35
+-- Waktu pembuatan: 10 Okt 2022 pada 17.03
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -32,7 +32,7 @@ CREATE TABLE `comment` (
   `id_user` int(11) DEFAULT NULL,
   `comment` varchar(200) DEFAULT NULL,
   `jml_like` int(11) DEFAULT NULL,
-  `tanggal_comment` date DEFAULT NULL
+  `tanggal_comment` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -40,13 +40,81 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`id_postingan`, `id_user`, `comment`, `jml_like`, `tanggal_comment`) VALUES
-(1, 10, 'Keren banget', 2, '2022-10-08'),
-(1, 5, 'Keren Banget', NULL, '2022-10-08'),
-(2, 5, 'sangat bermanfaat', NULL, '2022-10-08'),
-(20, 9, 'Setuju', NULL, '2022-10-09'),
-(2, 5, 'sangat bermanfaat', NULL, '2022-10-09'),
-(24, 23, 'Keren Banget Hamdan', NULL, '2022-10-09'),
-(22, 23, 'Mantap Agus mama kamu pasti bangga', NULL, '2022-10-09');
+(1, 10, 'Keren banget', 2, '2022-10-08 00:00:00'),
+(1, 5, 'Keren Banget', NULL, '2022-10-08 00:00:00'),
+(2, 5, 'sangat bermanfaat', NULL, '2022-10-08 00:00:00'),
+(20, 9, 'Setuju', NULL, '2022-10-09 00:00:00'),
+(2, 5, 'sangat bermanfaat', NULL, '2022-10-09 00:00:00'),
+(24, 23, 'Keren Banget Hamdan', NULL, '2022-10-09 00:00:00'),
+(22, 23, 'Mantap Agus mama kamu pasti bangga', NULL, '2022-10-09 00:00:00'),
+(20, 5, 'Hii', NULL, '2022-10-10 00:00:00'),
+(22, 5, 'keren banget', NULL, '2022-10-10 00:00:00'),
+(23, 5, 'bener', NULL, '2022-10-10 00:00:00'),
+(23, 5, 'sangat menyenangkan', NULL, '2022-10-10 00:00:00'),
+(3, 5, 'sangat bermanfaat', NULL, '2022-10-10 00:00:00'),
+(8, 5, 'sangat menarik', NULL, '2022-10-10 00:00:00'),
+(1, 5, 'HMM menarik', NULL, '2022-10-10 00:00:00'),
+(1, 5, 'Semoga sukses selalu', NULL, '2022-10-10 00:00:00'),
+(18, 5, 'Hmm Memang susah sih', NULL, '2022-10-10 00:00:00'),
+(8, 5, 'bagi mentahan gambarnya donk', NULL, '2022-10-10 00:00:00'),
+(24, 5, 'Belajar lagi yang giat', NULL, '2022-10-10 00:00:00'),
+(23, 5, 'matamu menyenangkan sosah cokkk', NULL, '2022-10-10 00:00:00'),
+(2, 5, '', NULL, '2022-10-10 00:00:00'),
+(17, 5, 'konten yang bermanfaat', NULL, '2022-10-10 00:00:00'),
+(2, 5, 'hmmm masa sihhh', NULL, '2022-10-10 00:00:00'),
+(20, 5, 'kyknya lu kurang memahami dasar programmingnya', NULL, '2022-10-10 00:00:00'),
+(22, 5, 'bohong lu gus', NULL, '2022-10-10 00:00:00'),
+(23, 5, 'BENER BANGET', NULL, '2022-10-10 00:00:00'),
+(21, 5, 'JAVA MMG cocok untuk OOP', NULL, '2022-10-10 00:00:00'),
+(20, 5, 'HI', NULL, '2022-10-10 00:00:00'),
+(20, 5, 'bootcamp aja biar ada mentornya', NULL, '2022-10-10 00:00:00'),
+(23, 5, 'BENER BANGET', NULL, '2022-10-10 00:00:00'),
+(8, 5, 'Sangat bermanfaat', NULL, '2022-10-10 00:00:00'),
+(23, 5, 'Tergantung sihh', NULL, '2022-10-10 00:00:00'),
+(22, 5, 'Spil Chanel youtubenya dong', NULL, '2022-10-10 00:00:00'),
+(22, 5, 'Biar bisa belajar juga', NULL, '2022-10-10 00:00:00'),
+(22, 5, 'Gus bagi password Wifi dong', NULL, '2022-10-10 00:00:00'),
+(22, 5, 'Yang benerr', NULL, '2022-10-10 00:00:00'),
+(23, 5, 'Bohong luu', NULL, '2022-10-10 00:00:00'),
+(24, 5, 'Keren Hamdan', NULL, '2022-10-10 00:00:00'),
+(3, 5, 'Bermanfaat bagi kesehatan', NULL, '2022-10-10 00:00:00'),
+(3, 5, 'Fungsional dimananya?', NULL, '2022-10-10 00:00:00'),
+(3, 5, 'SUSAh KAh', NULL, '2022-10-10 00:00:00'),
+(3, 5, 'Hi', NULL, '2022-10-10 00:00:00'),
+(23, 17, 'BEner sihh', NULL, '2022-10-10 00:00:00'),
+(24, 17, 'NOde Js Susah sih', NULL, '2022-10-10 00:00:00'),
+(8, 17, 'Postingan yg sangat bermanfaat bagi kesehatan', NULL, '2022-10-10 01:46:05'),
+(8, 17, 'sekarang jam brpa', NULL, '2022-10-10 01:46:39'),
+(1, 17, 'Gimana kabarnya', NULL, '2022-10-10 02:12:12'),
+(1, 17, 'lagi dmna Sekarang', NULL, '2022-10-10 02:12:27'),
+(21, 17, 'Keren dito', NULL, '2022-10-10 02:14:11'),
+(21, 17, 'OOP belajarnya dari mana ya?', NULL, '2022-10-10 02:14:29'),
+(21, 17, 'spil chanel youtubenya dong', NULL, '2022-10-10 02:14:40'),
+(2, 17, '', NULL, '2022-10-10 02:17:55'),
+(2, 17, '', NULL, '2022-10-10 02:19:32'),
+(20, 17, 'Kurang paham di dasarnya', NULL, '2022-10-10 02:19:56'),
+(3, 17, 'Sangat bermanfaat renfred', NULL, '2022-10-10 02:22:13'),
+(21, 17, 'bener', NULL, '2022-10-10 02:41:44'),
+(17, 22, 'Sangat Bermanfaat', NULL, '2022-10-10 04:05:25'),
+(18, 22, 'saran klo masih belajar mending javascript atau phyton aja', NULL, '2022-10-10 04:06:03'),
+(17, 22, '', NULL, '2022-10-10 04:13:55'),
+(8, 22, '', NULL, '2022-10-10 04:16:51'),
+(8, 22, '', NULL, '2022-10-10 04:17:13'),
+(8, 22, '', NULL, '2022-10-10 04:19:22'),
+(8, 22, '', NULL, '2022-10-10 04:20:23'),
+(8, 22, '', NULL, '2022-10-10 04:22:32'),
+(17, 22, '', NULL, '2022-10-10 04:24:19'),
+(17, 22, 'Hi renferd', NULL, '2022-10-10 04:24:34'),
+(24, 22, '', NULL, '2022-10-10 04:25:58'),
+(1, 22, '', NULL, '2022-10-10 04:27:16'),
+(20, 22, 'Hi renfred', NULL, '2022-10-10 04:32:14'),
+(20, 22, 'hi dito', NULL, '2022-10-10 04:33:02'),
+(23, 22, 'hi laura', NULL, '2022-10-10 04:34:01'),
+(23, 22, 'coba belajar java', NULL, '2022-10-10 04:38:03'),
+(20, 22, 'Lu gak belajar kan?', NULL, '2022-10-10 04:43:45'),
+(24, 22, 'Keren Hamdan', NULL, '2022-10-10 04:44:45'),
+(2, 22, 'boong', NULL, '2022-10-10 04:46:49'),
+(1, 20, 'konten yg menarik', NULL, '2022-10-10 04:58:53');
 
 -- --------------------------------------------------------
 
@@ -85,7 +153,12 @@ INSERT INTO `follower` (`id_user`, `id_follower`, `date_follow`) VALUES
 (19, 5, '2022-10-09'),
 (17, 23, '2022-10-09'),
 (9, 23, '2022-10-09'),
-(19, 23, '2022-10-09');
+(19, 23, '2022-10-09'),
+(9, 18, '2022-10-09'),
+(17, 18, '2022-10-09'),
+(19, 18, '2022-10-09'),
+(23, 18, '2022-10-09'),
+(19, 20, '2022-10-10');
 
 -- --------------------------------------------------------
 
@@ -111,6 +184,75 @@ INSERT INTO `forum` (`id`, `nama_forum`, `deskripsi`, `banner`) VALUES
 (4, 'Golang', 'Go (also called Golang or Go language) is an open-source programming language used for general purposes. Go was developed by Google engineers to create dependable and efficient software. Most similarl', 'bann-golang.png'),
 (5, 'Ruby', 'Ruby is mainly used to build web applications and is useful for other programming projects. It is widely used for building servers and data processing, web scraping, and crawling. The leading framewor', 'bann-ruby.png'),
 (6, 'C++', 'C++ (or “C-plus-plus”) is a general-purpose programming and coding language. C++ is used in developing browsers, operating systems, and applications, as well as in-game programming, software engineeri', 'bann-c++.png');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `likes`
+--
+
+CREATE TABLE `likes` (
+  `id_postingan` int(11) DEFAULT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `waktu` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `likes`
+--
+
+INSERT INTO `likes` (`id_postingan`, `id_user`, `waktu`) VALUES
+(21, 17, '2022-10-10 02:59:32'),
+(20, 17, '2022-10-10 02:59:34'),
+(21, 17, '2022-10-10 02:59:36'),
+(20, 17, '2022-10-10 02:59:38'),
+(20, 17, '2022-10-10 03:00:02'),
+(20, 17, '2022-10-10 03:00:38'),
+(20, 17, '2022-10-10 03:01:08'),
+(21, 17, '2022-10-10 03:01:11'),
+(20, 17, '2022-10-10 03:02:25'),
+(20, 17, '2022-10-10 03:02:53'),
+(20, 17, '2022-10-10 03:03:57'),
+(21, 17, '2022-10-10 03:03:59'),
+(22, 17, '2022-10-10 03:04:01'),
+(22, 17, '2022-10-10 03:04:02'),
+(23, 17, '2022-10-10 03:04:06'),
+(24, 17, '2022-10-10 03:04:08'),
+(3, 17, '2022-10-10 03:04:11'),
+(24, 18, '2022-10-10 03:29:06'),
+(1, 18, '2022-10-10 03:30:28'),
+(2, 18, '2022-10-10 03:30:31'),
+(1, 18, '2022-10-10 03:30:34'),
+(20, 18, '2022-10-10 03:32:37'),
+(21, 18, '2022-10-10 03:32:39'),
+(22, 18, '2022-10-10 03:32:41'),
+(22, 18, '2022-10-10 03:32:43'),
+(22, 18, '2022-10-10 03:32:45'),
+(20, 18, '2022-10-10 03:33:13'),
+(20, 18, '2022-10-10 03:33:14'),
+(20, 19, '2022-10-10 03:37:23'),
+(20, 23, '2022-10-10 03:38:57'),
+(21, 23, '2022-10-10 03:39:45'),
+(8, 23, '2022-10-10 03:39:48'),
+(8, 23, '2022-10-10 03:39:50'),
+(8, 23, '2022-10-10 03:39:51'),
+(20, 22, '2022-10-10 03:45:36'),
+(21, 22, '2022-10-10 03:51:29'),
+(8, 22, '2022-10-10 03:51:33'),
+(18, 22, '2022-10-10 03:51:40'),
+(3, 22, '2022-10-10 03:55:17'),
+(17, 22, '2022-10-10 03:55:41'),
+(19, 22, '2022-10-10 04:31:10'),
+(1, 22, '2022-10-10 04:31:14'),
+(2, 22, '2022-10-10 04:31:16'),
+(20, 20, '2022-10-10 04:51:48'),
+(21, 20, '2022-10-10 04:51:50'),
+(22, 20, '2022-10-10 04:51:52'),
+(23, 20, '2022-10-10 04:51:54'),
+(1, 20, '2022-10-10 04:59:05'),
+(2, 20, '2022-10-10 04:59:10'),
+(18, 20, '2022-10-10 04:59:14'),
+(25, 20, '2022-10-10 05:02:14');
 
 -- --------------------------------------------------------
 
@@ -145,7 +287,8 @@ INSERT INTO `postingan` (`id`, `id_user`, `id_forum`, `postingan_gambar`, `posti
 (21, 9, 3, '-1', 'Hari ini saya sedang belajar Java, OOP di java mudah melajari sangat cocok bagi orang-orang yang baru belajar OOP', '2022-10-09', NULL, 'java'),
 (22, 17, 4, '-1', 'Hari ini saya belajar golang secara otodidak melaui youtube', '2022-10-09', NULL, 'golang'),
 (23, 19, 1, '-1', 'Belajar javasript sangat menyenangkan', '2022-10-09', NULL, 'javascript'),
-(24, 23, 1, '189a2ee543e2daa4299fdf35f43ac5069a39295539b26ad540212244cdf3aead.png', 'Hi nama saya hamdan kelas 10 SMA kali ini saya sedang memperdalam pemrograman javascript karena ketertarikan saya dengan web design.\r\n-HTML\r\n-Javascript\r\n-NodeJS', '2022-10-09', NULL, 'javascript');
+(24, 23, 1, '189a2ee543e2daa4299fdf35f43ac5069a39295539b26ad540212244cdf3aead.png', 'Hi nama saya hamdan kelas 10 SMA kali ini saya sedang memperdalam pemrograman javascript karena ketertarikan saya dengan web design.\r\n-HTML\r\n-Javascript\r\n-NodeJS', '2022-10-09', NULL, 'javascript'),
+(25, 20, 1, '-1', 'Spill Chanel youtube buat belajar javascript dong', '2022-10-10', NULL, 'javascript');
 
 -- --------------------------------------------------------
 
@@ -210,6 +353,13 @@ ALTER TABLE `forum`
   ADD UNIQUE KEY `nama_forum` (`nama_forum`);
 
 --
+-- Indeks untuk tabel `likes`
+--
+ALTER TABLE `likes`
+  ADD KEY `id_postingan` (`id_postingan`),
+  ADD KEY `id_user` (`id_user`);
+
+--
 -- Indeks untuk tabel `postingan`
 --
 ALTER TABLE `postingan`
@@ -238,7 +388,7 @@ ALTER TABLE `forum`
 -- AUTO_INCREMENT untuk tabel `postingan`
 --
 ALTER TABLE `postingan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
@@ -263,6 +413,13 @@ ALTER TABLE `comment`
 ALTER TABLE `follower`
   ADD CONSTRAINT `follower_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `follower_ibfk_2` FOREIGN KEY (`id_follower`) REFERENCES `user` (`id`);
+
+--
+-- Ketidakleluasaan untuk tabel `likes`
+--
+ALTER TABLE `likes`
+  ADD CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`id_postingan`) REFERENCES `postingan` (`id`),
+  ADD CONSTRAINT `likes_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
 
 --
 -- Ketidakleluasaan untuk tabel `postingan`
