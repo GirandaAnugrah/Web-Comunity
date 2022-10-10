@@ -14,6 +14,7 @@ $("#like").click(function () {
 });
 $(".posting").click(function () {
   const username = $(this).data("username");
+  const id = $(this).data("id");
   const img = $(this).data("img");
   const profil = $(this).data("profil");
   const text = $(this).data("text");
@@ -33,6 +34,14 @@ $(".posting").click(function () {
   $("#detailProfile").attr("src", "img/profil/" + profil);
   $("#detailText").html(text);
   $("#detailPosting").modal("show", "slow");
+  $("#form").attr("data-id", id);
+  const newClass = "comment" + id.toString();
+  const newContainer = "com" + id.toString();
+  $("#inputComment").addClass(newClass);
+  $("#modalComment").addClass(newContainer);
+  console.log(newClass);
+  $("#modalComment").load("comment.php", { idPosting: id });
+  // $(".comment").html("<h1><?=$_SESSION['foto_profil'];?></h1>");
 });
 
 // media Query

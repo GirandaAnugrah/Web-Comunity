@@ -24,6 +24,15 @@ function getValue($id,$name){
   return $res;
 }
 
+function getJmlLike($id){
+  $query = query("SELECT * FROM likes WHERE id_postingan = '$id'");
+  $likes = 0;
+  foreach($query as $val) {
+    $likes++;
+  }
+  return $likes;
+}
+
 ?>
 
 <!doctype html>
@@ -49,11 +58,11 @@ function getValue($id,$name){
         <div class="card shadow-sm col-md-8  mt-4" >
           <div class="border-bottom">
             <div class="dflex m-2">
-              <img class="border border-dark rounded-circle" width="40px" height="40px" src="img/profil/<?= getValue($val['id_user'],'foto_profil'); ?>" alt="">
+              <img class="border border-dark rounded-circle" width="40px" height="40px" src="img/profil/<?= getValue($val['id_user'],'foto_profil'); ?>"  alt="">
               <a class="text-decoration-none text-dark fw-bold mx-2" href="detailuser.php?id=<?= $val['id_user']; ?>"><?= getValue($val['id_user'],'username'); ?></a>
             </div>
           </div>
-          <div class="posting" data-img="<?= $val['postingan_gambar']; ?>" data-username="<?= getValue($val['id_user'],'username'); ?>" data-profil="<?= getValue($val['id_user'],'foto_profil'); ?>" data-text="<?= $val['postingan_text']; ?>">
+          <div class="content">
             <div class="card-body">
             <p class="card-text"><?= $val['postingan_text']; ?></p>
             </div>
@@ -61,20 +70,10 @@ function getValue($id,$name){
               <img src="img/posting/<?= $val['postingan_gambar']; ?>" class="card-img-top border-bottom" alt="...">
             <?php endif ?>
           </div>
-            <!-- <h5><?= $val['jml_like']; ?></h5>
-            <div class="d-flex border-bottom">
-              <h3 class="mx-2"><i class="bi bi-hand-thumbs-up-fill"></i></h3>
-              <h3 class="mx-2"><i class="bi bi-chat-dots-fill"></i></h3>
-            </div> -->
-            <form action="index.php" method="post" class="d-flex my-2">
-              <input id="id_post"  type="hidden" name="id_postingan" value="<?= $val['id']; ?>"> 
-              <input type="hidden" name="id_user" value="<?= $_SESSION['id_user']; ?>"> 
-                <?php if(isset($_SESSION['foto_profil'])): ?>
-                  <img width="25px" height="25px" class="rounded-circle border border-secondary m-2" src="img/profil/<?= $_SESSION['foto_profil']; ?>" alt="">
-                <?php endif ?>
-              <input id="comment" class="form-control rounded-pill" type="text" placeholder="Comment..." aria-label="Comment" name="comment">
-              <button id="sendComment" class="btn btn-info rounded-circle mx-2" type="submit" name="send_comment"><i class="bi bi-send-fill"></i></button>
-            </form>
+          <div class="d-flex">
+            <div class="mx-4 m-2"><span class="jmlLike<?= $val['id']; ?>"><?= getJmlLike($val['id']); ?></span><a class="like fs-3" data-id="<?= $val['id']; ?>" data-user="<?= $_SESSION['id_user']; ?>"><i class="bi bi-hand-thumbs-up"></i></i></a></div>
+            <div class="mx-2 m-2"><a class="fs-3 posting" data-img="<?= $val['postingan_gambar']; ?>" data-username="<?= getValue($val['id_user'],'username'); ?>" data-profil="<?= getValue($val['id_user'],'foto_profil'); ?>" data-text="<?= $val['postingan_text']; ?>" data-id="<?= $val['id']; ?>"><i class="bi bi-chat"></i></a></div>
+          </div>
         </div>
         <?php endforeach ?>
       </div>
@@ -90,7 +89,7 @@ function getValue($id,$name){
           <div class="container-fluid">
               <div class="row">
                 <div id="gambarDt" class="col-md-7 overflow-auto">
-                  <img id="imgPosting" src="img/posting/2.jpg" alt="">
+                  <img id="imgPosting" class="m-auto" src="img/posting/2.jpg" alt="">
                 </div>
                 <div id="sesuai" class="col-md-5 ms-auto border-start ">
                   <div class="username d-flex border-bottom">
@@ -99,18 +98,16 @@ function getValue($id,$name){
                   </div>
                   <div class="detailtext">
                     <p id="detailText"></p>
-                    <div style="height: 400px;" class="comment">
+                    <div style="height: 400px;" id="modalComment" class="mt-2">
                     </div>
                     <div class="my-2">
-                      <form action="index.php" method="post" class="d-flex">
-                          <input id="id_post"  type="hidden" name="id_postingan" value="<?= $val['id']; ?>"> 
-                          <input type="hidden" name="id_user" value="<?= $_SESSION['id_user']; ?>"> 
-                            <?php if(isset($_SESSION['foto_profil'])): ?>
-                              <img width="25px" height="25px" class="rounded-circle border border-secondary my-2" src="img/profil/<?= $_SESSION['foto_profil']; ?>" alt="">
-                            <?php endif ?>
-                          <input id="comment" class="form-control rounded-pill" type="text" placeholder="Comment..." aria-label="Comment" name="comment">
-                          <button id="sendComment" class="btn btn-info rounded-circle mx-2" type="submit" name="send_comment"><i class="bi bi-send-fill"></i></button>
-                      </form>
+                    <form action="#" id="form" class="d-flex my-2 form"  data-user="<?= $_SESSION['id_user']; ?>">
+                        <?php if(isset($_SESSION['foto_profil'])): ?>
+                          <img width="30px" height="30px" class="rounded-circle border border-secondary m-2" src="img/profil/<?= $_SESSION['foto_profil']; ?>" alt="">
+                        <?php endif ?>
+                      <input id="inputComment" class="form-control rounded-pill" type="text" placeholder="Comment..." aria-label="Comment">
+                      <button class="btn btn-info rounded-circle mx-2 sendComment" type="submit"><i class="bi bi-send-fill"></i></button>
+                    </form>
                     </div>
                   </div>
                 </div>
@@ -123,6 +120,41 @@ function getValue($id,$name){
     <!-- End Modal -->
     <script src="js/jquery-3.6.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="js/script.js"></script>
+
+    <script>
+      $(document).ready(function () {
+      $( ".form" ).submit(function( event ) {
+        const id = $(this).data("id");
+        const user = $(this).data("user");
+        const key = ".comment" + id.toString();
+        const com = $("#inputComment").val();
+        // if(!com){
+        //   com = $("#inputComment").val();
+        // }
+        console.log(key);
+        console.log(com);
+        const param = ".com" + id.toString();
+        $(param).load("comment.php",{
+          newComment: com,
+          idPosting: id,
+          idUser: user
+        })
+        $(key).val(null);
+        event.preventDefault();
+      });
+    $(".like").click(function(){
+      // console.log("hello");
+      const id = $(this).data("id");
+      const user = $(this).data("user");
+      console.log(id + " "+ user);
+      const param = ".jmlLike" + id.toString();
+      $(param).load("like.php",{
+        idPosting : id,
+        idUser: user
+      })
+    })
+  })
+    </script>
+        <script src="js/script.js"></script>
   </body>
 </html>
