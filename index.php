@@ -49,7 +49,7 @@ function getValue($id,$name){
   </head>
   <style>
     body{
-      background-color: #C6CCE0;
+      background-color: #FFF0F5;
     }
   </style>
   <body>
