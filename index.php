@@ -111,12 +111,14 @@ function checkLikes($idPost, $idUser){
                   <a class="text-decoration-none text-dark fw-bold mx-2 my-2" href="detailuser.php?id=<?= $val['id_user']; ?>"><?= getValue($val['id_user'],'username'); ?></a> <br>
                   <span style="opacity: 0.5;" class="m-2 fs-6"><?= selisihWaktu($val['tanggal_posting']); ?></span class="inline-block">
                 </div>
+                <?php if(isset($_SESSION['login']) && ($_SESSION['id_user'] == $val['id_user'] || $_SESSION['user_type'] == 'admin')) : ?>
+                <form action="index.php" method="post">
+                  <button type="submit" class="btn btn-danger" name="deleteAction" value="Delete"><span class="bi bi-trash"></span></button>
+                  <input type="hidden" name="postID" value="<?= $val['id']?>" />
+                </form>
+              <?php endif ?>
               </div>
-              
-              <!-- <form action="index.php" method="post">
-                <input type="submit" name="deleteAction" value="Delete"/>
-                <input type="hidden" name="commentID" value="<?= $val['id']?>" />
-              </form> -->
+
             </div>
           </div>
           <div class="content">
