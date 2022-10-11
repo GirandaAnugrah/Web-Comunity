@@ -19,11 +19,11 @@ if(isset($_POST['send_comment'])){
 }
 
 if(isset($_POST['deleteAction'])){
-  $idpostingan = $_POST['commentID'];
-  $query1 = "DELETE FROM comment WHERE id_postingan = '$idpostingan'";
-  mysqli_query($conn,$query1);
-  $query2 = "DELETE FROM postingan WHERE id = '$idpostingan'";
-  mysqli_query($conn,$query2);
+  $idpostingan = $_POST['postID'];
+  $query = "DELETE FROM comment WHERE id_postingan = '$idpostingan';";
+  $query .= "DELETE FROM likes WHERE id_postingan = '$idpostingan';";
+  $query .= "DELETE FROM postingan WHERE id = '$idpostingan'";
+  mysqli_multi_query($conn,$query);
   header("Location: index.php");
   unset($_POST['deleteAction']);
 }
@@ -67,13 +67,15 @@ function getJmlLike($id){
       <?php foreach($postingan as $val) : ?>
         <div class="card shadow-sm col-md-8  mt-4" >
           <div class="border-bottom">
-            <div class="dflex m-2">
+            <div class="dflex m-2 flex-row">
               <img class="border border-dark rounded-circle" width="40px" height="40px" src="img/profil/<?= getValue($val['id_user'],'foto_profil'); ?>"  alt="">
               <a class="text-decoration-none text-dark fw-bold mx-2" href="detailuser.php?id=<?= $val['id_user']; ?>"><?= getValue($val['id_user'],'username'); ?></a>
-              <form action="index.php" method="post">
-                <input type="submit" name="deleteAction" value="Delete"/>
-                <input type="hidden" name="commentID" value="<?= $val['id']?>" />
-              </form>
+              <?php if(isset($_SESSION['login']) && ($_SESSION['id_user'] == $val['id_user'] || $_SESSION['user_type'] == 'admin')) : ?>
+                <form action="index.php" method="post">
+                  <button type="submit" class="btn btn-danger" name="deleteAction" value="Delete"><span class="bi bi-trash"></span></button>
+                  <input type="hidden" name="postID" value="<?= $val['id']?>" />
+                </form>
+              <?php endif ?>
             </div>
           </div>
           <div class="content">

@@ -45,6 +45,7 @@
         $row = mysqli_fetch_assoc($result);
         $_SESSION['id_user'] = $row['id'];
         $_SESSION['foto_profil'] = $row['foto_profil'];
+        $_SESSION['user_type'] = $row['usertype'];
         $userid = $row['id'];
         $postingan = query("SELECT * FROM postingan WHERE id_user = '$userid' ORDER BY id DESC");
         $kiriman = 0;
