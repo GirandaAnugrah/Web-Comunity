@@ -19,11 +19,11 @@ if(isset($_POST['send_comment'])){
 }
 
 if(isset($_POST['deleteAction'])){
-  $idpostingan = $_POST['commentID'];
-  $query1 = "DELETE FROM comment WHERE id_postingan = '$idpostingan'";
-  mysqli_query($conn,$query1);
-  $query2 = "DELETE FROM postingan WHERE id = '$idpostingan'";
-  mysqli_query($conn,$query2);
+  $idpostingan = $_POST['postID'];
+  $query = "DELETE FROM comment WHERE id_postingan = '$idpostingan';";
+  $query .= "DELETE FROM likes WHERE id_postingan = '$idpostingan';";
+  $query .= "DELETE FROM postingan WHERE id = '$idpostingan'";
+  mysqli_multi_query($conn,$query);
   header("Location: index.php");
   unset($_POST['deleteAction']);
 }
