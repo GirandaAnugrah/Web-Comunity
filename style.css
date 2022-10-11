@@ -11,6 +11,9 @@ body {
 #my-post::-webkit-scrollbar {
   display: none;
 }
+#modalComment::-webkit-scrollbar {
+  display: none;
+}
 #postingan_text {
   cursor: pointer;
 }

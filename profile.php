@@ -11,8 +11,8 @@
         }
     }
     if(isset($_POST['login'])){
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        $username = mysqli_real_escape_string($conn,$_POST['username']);
+        $password = mysqli_real_escape_string($conn,$_POST['password']);
         $result = mysqli_query($conn, "SELECT * FROM user WHERE username = '$username'");
         if(mysqli_num_rows($result)){
             $row = mysqli_fetch_assoc($result);
@@ -40,12 +40,12 @@
     }
 
     if(isset($_SESSION['login'])){
-        $username = $_SESSION['user_login'];
+        $username = mysqli_real_escape_string($conn,$_SESSION['user_login']);
         $result = mysqli_query($conn, "SELECT * FROM user WHERE username = '$username'");
         $row = mysqli_fetch_assoc($result);
         $_SESSION['id_user'] = $row['id'];
         $_SESSION['foto_profil'] = $row['foto_profil'];
-        $userid = $row['id'];
+        $userid = mysqli_real_escape_string($conn,$row['id']);
         $postingan = query("SELECT * FROM postingan WHERE id_user = '$userid' ORDER BY id DESC");
         $kiriman = 0;
         $jmlLike = 0;

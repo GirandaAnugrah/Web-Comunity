@@ -43,6 +43,41 @@ function getJmlLike($id){
   return $likes;
 }
 
+function getAmountCommentar($id){
+  $query = query("SELECT * FROM comment WHERE id_postingan = '$id'");
+  $jml = 0;
+  foreach($query as $val) {
+    $jml++;
+  }
+  return $jml;
+}
+function selisihWaktu($time){
+  $waktu_awal =strtotime($time);
+  $waktu_akhir =strtotime(date("Y-m-d h:i:s"));
+  $diff =$waktu_akhir - $waktu_awal;
+  $jam =floor($diff / (60 * 60));
+  $menit = $diff - $jam * (60 * 60);
+  if($jam > 24){
+    $now = floor($jam/24);
+    return $now ." hari yang lalu";
+  }else{
+    if($jam < 1){
+      return floor($menit/60) . " menit yang lalu";
+    }
+    return $jam . " jam Yang lalu";
+  }
+}
+
+function checkLikes($idPost, $idUser){
+  global $conn;
+  $query = "SELECT * FROM likes WHERE id_postingan = '$idPost' AND id_user = '$idUser'";
+  $row = mysqli_query($conn,$query);
+  $cek = mysqli_num_rows($row);
+    if(empty($cek)){       
+        return false;
+    }
+    return true;
+}
 ?>
 
 <!doctype html>
@@ -58,7 +93,7 @@ function getJmlLike($id){
   </head>
   <style>
     body{
-      background-color: #FFF0F5;
+      background-color: #787A91;
     }
   </style>
   <body>
@@ -68,12 +103,20 @@ function getJmlLike($id){
         <div class="card shadow-sm col-md-8  mt-4" >
           <div class="border-bottom">
             <div class="dflex m-2">
-              <img class="border border-dark rounded-circle" width="40px" height="40px" src="img/profil/<?= getValue($val['id_user'],'foto_profil'); ?>"  alt="">
-              <a class="text-decoration-none text-dark fw-bold mx-2" href="detailuser.php?id=<?= $val['id_user']; ?>"><?= getValue($val['id_user'],'username'); ?></a>
-              <form action="index.php" method="post">
+              <div class="user d-flex ">
+                <div class="img">
+                  <img class="border border-dark rounded-circle " width="40px" height="40px" src="img/profil/<?= getValue($val['id_user'],'foto_profil'); ?>"  alt="">
+                </div>
+                <div class="inf">
+                  <a class="text-decoration-none text-dark fw-bold mx-2 my-2" href="detailuser.php?id=<?= $val['id_user']; ?>"><?= getValue($val['id_user'],'username'); ?></a> <br>
+                  <span style="opacity: 0.5;" class="m-2 fs-6"><?= selisihWaktu($val['tanggal_posting']); ?></span class="inline-block">
+                </div>
+              </div>
+              
+              <!-- <form action="index.php" method="post">
                 <input type="submit" name="deleteAction" value="Delete"/>
                 <input type="hidden" name="commentID" value="<?= $val['id']?>" />
-              </form>
+              </form> -->
             </div>
           </div>
           <div class="content">
@@ -84,9 +127,17 @@ function getJmlLike($id){
               <img src="img/posting/<?= $val['postingan_gambar']; ?>" class="card-img-top border-bottom" alt="...">
             <?php endif ?>
           </div>
-          <div class="d-flex">
-            <div class="mx-4 m-2"><span class="jmlLike<?= $val['id']; ?>"><?= getJmlLike($val['id']); ?></span><a class="like fs-3" data-id="<?= $val['id']; ?>" data-user="<?= $_SESSION['id_user']; ?>"><i class="bi bi-hand-thumbs-up"></i></i></a></div>
-            <div class="mx-2 m-2"><a class="fs-3 posting" data-img="<?= $val['postingan_gambar']; ?>" data-username="<?= getValue($val['id_user'],'username'); ?>" data-profil="<?= getValue($val['id_user'],'foto_profil'); ?>" data-text="<?= $val['postingan_text']; ?>" data-id="<?= $val['id']; ?>"><i class="bi bi-chat"></i></a></div>
+            <div class="d-flex">
+            <span class="inline ms-2 fs-6 mt-2 bd-highlight jmlLike<?= $val['id']; ?>"><?= getJmlLike($val['id']); ?></span><span class="m-2">Likes</span>
+            <span style="opacity: 0.5;" class="inline ms-auto fs-6 mt-2 bd-highlight"><?= getAmountCommentar($val['id']); ?> Comments</span>
+            </div>
+          <div class="d-flex border-top">
+            <?php if(checkLikes($val['id'], $_SESSION['id_user'])){ ?>
+              <div class="mx-4 my-auto"><a  class="like fs-3 text-danger"><i class="bi bi-heart-fill"></i></a></div>
+            <?php }else { ?>
+              <div class="mx-4 my-auto"><a style="color: black;" class="like fs-3" data-id="<?= $val['id']; ?>" data-user="<?= $_SESSION['id_user']; ?>"><i class="bi bi-heart"></i></a></div>
+            <?php } ?>
+            <div class="ms-2 my-auto"><a class="fs-3 posting text-dark" data-img="<?= $val['postingan_gambar']; ?>" data-username="<?= getValue($val['id_user'],'username'); ?>" data-profil="<?= getValue($val['id_user'],'foto_profil'); ?>" data-text="<?= $val['postingan_text']; ?>" data-id="<?= $val['id']; ?>" data-kategori="<?= $val['kategori']; ?>"><i class="bi bi-chat"></i></a></div>
           </div>
         </div>
         <?php endforeach ?>
@@ -107,12 +158,15 @@ function getJmlLike($id){
                 </div>
                 <div id="sesuai" class="col-md-5 ms-auto border-start ">
                   <div class="username d-flex border-bottom">
-                  <img id="detailProfile" width="25px" height="25px" class="rounded-circle border border-secondary m-2" alt="">
-                    <p id="detailUsername" class="fw-bold m-2"></p>
+                    <img id="detailProfile" width="25px" height="25px" class="rounded-circle border border-secondary m-2" alt="">
+                    <div class="user">
+                      <p id="detailUsername" class="fw-bold mx-2 my-1"></p>
+                      <span id="tanggal" style="opacity: 0.5;" class="mx-1 my-1 fs-6"></span>
+                    </div>
                   </div>
                   <div class="detailtext">
                     <p id="detailText"></p>
-                    <div style="height: 400px;" id="modalComment" class="mt-2">
+                    <div style="height: 400px;" id="modalComment" class="mt-2  overflow-auto">
                     </div>
                     <div class="my-2">
                     <form action="#" id="form" class="d-flex my-2 form"  data-user="<?= $_SESSION['id_user']; ?>">
@@ -158,6 +212,9 @@ function getJmlLike($id){
       });
     $(".like").click(function(){
       // console.log("hello");
+      $(this).addClass("text-danger")
+      $(this).children().removeClass("bi-heart");
+      $(this).children().addClass("bi-heart-fill");
       const id = $(this).data("id");
       const user = $(this).data("user");
       console.log(id + " "+ user);

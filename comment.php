@@ -20,9 +20,14 @@ function getValue($id,$name){
   }
 ?>
     <?php foreach($myComment as $com) : ?>
-    <div class="commment rounded-pill my-2">
-        <img width="20px" height="20px" class="rounded-circle" src="img/profil/<?= getValue($com['id_user'],'foto_profil') ?>" alt="">
-    <span class="fw-bold fs-6"><?= getValue($com['id_user'],'username') ?></span>
-    <span><?= $com['comment']; ?></span>
+    <div class="d-flex justify-content-between">
+        <div class="commment rounded-pill my-2">
+            <img width="20px" height="20px" class="rounded-circle" src="img/profil/<?= getValue($com['id_user'],'foto_profil') ?>" alt="">
+        <span class="fw-bold fs-6"><?= getValue($com['id_user'],'username') ?></span>
+        <span><?= $com['comment']; ?></span>
+        </div>
+        <div class="likeComment m-2">
+            <a<i class="bi bi-hand-thumbs-up"></i></a>
+        </div>
     </div>
     <?php endforeach ?>
