@@ -18,6 +18,8 @@ $(".posting").click(function () {
   const img = $(this).data("img");
   const profil = $(this).data("profil");
   const text = $(this).data("text");
+  const kategori = $(this).data("kategori");
+  console.log(kategori);
   if (img == -1) {
     $("#gambarDt").addClass("visually-hidden");
     $("#besarModal").removeClass("modal-xl");
@@ -31,6 +33,7 @@ $(".posting").click(function () {
     $("#imgPosting").attr("src", "img/posting/" + img);
   }
   $("#detailUsername").html(username);
+  $("#tanggal").html(tgl);
   $("#detailProfile").attr("src", "img/profil/" + profil);
   $("#detailText").html(text);
   $("#detailPosting").modal("show", "slow");
@@ -39,7 +42,7 @@ $(".posting").click(function () {
   const newContainer = "com" + id.toString();
   $("#inputComment").addClass(newClass);
   $("#modalComment").addClass(newContainer);
-  console.log(newClass);
+  // console.log(newClass);
   $("#modalComment").load("comment.php", { idPosting: id });
   // $(".comment").html("<h1><?=$_SESSION['foto_profil'];?></h1>");
 });

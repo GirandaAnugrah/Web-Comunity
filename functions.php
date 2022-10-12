@@ -25,7 +25,6 @@ $conn = mysqli_connect("Localhost", "root", "", "web-comunity");
         $password = mysqli_real_escape_string($conn,$data["password"]);
         $password2 = mysqli_real_escape_string($conn,$data["password2"]);
         $foto = 'default-profile.png';
-        $usertype = 'user';
         $res = mysqli_query($conn, "SELECT user FROM user WHERE username = '$username'");
         if(mysqli_fetch_assoc($res)){
             header("Location: profile.php?error-message=Username already used");
@@ -36,7 +35,7 @@ $conn = mysqli_connect("Localhost", "root", "", "web-comunity");
             die;
         }
         $password = password_hash($password, PASSWORD_BCRYPT);
-        mysqli_query($conn,"INSERT INTO user(username,nama,usertype,email,password,foto_profil)  VALUES('$username','$name','$usertype','$email','$password','$foto')");
+        mysqli_query($conn,"INSERT INTO user(username,nama,email,password,foto_profil)  VALUES('$username','$name','$email','$password','$foto')");
         return mysqli_affected_rows($conn);
     }
 
@@ -119,8 +118,8 @@ $conn = mysqli_connect("Localhost", "root", "", "web-comunity");
         global $conn;
         $id = $data['id'];
         $text = htmlspecialchars($data['postingan_text']);
-        $kategori = $data['kategori'];
-        $dateNow = date("Y-m-d");
+        $kategori = htmlspecialchars($data['kategori']);
+        $dateNow = date("Y-m-d h:i:s");
         $file = $_FILES['postingan_gambar']['name'];
         if($kategori === 'javascript') $forum = 1;
         else if($kategori === 'php') $forum = 2;

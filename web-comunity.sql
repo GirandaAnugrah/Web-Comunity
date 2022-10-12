@@ -299,7 +299,6 @@ INSERT INTO `postingan` (`id`, `id_user`, `id_forum`, `postingan_gambar`, `posti
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `username` varchar(25) NOT NULL,
-  `usertype` varchar(100) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `email` varchar(30) NOT NULL,
   `password` varchar(120) NOT NULL,
@@ -311,22 +310,22 @@ CREATE TABLE `user` (
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `nama`, `usertype`, `email`, `password`, `foto_profil`, `description`) VALUES
-(5, 'renfredLeeman', 'Renfred ', 'admin', 'renfred@gmail.com', '$2y$10$Hd5hVkOrQvDQ3OdywCVvzejjsYhQsa1D8htc9nJ5zRDo09LbfDV8C', '4c468b3b16999fd9578189576d5f770cb4a16ad9fca0e798a251f00a54a87c5d.jpg', 'Nama saya Renfred Leeman domisili tangerang, saya suka belajar coding sejak SMA. Kali ini saya sedang memperdalam Php,Laravel, C++, Golang, serta tailwind.'),
-(7, 'dodidot', 'Dodi Kurniawan', 'user', 'dodi@gmail.com', '$2y$10$k1Oj8FUC8uwer3B/ZC1BUOS8PHpvaHJnNLKlde50vmWum9pz9fbH2', 'default-profile.png', ''),
-(8, 'm4y4cynkR3H4n', 'Maya', 'user', 'maya@gmail.com', '$2y$10$aPv1mMf5W8a6dlma9BElre/UZVA5uFNiXEAjuj9ZwGoBPWtAe58JS', 'default-profile.png', ''),
-(9, 'ditoAja', 'Dito', 'user', 'dito@gmail.com', '$2y$10$Jom1rI9KnZs4x57GzeRNfeZCVJmwvz0ZmUgxgTw0OwsylLFD5wnIC', 'default-profile.png', ''),
-(10, 'amandacryt', 'Amanda', 'user', 'amanda@gmail.com', '$2y$10$gNTD2K1fE.bXYBvzT8o7H.QcVu.eXWSPRAmL0zrtI9xjS7ErI0b4O', 'default-profile.png', ''),
-(12, 'aziz akmal', 'Aziz Akmal', 'user', 'aziz@gmail.com', '$2y$10$jZK9lPaC36f.9e8vtStrg.iwjb6XAuxebr8GuHKKHdHeB/4maRxIS', 'default-profile.png', ''),
-(14, 'gio oktada', 'Giofari', 'user', 'gio@gmail.com', '$2y$10$jdKGo/pM0Sw7U5TtGSkRoulF9.q76Bwr/Dc8/B8/WBfnGoxHSVYVe', 'default-profile.png', ''),
-(16, 'ahmad muad', 'ahmad', 'user', 'ahm@gmail.com', '$2y$10$K..ZNy9Rw7hhnaT949./FutG9ZQiimerv9316wRVJgJKVJjHhByca', 'default-profile.png', ''),
-(17, 'agus', 'Agus', 'user', 'agus@gmail.com', '$2y$10$0WHZlDsGHnP23zMv8A8DIuy/ZafhsbHipvfn8h/D8YBus2MMNE4rC', 'c1e926a877e1df4d7129440d1946eefb91e95fbdeaf922bb6bed853203f2fdcf.jpg', ''),
-(18, 'oktookto', 'okto', 'user', 'okto@gmail.com', '$2y$10$nsqQP2RbzwdPvrTRgTGZyufp/fxuFNVtr0DaYHY/IE4/zH3OGFIYm', 'default-profile.png', ''),
-(19, 'lauraAja', 'Laura', 'user', 'laur@gmail.com', '$2y$10$bFbUl9mUhkYESzBsmG1Xc.8WYwLafQk71Japnyk4nghqSEJWPX.Jq', 'default-profile.png', ''),
-(20, 'sudung', 'sudung', 'user', 'sud@gmail.com', '$2y$10$VJMSWkfzbdHgllkEelu9SeB2LFISn7JBUB3/Sww7/AK9Qrsqe7LbK', 'default-profile.png', ''),
-(21, 'ziziziz', 'zizi', 'user', 'zizizi@gmail.com', '$2y$10$KikYr8bZWzsFPtnVfzLR2eQcjhmXFq9.eUBGcvICxsqYtRKQ5mtzi', 'default-profile.png', ''),
-(22, 'lisalis', 'lisa', 'user', 'lisa@gmail.com', '$2y$10$mBNn7Ig3QfFMkcpYpY18lOYc.clIJhkhSKvrLf1iE7/vqH418cWYS', 'default-profile.png', ''),
-(23, 'hamdan', 'hamdan', 'user', 'hamdan@gmail.com', '$2y$10$TpYcF/iQO27tt/rnjv3Fg.tMhcSYYU2ckL/i8PEy66xEzXVyvJ9Nu', 'default-profile.png', '');
+INSERT INTO `user` (`id`, `username`, `nama`, `email`, `password`, `foto_profil`, `description`) VALUES
+(5, 'renfredLeeman', 'Renfred ', 'renfred@gmail.com', '$2y$10$Hd5hVkOrQvDQ3OdywCVvzejjsYhQsa1D8htc9nJ5zRDo09LbfDV8C', '4c468b3b16999fd9578189576d5f770cb4a16ad9fca0e798a251f00a54a87c5d.jpg', 'Nama saya Renfred Leeman domisili tangerang, saya suka belajar coding sejak SMA. Kali ini saya sedang memperdalam Php,Laravel, C++, Golang, serta tailwind.'),
+(7, 'dodidot', 'Dodi Kurniawan', 'dodi@gmail.com', '$2y$10$k1Oj8FUC8uwer3B/ZC1BUOS8PHpvaHJnNLKlde50vmWum9pz9fbH2', 'default-profile.png', ''),
+(8, 'm4y4cynkR3H4n', 'Maya', 'maya@gmail.com', '$2y$10$aPv1mMf5W8a6dlma9BElre/UZVA5uFNiXEAjuj9ZwGoBPWtAe58JS', 'default-profile.png', ''),
+(9, 'ditoAja', 'Dito', 'dito@gmail.com', '$2y$10$Jom1rI9KnZs4x57GzeRNfeZCVJmwvz0ZmUgxgTw0OwsylLFD5wnIC', 'default-profile.png', ''),
+(10, 'amandacryt', 'Amanda', 'amanda@gmail.com', '$2y$10$gNTD2K1fE.bXYBvzT8o7H.QcVu.eXWSPRAmL0zrtI9xjS7ErI0b4O', 'default-profile.png', ''),
+(12, 'aziz akmal', 'Aziz Akmal', 'aziz@gmail.com', '$2y$10$jZK9lPaC36f.9e8vtStrg.iwjb6XAuxebr8GuHKKHdHeB/4maRxIS', 'default-profile.png', ''),
+(14, 'gio oktada', 'Giofari', 'gio@gmail.com', '$2y$10$jdKGo/pM0Sw7U5TtGSkRoulF9.q76Bwr/Dc8/B8/WBfnGoxHSVYVe', 'default-profile.png', ''),
+(16, 'ahmad muad', 'ahmad', 'ahm@gmail.com', '$2y$10$K..ZNy9Rw7hhnaT949./FutG9ZQiimerv9316wRVJgJKVJjHhByca', 'default-profile.png', ''),
+(17, 'agus', 'Agus', 'agus@gmail.com', '$2y$10$0WHZlDsGHnP23zMv8A8DIuy/ZafhsbHipvfn8h/D8YBus2MMNE4rC', 'c1e926a877e1df4d7129440d1946eefb91e95fbdeaf922bb6bed853203f2fdcf.jpg', ''),
+(18, 'oktookto', 'okto', 'okto@gmail.com', '$2y$10$nsqQP2RbzwdPvrTRgTGZyufp/fxuFNVtr0DaYHY/IE4/zH3OGFIYm', 'default-profile.png', ''),
+(19, 'lauraAja', 'Laura', 'laur@gmail.com', '$2y$10$bFbUl9mUhkYESzBsmG1Xc.8WYwLafQk71Japnyk4nghqSEJWPX.Jq', 'default-profile.png', ''),
+(20, 'sudung', 'sudung', 'sud@gmail.com', '$2y$10$VJMSWkfzbdHgllkEelu9SeB2LFISn7JBUB3/Sww7/AK9Qrsqe7LbK', 'default-profile.png', ''),
+(21, 'ziziziz', 'zizi', 'zizizi@gmail.com', '$2y$10$KikYr8bZWzsFPtnVfzLR2eQcjhmXFq9.eUBGcvICxsqYtRKQ5mtzi', 'default-profile.png', ''),
+(22, 'lisalis', 'lisa', 'lisa@gmail.com', '$2y$10$mBNn7Ig3QfFMkcpYpY18lOYc.clIJhkhSKvrLf1iE7/vqH418cWYS', 'default-profile.png', ''),
+(23, 'hamdan', 'hamdan', 'hamdan@gmail.com', '$2y$10$TpYcF/iQO27tt/rnjv3Fg.tMhcSYYU2ckL/i8PEy66xEzXVyvJ9Nu', 'default-profile.png', '');
 
 --
 -- Indexes for dumped tables
