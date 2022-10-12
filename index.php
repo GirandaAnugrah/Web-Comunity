@@ -233,7 +233,6 @@ function checkLikes($idPost, $idUser){
     $('.like').click(function(){
       var postid = $(this).attr('id');
       var userid = $(this).data("user");
-      alert(postid+" "+userid);
       $.ajax({
         url : 'like.php',
         type: 'post',
