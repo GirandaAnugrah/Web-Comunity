@@ -5,8 +5,12 @@ if(!isset($_SESSION['login'])){
   header("Location: profile.php");
   die;
 }
+if($_SESSION['user_type'] != 'admin'){
+  header("Location: index.php");
+  die;
+}
+$userInfo = query('SELECT * FROM user');
 ?>
-<?php if($_SESSION['user_type'] == 'admin'):?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -17,6 +21,8 @@ if(!isset($_SESSION['login'])){
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
     <title>Admin Page</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
   </head>
   <style>
     body {
@@ -50,15 +56,43 @@ if(!isset($_SESSION['login'])){
             <button type="submit" class="btn btn-primary mt-3">Export To PDF</button>
         </form>
         <h2 class="mt-3">Ban User</h2>
+        <table id="userTable" class="table table-striped" style="width:100%">
+          <thead>
+              <tr>
+                  <th>ID User</th>
+                  <th>Username</th>
+                  <th>Nama User</th>
+              </tr>
+          </thead>
+          <tbody>
+            <?php foreach($userInfo as $val):?>
+              <tr>
+                <td><?=$val['id'];?></td>
+                <td><?=$val['username'];?></td>
+                <td><?=$val['nama'];?></td>
+              </tr>
+            <?php endforeach?>
+          </tbody>
+          <tfoot>
+              <tr>
+                  <th>ID User</th>
+                  <th>Username</th>
+                  <th>Nama User</th>
+              </tr>
+          </tfoot>
+        </table>
       </div>
     </div>
       <footer class="fixed-bottom d-xxl-none ">
       <?php include('footer.php'); ?>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#userTable').DataTable();
+        });
+    </script>
   </body>
 </html>
-<?php 
-else:
-  header('location: index.php');
-endif;
-?>

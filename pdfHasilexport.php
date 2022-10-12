@@ -1,4 +1,9 @@
 <?php
+session_start();
+if($_SESSION['user_type'] != 'admin'){
+    header("Location: index.php");
+    die;
+}
 require('functions.php');
 require('fpdf184/fpdf.php');
 $kategori = $_POST['kategori'];

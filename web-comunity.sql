@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2022 at 08:46 AM
+-- Generation Time: Oct 12, 2022 at 04:50 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -144,6 +144,7 @@ INSERT INTO `follower` (`id_user`, `id_follower`, `date_follow`) VALUES
 (5, 21, '2022-10-06'),
 (5, 22, '2022-10-06'),
 (5, 23, '2022-10-06'),
+(5, 35, '2022-10-12'),
 (9, 5, '2022-10-09'),
 (9, 18, '2022-10-09'),
 (9, 23, '2022-10-09'),
@@ -223,7 +224,8 @@ INSERT INTO `likes` (`id_postingan`, `id_user`, `waktu`) VALUES
 (23, 20, '2022-10-10 04:51:54'),
 (24, 17, '2022-10-10 03:04:08'),
 (24, 18, '2022-10-10 03:29:06'),
-(25, 20, '2022-10-10 05:02:14');
+(25, 20, '2022-10-10 05:02:14'),
+(25, 35, NULL);
 
 -- --------------------------------------------------------
 
@@ -275,30 +277,32 @@ CREATE TABLE `user` (
   `email` varchar(30) NOT NULL,
   `password` varchar(120) NOT NULL,
   `foto_profil` varchar(120) NOT NULL,
-  `description` varchar(300) NOT NULL
+  `description` varchar(300) NOT NULL,
+  `is_banned` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `nama`, `usertype`, `email`, `password`, `foto_profil`, `description`) VALUES
-(5, 'renfredLeeman', 'Renfred ', 'admin', 'renfred@gmail.com', '$2y$10$Hd5hVkOrQvDQ3OdywCVvzejjsYhQsa1D8htc9nJ5zRDo09LbfDV8C', '4c468b3b16999fd9578189576d5f770cb4a16ad9fca0e798a251f00a54a87c5d.jpg', 'Nama saya Renfred Leeman domisili tangerang, saya suka belajar coding sejak SMA. Kali ini saya sedang memperdalam Php,Laravel, C++, Golang, serta tailwind.'),
-(7, 'dodidot', 'Dodi Kurniawan', 'user', 'dodi@gmail.com', '$2y$10$k1Oj8FUC8uwer3B/ZC1BUOS8PHpvaHJnNLKlde50vmWum9pz9fbH2', 'default-profile.png', ''),
-(8, 'm4y4cynkR3H4n', 'Maya', 'user', 'maya@gmail.com', '$2y$10$aPv1mMf5W8a6dlma9BElre/UZVA5uFNiXEAjuj9ZwGoBPWtAe58JS', 'default-profile.png', ''),
-(9, 'ditoAja', 'Dito', 'user', 'dito@gmail.com', '$2y$10$Jom1rI9KnZs4x57GzeRNfeZCVJmwvz0ZmUgxgTw0OwsylLFD5wnIC', 'default-profile.png', ''),
-(10, 'amandacryt', 'Amanda', 'user', 'amanda@gmail.com', '$2y$10$gNTD2K1fE.bXYBvzT8o7H.QcVu.eXWSPRAmL0zrtI9xjS7ErI0b4O', 'default-profile.png', ''),
-(12, 'aziz akmal', 'Aziz Akmal', 'user', 'aziz@gmail.com', '$2y$10$jZK9lPaC36f.9e8vtStrg.iwjb6XAuxebr8GuHKKHdHeB/4maRxIS', 'default-profile.png', ''),
-(14, 'gio oktada', 'Giofari', 'user', 'gio@gmail.com', '$2y$10$jdKGo/pM0Sw7U5TtGSkRoulF9.q76Bwr/Dc8/B8/WBfnGoxHSVYVe', 'default-profile.png', ''),
-(16, 'ahmad muad', 'ahmad', 'user', 'ahm@gmail.com', '$2y$10$K..ZNy9Rw7hhnaT949./FutG9ZQiimerv9316wRVJgJKVJjHhByca', 'default-profile.png', ''),
-(17, 'agus', 'Agus', 'agus@gmail.com', 'user', '$2y$10$0WHZlDsGHnP23zMv8A8DIuy/ZafhsbHipvfn8h/D8YBus2MMNE4rC', 'c1e926a877e1df4d7129440d1946eefb91e95fbdeaf922bb6bed853203f2fdcf.jpg', ''),
-(18, 'oktookto', 'okto', 'user', 'okto@gmail.com', '$2y$10$nsqQP2RbzwdPvrTRgTGZyufp/fxuFNVtr0DaYHY/IE4/zH3OGFIYm', 'default-profile.png', ''),
-(19, 'lauraAja', 'Laura', 'user', 'laur@gmail.com', '$2y$10$bFbUl9mUhkYESzBsmG1Xc.8WYwLafQk71Japnyk4nghqSEJWPX.Jq', 'default-profile.png', ''),
-(20, 'sudung', 'sudung', 'user', 'sud@gmail.com', '$2y$10$VJMSWkfzbdHgllkEelu9SeB2LFISn7JBUB3/Sww7/AK9Qrsqe7LbK', 'default-profile.png', ''),
-(21, 'ziziziz', 'zizi', 'user', 'zizizi@gmail.com', '$2y$10$KikYr8bZWzsFPtnVfzLR2eQcjhmXFq9.eUBGcvICxsqYtRKQ5mtzi', 'default-profile.png', ''),
-(22, 'lisalis', 'lisa', 'user', 'lisa@gmail.com', '$2y$10$mBNn7Ig3QfFMkcpYpY18lOYc.clIJhkhSKvrLf1iE7/vqH418cWYS', 'default-profile.png', ''),
-(23, 'hamdan', 'hamdan', 'user', 'hamdan@gmail.com', '$2y$10$TpYcF/iQO27tt/rnjv3Fg.tMhcSYYU2ckL/i8PEy66xEzXVyvJ9Nu', 'default-profile.png', ''),
-(35, 'jasonst', 'Jason S', 'user', 'jason@gmail.com', '$2y$10$JrP6OdfCUygGSMUs71ctQuC6nnGLecpv.BxDjkOiCLvQubRny9si.', 'default-profile.png', '');
+INSERT INTO `user` (`id`, `username`, `nama`, `usertype`, `email`, `password`, `foto_profil`, `description`, `is_banned`) VALUES
+(5, 'renfredLeeman', 'Renfred ', 'admin', 'renfred@gmail.com', '$2y$10$Hd5hVkOrQvDQ3OdywCVvzejjsYhQsa1D8htc9nJ5zRDo09LbfDV8C', '4c468b3b16999fd9578189576d5f770cb4a16ad9fca0e798a251f00a54a87c5d.jpg', 'Nama saya Renfred Leeman domisili tangerang, saya suka belajar coding sejak SMA. Kali ini saya sedang memperdalam Php,Laravel, C++, Golang, serta tailwind.', 0),
+(7, 'dodidot', 'Dodi Kurniawan', 'user', 'dodi@gmail.com', '$2y$10$k1Oj8FUC8uwer3B/ZC1BUOS8PHpvaHJnNLKlde50vmWum9pz9fbH2', 'default-profile.png', '', 0),
+(8, 'm4y4cynkR3H4n', 'Maya', 'user', 'maya@gmail.com', '$2y$10$aPv1mMf5W8a6dlma9BElre/UZVA5uFNiXEAjuj9ZwGoBPWtAe58JS', 'default-profile.png', '', 0),
+(9, 'ditoAja', 'Dito', 'user', 'dito@gmail.com', '$2y$10$Jom1rI9KnZs4x57GzeRNfeZCVJmwvz0ZmUgxgTw0OwsylLFD5wnIC', 'default-profile.png', '', 0),
+(10, 'amandacryt', 'Amanda', 'user', 'amanda@gmail.com', '$2y$10$gNTD2K1fE.bXYBvzT8o7H.QcVu.eXWSPRAmL0zrtI9xjS7ErI0b4O', 'default-profile.png', '', 0),
+(12, 'aziz akmal', 'Aziz Akmal', 'user', 'aziz@gmail.com', '$2y$10$jZK9lPaC36f.9e8vtStrg.iwjb6XAuxebr8GuHKKHdHeB/4maRxIS', 'default-profile.png', '', 0),
+(14, 'gio oktada', 'Giofari', 'user', 'gio@gmail.com', '$2y$10$jdKGo/pM0Sw7U5TtGSkRoulF9.q76Bwr/Dc8/B8/WBfnGoxHSVYVe', 'default-profile.png', '', 0),
+(16, 'ahmad muad', 'ahmad', 'user', 'ahm@gmail.com', '$2y$10$K..ZNy9Rw7hhnaT949./FutG9ZQiimerv9316wRVJgJKVJjHhByca', 'default-profile.png', '', 0),
+(17, 'agus', 'Agus', 'agus@gmail.com', 'user', '$2y$10$0WHZlDsGHnP23zMv8A8DIuy/ZafhsbHipvfn8h/D8YBus2MMNE4rC', 'c1e926a877e1df4d7129440d1946eefb91e95fbdeaf922bb6bed853203f2fdcf.jpg', '', 0),
+(18, 'oktookto', 'okto', 'user', 'okto@gmail.com', '$2y$10$nsqQP2RbzwdPvrTRgTGZyufp/fxuFNVtr0DaYHY/IE4/zH3OGFIYm', 'default-profile.png', '', 0),
+(19, 'lauraAja', 'Laura', 'user', 'laur@gmail.com', '$2y$10$bFbUl9mUhkYESzBsmG1Xc.8WYwLafQk71Japnyk4nghqSEJWPX.Jq', 'default-profile.png', '', 0),
+(20, 'sudung', 'sudung', 'user', 'sud@gmail.com', '$2y$10$VJMSWkfzbdHgllkEelu9SeB2LFISn7JBUB3/Sww7/AK9Qrsqe7LbK', 'default-profile.png', '', 0),
+(21, 'ziziziz', 'zizi', 'user', 'zizizi@gmail.com', '$2y$10$KikYr8bZWzsFPtnVfzLR2eQcjhmXFq9.eUBGcvICxsqYtRKQ5mtzi', 'default-profile.png', '', 0),
+(22, 'lisalis', 'lisa', 'user', 'lisa@gmail.com', '$2y$10$mBNn7Ig3QfFMkcpYpY18lOYc.clIJhkhSKvrLf1iE7/vqH418cWYS', 'default-profile.png', '', 0),
+(23, 'hamdan', 'hamdan', 'user', 'hamdan@gmail.com', '$2y$10$TpYcF/iQO27tt/rnjv3Fg.tMhcSYYU2ckL/i8PEy66xEzXVyvJ9Nu', 'default-profile.png', '', 0),
+(35, 'jasonst', 'Jason S', 'admin', 'jason@gmail.com', '$2y$10$JrP6OdfCUygGSMUs71ctQuC6nnGLecpv.BxDjkOiCLvQubRny9si.', 'default-profile.png', 'Halo aku anak sgm', 0),
+(36, 'johnthor', 'John Thor', 'user', 'john@gmail.com', '$2y$10$GCTKA3WJTFbny/MRMqCkZ.a0Sm2m.tO3uBw/TJHolXi4Q/lCfv6U6', 'default-profile.png', '', 0);
 
 --
 -- Indexes for dumped tables
@@ -372,7 +376,7 @@ ALTER TABLE `postingan`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- Constraints for dumped tables
