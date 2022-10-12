@@ -77,10 +77,6 @@ function checkLikes($idPost, $idUser){
     }
     return true;
 }
-
-
-
-
 ?>
 
 <!doctype html>

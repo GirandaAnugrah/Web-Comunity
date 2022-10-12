@@ -1,6 +1,11 @@
 <div class="home m-4 rounded-pill "><a href="index.php" class="fs-4 fw-bold text-dark text-decoration-none"><i class="bi bi-house-door"></i> Home</a></div>
         <div class="category m-4 rounded-pill "><a href="category.php?id=1" class="fs-4 fw-bold text-dark text-decoration-none"><i class="bi bi-stack"></i> Category</a></div>
         <div class="profile m-4 rounded-pill "><a href="profile.php" class="fs-4 fw-bold text-dark text-decoration-none"><i class="bi bi-person-circle"></i> Profile</a></div>
+        <?php
+        if(isset($_SESSION['login']) && $_SESSION['user_type'] == 'admin'):
+        ?>
+        <div class="admin m-4 rounded-pill "><a href="admin.php" class="fs-4 fw-bold text-dark text-decoration-none"><i class="bi bi-universal-access-circle"></i> Admin</a></div>
+        <?php endif?>
         <div class="note">
           <?php if(!isset($_SESSION['login'])){ ?>
             <p style="opacity: 0.5;" >Sign in to follow creators, like videos, and view comments.</p>
