@@ -114,52 +114,54 @@ function checkLikes($idPost, $idUser){
       <div id="dashbord" style="height: 695px;" class="col-md-8 mt-3 overflow-auto">
       <?php foreach($postingan as $val) : ?>
               <div class="card shadow-sm col-md-11  mt-4 m-auto" >
-                <div class="border-bottom">
-                  <div class="dflex m-2">
-                    <div class="user d-flex ">
-                      <div class="img">
-                        <img class="border border-dark rounded-circle " width="40px" height="40px" src="img/profil/<?= getValue($val['id_user'],'foto_profil'); ?>"  alt="">
-                      </div>
-                      <div class="inf">
-                        <a class="text-decoration-none text-dark fw-bold mx-2 my-2" href="detailuser.php?id=<?= $val['id_user']; ?>"><?= getValue($val['id_user'],'username'); ?></a> <br>
-                        <span style="opacity: 0.5;" class="m-2 fs-6"><?= selisihWaktu($val['tanggal_posting']); ?></span class="inline-block">
-                      </div>
-                      <!-- <?php if(isset($_SESSION['login']) && ($_SESSION['id_user'] == $val['id_user'] || $_SESSION['user_type'] == 'admin')) : ?>
-                          <?php if(isset($_SESSION['login']) && ($_SESSION['id_user'] == $val['id_user'] || $_SESSION['user_type'] == 'admin')) : ?>
-                              <form action="index.php" method="post">
-                                <input type="hidden" name="postID" value="<?= $val['id']?>" />
-                                <button type="submit" class="btn btn-danger" name="deleteAction" value="Delete"><span class="bi bi-trash"></span></button>
-                              </form>
-                          <?php endif ?>
-                      <?php endif ?> -->
-                    </div>
-
-                  </div>
+          <div class="border-bottom">
+            <div class="dflex m-2">
+              <div class="user d-flex ">
+                <div class="img">
+                  <img class="border border-dark rounded-circle " width="40px" height="40px" src="img/profil/<?= getValue($val['id_user'],'foto_profil'); ?>"  alt="">
                 </div>
-                <div class="content">
-                  <div class="card-body">
-                  <p class="card-text"><?= $val['postingan_text']; ?></p>
-                  </div>
-                  <?php if($val['postingan_gambar'] !== '-1') : ?>
-                    <img src="img/posting/<?= $val['postingan_gambar']; ?>" class="card-img-top border-bottom" alt="...">
-                  <?php endif ?>
+                <div class="inf">
+                  <a class="text-decoration-none text-dark fw-bold mx-2 my-2" href="detailuser.php?id=<?= $val['id_user']; ?>"><?= getValue($val['id_user'],'username'); ?></a> <br>
+                  <span style="opacity: 0.5;" class="m-2 fs-6"><?= selisihWaktu($val['tanggal_posting']); ?></span class="inline-block">
                 </div>
-                  <div class="d-flex">
-                  <span class="inline ms-2 fs-6 mt-2 bd-highlight jmlLike<?= $val['id']; ?>"><?= getJmlLike($val['id']); ?></span><span class="m-2">Likes</span>
-                  <span style="opacity: 0.5;" class="inline ms-auto fs-6 mt-2 bd-highlight"><?= getAmountCommentar($val['id']); ?> Comments</span>
-                  </div>
-                <div class="d-flex border-top">
-                  <?php if(!isset( $_SESSION['id_user'])){ ?>
-                    <div class="mx-4 my-auto"><a style="color: black;" class="fs-3" ><i class="bi bi-heart"></i></a></div>
-                  <?php }else if(checkLikes($val['id'], $_SESSION['id_user'])){ ?>
-                    <div class="mx-4 my-auto"><a  class="like fs-3 text-danger"><i class="bi bi-heart-fill"></i></a></div>
-                  <?php }else { ?>
-                    <div class="mx-4 my-auto"><a style="color: black;" class="like fs-3" data-id="<?= $val['id']; ?>" data-user="<?= $_SESSION['id_user']; ?>"><i class="bi bi-heart"></i></a></div>
-                  <?php } ?>
-                  <div class="ms-2 my-auto"><a class="fs-3 posting text-dark" data-img="<?= $val['postingan_gambar']; ?>" data-username="<?= getValue($val['id_user'],'username'); ?>" data-profil="<?= getValue($val['id_user'],'foto_profil'); ?>" data-text="<?= $val['postingan_text']; ?>" data-id="<?= $val['id']; ?>" data-kategori="<?= $val['kategori']; ?>"><i class="bi bi-chat"></i></a></div>
-                </div>
+                <?php if(isset($_SESSION['login']) && ($_SESSION['id_user'] == $val['id_user'] || $_SESSION['user_type'] == 'admin')) : ?>
+                <form action="index.php" method="post">
+                  <button type="submit" class="btn btn-danger" name="deleteAction" value="Delete"><span class="bi bi-trash"></span></button>
+                  <input type="hidden" name="postID" value="<?= $val['id']?>" />
+                </form>
+              <?php endif ?>
               </div>
-            <?php endforeach ?>
+
+            </div>
+          </div>
+          <div class="content">
+            <div class="card-body">
+            <p class="card-text"><?= $val['postingan_text']; ?></p>
+            </div>
+            <?php if($val['postingan_gambar'] !== '-1') : ?>
+              <img src="img/posting/<?= $val['postingan_gambar']; ?>" class="card-img-top border-bottom" alt="...">
+            <?php endif ?>
+          </div>
+            <div class="d-flex">
+            <span class="inline ms-2 fs-6 mt-2 bd-highlight jmlLike<?= $val['id']; ?>"><?= getJmlLike($val['id']); ?></span><span class="m-2">Likes</span>
+            <span style="opacity: 0.5;" class="inline ms-auto fs-6 mt-2 bd-highlight"><?= getAmountCommentar($val['id']); ?> Comments</span>
+            </div>
+          <div class="d-flex border-top">
+
+
+            <?php if(isset($_SESSION['login'])): ?>
+            <?php if(checkLikes($val['id'], $_SESSION['id_user'])){ ?>
+              <div class="mx-4 my-auto"><a class="unlike fs-3 text-danger" id="<?php echo $val['id']?>" data-user="<?= $_SESSION['id_user']; ?>"><i class="bi bi-heart-fill"></i></a></div>
+            <?php }else { ?>
+              <div class="mx-4 my-auto"><a style="color: black;" class="like fs-3" id="<?php echo $val['id']?>" data-user="<?= $_SESSION['id_user']; ?>"><i class="bi bi-heart"></i></a></div>
+            <?php } ?>
+            <?php endif ?>
+
+
+            <div class="ms-2 my-auto"><a class="fs-3 posting text-dark" data-img="<?= $val['postingan_gambar']; ?>" data-username="<?= getValue($val['id_user'],'username'); ?>" data-profil="<?= getValue($val['id_user'],'foto_profil'); ?>" data-text="<?= $val['postingan_text']; ?>" data-id="<?= $val['id']; ?>" data-kategori="<?= $val['kategori']; ?>"><i class="bi bi-chat"></i></a></div>
+          </div>
+        </div>
+        <?php endforeach ?>
       </div>
     </div>
       <footer class="fixed-bottom d-xxl-none ">
@@ -209,7 +211,7 @@ function checkLikes($idPost, $idUser){
     <!-- End Modal -->
     <script src="js/jquery-3.6.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script>
+    <script type="text/javascript">
       $(document).ready(function () {
       $( ".form" ).submit(function( event ) {
         const id = $(this).data("id");
@@ -227,18 +229,41 @@ function checkLikes($idPost, $idUser){
         $(key).val(null);
         event.preventDefault();
       });
-    $(".like").click(function(){
-      // console.log("hello");
-      $(this).addClass("text-danger")
-      $(this).children().removeClass("bi-heart");
-      $(this).children().addClass("bi-heart-fill");
-      const id = $(this).data("id");
-      const user = $(this).data("user");
-      console.log(id + " "+ user);
-      const param = ".jmlLike" + id.toString();
-      $(param).load("like.php",{
-        idPosting : id,
-        idUser: user
+
+    $('.like').click(function(){
+      var postid = $(this).attr('id');
+      var userid = $(this).data("user");
+      alert(postid+" "+userid);
+      $.ajax({
+        url : 'like.php',
+        type: 'post',
+        async: false,
+        data:{
+          'liked': 1,
+          'postid': postid,
+          'userid': userid
+        },
+        success:function(){
+          
+        }
+      })
+    })
+    
+    $('.unlike').click(function(){
+      var postid = $(this).attr('id');
+      var userid = $(this).data("user");
+      $.ajax({
+        url : 'like.php',
+        type: 'post',
+        async: false,
+        data:{
+          'unliked': 1,
+          'postid': postid,
+          'userid': userid
+        },
+        success:function(){
+
+        }
       })
     })
     $(".likeComm").click(function(){

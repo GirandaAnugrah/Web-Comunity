@@ -25,6 +25,7 @@ $conn = mysqli_connect("Localhost", "root", "", "web-comunity");
         $password = mysqli_real_escape_string($conn,$data["password"]);
         $password2 = mysqli_real_escape_string($conn,$data["password2"]);
         $foto = 'default-profile.png';
+        $user_type = 'user';
         $res = mysqli_query($conn, "SELECT user FROM user WHERE username = '$username'");
         if(mysqli_fetch_assoc($res)){
             header("Location: profile.php?error-message=Username already used");
@@ -35,7 +36,7 @@ $conn = mysqli_connect("Localhost", "root", "", "web-comunity");
             die;
         }
         $password = password_hash($password, PASSWORD_BCRYPT);
-        mysqli_query($conn,"INSERT INTO user(username,nama,email,password,foto_profil)  VALUES('$username','$name','$email','$password','$foto')");
+        mysqli_query($conn,"INSERT INTO user(username,nama,usertype,email,password,foto_profil)  VALUES('$username','$name','$user_type','$email','$password','$foto')");
         return mysqli_affected_rows($conn);
     }
 
