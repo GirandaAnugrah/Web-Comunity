@@ -1,7 +1,12 @@
 <?php
 session_start();
 require('functions.php');
+if(!isset($_SESSION['login'])){
+  header("Location: profile.php");
+  die;
+}
 ?>
+<?php if($_SESSION['user_type'] == 'admin'):?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -52,3 +57,8 @@ require('functions.php');
     </footer>
   </body>
 </html>
+<?php 
+else:
+  header('location: index.php');
+endif;
+?>
