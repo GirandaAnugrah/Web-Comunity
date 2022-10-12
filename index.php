@@ -134,11 +134,17 @@ function checkLikes($idPost, $idUser){
             <span style="opacity: 0.5;" class="inline ms-auto fs-6 mt-2 bd-highlight"><?= getAmountCommentar($val['id']); ?> Comments</span>
             </div>
           <div class="d-flex border-top">
+
+
+            <?php if(isset($_SESSION['login'])): ?>
             <?php if(checkLikes($val['id'], $_SESSION['id_user'])){ ?>
-              <div class="mx-4 my-auto"><a  class="like fs-3 text-danger"><i class="bi bi-heart-fill"></i></a></div>
+              <div class="mx-4 my-auto"><a class="unlike fs-3 text-danger" id="<?php echo $val['id']?>" data-user="<?= $_SESSION['id_user']; ?>"><i class="bi bi-heart-fill"></i></a></div>
             <?php }else { ?>
-              <div class="mx-4 my-auto"><a style="color: black;" class="like fs-3" data-id="<?= $val['id']; ?>" data-user="<?= $_SESSION['id_user']; ?>"><i class="bi bi-heart"></i></a></div>
+              <div class="mx-4 my-auto"><a style="color: black;" class="like fs-3" id="<?php echo $val['id']?>" data-user="<?= $_SESSION['id_user']; ?>"><i class="bi bi-heart"></i></a></div>
             <?php } ?>
+            <?php endif ?>
+
+
             <div class="ms-2 my-auto"><a class="fs-3 posting text-dark" data-img="<?= $val['postingan_gambar']; ?>" data-username="<?= getValue($val['id_user'],'username'); ?>" data-profil="<?= getValue($val['id_user'],'foto_profil'); ?>" data-text="<?= $val['postingan_text']; ?>" data-id="<?= $val['id']; ?>" data-kategori="<?= $val['kategori']; ?>"><i class="bi bi-chat"></i></a></div>
           </div>
         </div>
@@ -191,7 +197,7 @@ function checkLikes($idPost, $idUser){
     <script src="js/jquery-3.6.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-    <script>
+    <script type="text/javascript">
       $(document).ready(function () {
       $( ".form" ).submit(function( event ) {
         const id = $(this).data("id");
@@ -212,18 +218,41 @@ function checkLikes($idPost, $idUser){
         $(key).val(null);
         event.preventDefault();
       });
-    $(".like").click(function(){
-      // console.log("hello");
-      $(this).addClass("text-danger")
-      $(this).children().removeClass("bi-heart");
-      $(this).children().addClass("bi-heart-fill");
-      const id = $(this).data("id");
-      const user = $(this).data("user");
-      console.log(id + " "+ user);
-      const param = ".jmlLike" + id.toString();
-      $(param).load("like.php",{
-        idPosting : id,
-        idUser: user
+
+    $('.like').click(function(){
+      var postid = $(this).attr('id');
+      var userid = $(this).data("user");
+      alert(postid+" "+userid);
+      $.ajax({
+        url : 'like.php',
+        type: 'post',
+        async: false,
+        data:{
+          'liked': 1,
+          'postid': postid,
+          'userid': userid
+        },
+        success:function(){
+          
+        }
+      })
+    })
+    
+    $('.unlike').click(function(){
+      var postid = $(this).attr('id');
+      var userid = $(this).data("user");
+      $.ajax({
+        url : 'like.php',
+        type: 'post',
+        async: false,
+        data:{
+          'unliked': 1,
+          'postid': postid,
+          'userid': userid
+        },
+        success:function(){
+
+        }
       })
     })
   })
