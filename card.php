@@ -11,7 +11,7 @@
                 </div>
                 <?php if (isset($_SESSION['user_type'])) : ?>
                     <?php if ($_SESSION['user_type'] == 'admin') : ?>
-                        <form action="index.php" class="bd-highlight ms-auto" method="post">
+                        <form action="#" class="bd-highlight ms-auto" method="post">
                             <button type="submit" class="btn btn-danger" name="deleteAction" value="Delete"><span class="bi bi-trash"></span></button>
                             <input type="hidden" name="postID" value="<?= $val['id'] ?>" />
                         </form>

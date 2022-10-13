@@ -7,6 +7,20 @@ $forum = mysqli_fetch_assoc($forum);
 $postingan = query("SELECT * FROM postingan WHERE id_forum = $id ORDER BY (SELECT (COUNT(*) * 0.3) FROM likes WHERE id_postingan = id)+(SELECT (COUNT(*) * 0.7) FROM comment WHERE id_postingan = id) DESC");
 
 
+if (isset($_POST['deleteAction'])) {
+  $idpostingan = $_POST['postID'];
+  $query = "DELETE FROM likes WHERE id_postingan = $idpostingan";
+  mysqli_query($conn, $query);
+  $query1 = "DELETE FROM comment WHERE id_postingan = '$idpostingan'";
+  mysqli_query($conn, $query1);
+  mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=0");
+  $query2 = "DELETE FROM postingan WHERE id = '$idpostingan'";
+  mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=1");
+  mysqli_query($conn, $query2);
+  header("Location: index.php");
+  unset($_POST['deleteAction']);
+}
+
 function getValue($id, $name)
 {
   $query = "SELECT $name FROM user WHERE id = $id";
@@ -155,8 +169,8 @@ function getLove($id)
         <div class="modal-body">
           <div class="container-fluid">
             <div class="row">
-              <div style="height: 650px;" id="gambarDt" class="col-md-7 overflow-auto">
-                <img id="imgPosting" class="m-auto" src="img/posting/2.jpg" alt="">
+              <div id="gambarDt" class="col-md-7 overflow-auto">
+                <img style="height: 100%;width:100%;" id="imgPosting" class="m-auto" src="img/posting/2.jpg" alt="">
               </div>
               <div id="sesuai" class="col-md-5 ms-auto">
                 <div class="username d-flex border-bottom">

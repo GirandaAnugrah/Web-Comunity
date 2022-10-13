@@ -10,6 +10,35 @@ if ($_SESSION['user_type'] != 'admin') {
   die;
 }
 $userInfo = query('SELECT * FROM user');
+function handleLike($id)
+{
+  $postingan = query("SELECT * FROM postingan WHERE id_user = '$id'");
+  $jml = 0;
+  foreach ($postingan  as $val) {
+    $jml +=  getLike($val['id']);
+  }
+  return $jml;
+}
+
+function comment($id)
+{
+  $comm = query("SELECT * FROM comment WHERE id_postingan = '$id'");
+  return count($comm);
+}
+function handleComment($id)
+{
+  $postingan = query("SELECT * FROM postingan WHERE id_user = '$id'");
+  $jml = 0;
+  foreach ($postingan as $post) {
+    $jml += comment($post['id']);
+  }
+  return $jml;
+}
+function postingan($id)
+{
+  $postingan = query("SELECT * FROM postingan WHERE id_user = '$id'");
+  return count($postingan);
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -24,6 +53,7 @@ $userInfo = query('SELECT * FROM user');
   <title>Admin Page</title>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
+  <script src="js/jquery-3.6.1.min.js"></script>
 </head>
 <style>
   body {
@@ -41,11 +71,13 @@ $userInfo = query('SELECT * FROM user');
     <?php include('view/footerSm.php') ?>
   </footer>
   <div class="container col-md-9 mt-5 row m-auto d-flex justify-content-between bg-white">
-    <div class="col-md-4 mt-3 d-none d-xl-block">
-      <?php include('navLeft.php') ?>
-    </div>
-    <div id="adminOptions" class="col-md-8 mt-3 overflow-auto">
+    <div id="adminOptions" class="col-md-12 mt-3 overflow-auto">
       <h2 class="mt-3">Export Statistic Reports</h2>
+      <?php if (isset($_GET['message'])) : ?>
+        <div class="alert alert-success m-2" role="alert">
+          <?= $_GET['message']; ?>
+        </div>
+      <?php endif ?>
       <form action="pdfHasilexport.php" method="POST">
         <select class="form-select" name="kategori" required>
           <option selected value="">Kategori</option>
@@ -58,6 +90,7 @@ $userInfo = query('SELECT * FROM user');
         </select>
         <button type="submit" class="btn btn-primary mt-3">Export To PDF</button>
       </form>
+      <a href="adminData.php?setExel=true" class="btn btn-success text-decoration-none my-2">Export To Exel</a>
       <h2 class="mt-3">Ban User</h2>
       <table id="userTable" class="table table-striped" style="width:100%">
         <thead>
@@ -65,6 +98,10 @@ $userInfo = query('SELECT * FROM user');
             <th>ID User</th>
             <th>Username</th>
             <th>Nama User</th>
+            <th>Email</th>
+            <th>Likes</th>
+            <th>Comments</th>
+            <th>Posts</th>
           </tr>
         </thead>
         <tbody>
@@ -73,6 +110,10 @@ $userInfo = query('SELECT * FROM user');
               <td><?= $val['id']; ?></td>
               <td><?= $val['username']; ?></td>
               <td><?= $val['nama']; ?></td>
+              <td><?= $val['email']; ?></td>
+              <td><?= handleLike($val['id']); ?></td>
+              <td><?= handleComment($val['id']); ?></td>
+              <td><?= postingan($val['id']); ?></td>
             </tr>
           <?php endforeach ?>
         </tbody>
@@ -81,6 +122,10 @@ $userInfo = query('SELECT * FROM user');
             <th>ID User</th>
             <th>Username</th>
             <th>Nama User</th>
+            <th>Email</th>
+            <th>Likes</th>
+            <th>Comments</th>
+            <th>Posts</th>
           </tr>
         </tfoot>
       </table>

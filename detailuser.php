@@ -296,6 +296,51 @@ function getLove($id)
     </div>
   </div>
   <!-- END TEMP bann -->
+
+
+  <!-- Modal post -->
+  <div id="detailPosting" class="modal" tabindex="-1">
+    <div id="besarModal" class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div id="gambarDt" class="col-md-7 overflow-auto">
+                <img style="height: 100%;width:100%;" id="imgPosting" class="m-auto" src="img/posting/2.jpg" alt="">
+              </div>
+              <div id="sesuai" class="col-md-5 ms-auto ">
+                <div class="username d-flex border-bottom">
+                  <img id="detailProfile" width="25px" height="25px" class="rounded-circle border border-secondary m-2" alt="">
+                  <div class="user">
+                    <p id="detailUsername" class="fw-bold mx-2 my-1"></p>
+                    <span id="tanggal" style="opacity: 0.5;" class="mx-1 my-1 fs-6"></span>
+                  </div>
+                </div>
+                <div class="detailtext">
+                  <p id="detailText"></p>
+                  <div style="height: 350px;" id="modalComment" class="mt-2  overflow-auto">
+                  </div>
+                  <div class="my-2">
+                    <form action="#" id="form" class="d-flex my-2 form" data-user="<?= $_SESSION['id_user']; ?>">
+                      <?php if (isset($_SESSION['foto_profil'])) : ?>
+                        <img width="30px" height="30px" class="rounded-circle border border-secondary m-2" src="img/profil/<?= $_SESSION['foto_profil']; ?>" alt="">
+                      <?php endif ?>
+                      <input id="inputComment" class="form-control rounded-pill" type="text" placeholder="Comment..." aria-label="Comment">
+                      <button class="btn btn-info rounded-circle mx-2 sendComment" type="submit"><i class="bi bi-send-fill"></i></button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end0 -->
   <script src="js/jquery-3.6.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <script>
@@ -304,8 +349,52 @@ function getLove($id)
         // console.log("HEllo");
         $("#modalTempBann").modal("show");
       })
+      $(".form").submit(function(event) {
+        const id = $(this).data("id");
+        const user = $(this).data("user");
+        const key = ".comment" + id.toString();
+        const com = $("#inputComment").val();
+        const param = ".com" + id.toString();
+        $(param).load("comment.php", {
+          newComment: com,
+          idPosting: id,
+          idUser: user
+        })
+        $(key).val(null);
+        event.preventDefault();
+      });
+      $('.like').click(function() {
+        var postid = $(this).attr('id');
+        var userid = $(this).data("user");
+        $(this).toggleClass("text-danger");
+        $(this).toggleClass("text-dark");
+        $(this).children().toggleClass("bi-heart-fill");
+        $(this).children().toggleClass("bi-heart");
+        const id = $(this).data("id");
+        const user = $(this).data("user");
+        const param = ".jmlLike" + id.toString();
+        $(param).load("like.php", {
+          postid: id,
+          userid: user,
+          liked: true
+        })
+      })
+
+      $(".posting").click(function() {
+        if ($(window).width() < 767) {
+          console.log("Hello");
+          $("#my-post").removeClass("overflow-auto");
+          $("#imgPosting").removeAttr("src");
+          $("#gambarDt").addClass("visually-hidden");
+          $("#besarModal").removeClass("modal-xl");
+          $("#sesuai").removeClass("col-md-5");
+          $("#sesuai").addClass("col-md-12");
+
+        }
+      })
     });
   </script>
+  <script src="js/script.js"></script>
 </body>
 
 </html>

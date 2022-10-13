@@ -156,8 +156,8 @@ function getLove($id)
         <div class="modal-body">
           <div class="container-fluid">
             <div class="row">
-              <div style="max-height: 100%; max-width:100%;" id="gambarDt" class="col-md-7 overflow-auto">
-                <img id="imgPosting" class="m-auto" src="img/posting/2.jpg" alt="">
+              <div id="gambarDt" class="col-md-7 overflow-auto">
+                <img style="height: 100%;width:100%;" id="imgPosting" class="m-auto" src="img/posting/2.jpg" alt="">
               </div>
               <div id="sesuai" class="col-md-5 ms-auto ">
                 <div class="username d-flex border-bottom">

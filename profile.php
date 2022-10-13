@@ -88,11 +88,15 @@ if (isset($_POST['send'])) {
 
 if (isset($_POST['deleteAction'])) {
   $idpostingan = $_POST['postID'];
-  $query = "DELETE FROM comment WHERE id_postingan = '$idpostingan';";
-  $query .= "DELETE FROM likes WHERE id_postingan = '$idpostingan';";
-  $query .= "DELETE FROM postingan WHERE id = '$idpostingan'";
-  mysqli_multi_query($conn, $query);
-  header("Location: profile.php");
+  $query = "DELETE FROM likes WHERE id_postingan = $idpostingan";
+  mysqli_query($conn, $query);
+  $query1 = "DELETE FROM comment WHERE id_postingan = '$idpostingan'";
+  mysqli_query($conn, $query1);
+  mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=0");
+  $query2 = "DELETE FROM postingan WHERE id = '$idpostingan'";
+  mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=1");
+  mysqli_query($conn, $query2);
+  header("Location: index.php");
   unset($_POST['deleteAction']);
 }
 
@@ -275,7 +279,7 @@ if (isset($_GET['posting']) && isset($_SESSION['login'])) {
           </form>
           <?php if (isset($_SESSION['user_type'])) : ?>
             <?php if ($_SESSION['user_type'] == 'admin') : ?>
-              <a href="adminData.php" class="badge rounded-pill bg-success text-decoration-none rounded-pill float-end">Statistic Admin</a>
+              <a href="admin.php" class="badge rounded-pill bg-success text-decoration-none rounded-pill float-end">Admin Mode</a>
             <?php endif ?>
           <?php endif ?>
         </div>
@@ -338,8 +342,8 @@ if (isset($_GET['posting']) && isset($_SESSION['login'])) {
         <div class="modal-body">
           <div class="container-fluid">
             <div class="row">
-              <div style="height: 650px;" id="gambarDt" class="col-md-7 overflow-auto">
-                <img id="imgPosting" class="m-auto" src="img/posting/2.jpg" alt="">
+              <div id="gambarDt" class="col-md-7 overflow-auto">
+                <img style="height: 100%;width:100%;" id="imgPosting" class="m-auto" src="img/posting/2.jpg" alt="">
               </div>
               <div id="sesuai" class="col-md-5 ms-auto">
                 <div class="username d-flex border-bottom">
