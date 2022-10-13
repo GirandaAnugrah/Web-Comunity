@@ -103,10 +103,6 @@ function getLove($id)
   if (checkLikes($id, $user) === 'text-danger') return "bi-heart-fill";
   else return "bi-heart";
 }
-
-
-
-
 ?>
 
 <!doctype html>
@@ -211,7 +207,6 @@ function getLove($id)
         $(key).val(null);
         event.preventDefault();
       });
-
       $('.like').click(function() {
         var postid = $(this).attr('id');
         var userid = $(this).data("user");
@@ -238,6 +233,7 @@ function getLove($id)
           $("#besarModal").removeClass("modal-xl");
           $("#sesuai").removeClass("col-md-5");
           $("#sesuai").addClass("col-md-12");
+
         }
       })
 

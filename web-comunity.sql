@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Okt 2022 pada 17.03
--- Versi server: 10.4.24-MariaDB
--- Versi PHP: 7.4.29
+-- Generation Time: Oct 12, 2022 at 04:50 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `comment`
+-- Table structure for table `comment`
 --
 
 CREATE TABLE `comment` (
@@ -36,7 +36,7 @@ CREATE TABLE `comment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `comment`
+-- Dumping data for table `comment`
 --
 
 INSERT INTO `comment` (`id_postingan`, `id_user`, `comment`, `jml_like`, `tanggal_comment`) VALUES
@@ -119,51 +119,48 @@ INSERT INTO `comment` (`id_postingan`, `id_user`, `comment`, `jml_like`, `tangga
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `follower`
+-- Table structure for table `follower`
 --
 
 CREATE TABLE `follower` (
-  `id_user` int(11) DEFAULT NULL,
-  `id_follower` int(11) DEFAULT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_follower` int(11) NOT NULL,
   `date_follow` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `follower`
+-- Dumping data for table `follower`
 --
 
 INSERT INTO `follower` (`id_user`, `id_follower`, `date_follow`) VALUES
-(5, 10, '2022-10-06'),
-(5, 9, '2022-10-06'),
 (5, 7, '2022-10-06'),
 (5, 8, '2022-10-06'),
+(5, 9, '2022-10-06'),
+(5, 10, '2022-10-06'),
 (5, 17, '2022-10-06'),
 (5, 18, '2022-10-06'),
-(5, 23, '2022-10-06'),
 (5, 19, '2022-10-06'),
-(5, 22, '2022-10-06'),
-(5, 21, '2022-10-06'),
 (5, 20, '2022-10-06'),
+(5, 21, '2022-10-06'),
+(5, 22, '2022-10-06'),
+(5, 23, '2022-10-06'),
+(5, 35, '2022-10-12'),
 (9, 5, '2022-10-09'),
-(9, 7, '2022-10-09'),
-(9, 7, '2022-10-09'),
-(17, 5, '2022-10-09'),
-(19, 9, '2022-10-09'),
-(19, 5, '2022-10-09'),
-(19, 5, '2022-10-09'),
-(17, 23, '2022-10-09'),
-(9, 23, '2022-10-09'),
-(19, 23, '2022-10-09'),
 (9, 18, '2022-10-09'),
+(9, 23, '2022-10-09'),
+(17, 5, '2022-10-09'),
 (17, 18, '2022-10-09'),
+(17, 23, '2022-10-09'),
+(19, 9, '2022-10-09'),
 (19, 18, '2022-10-09'),
-(23, 18, '2022-10-09'),
-(19, 20, '2022-10-10');
+(19, 20, '2022-10-10'),
+(19, 23, '2022-10-09'),
+(23, 18, '2022-10-09');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `forum`
+-- Table structure for table `forum`
 --
 
 CREATE TABLE `forum` (
@@ -174,7 +171,7 @@ CREATE TABLE `forum` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `forum`
+-- Dumping data for table `forum`
 --
 
 INSERT INTO `forum` (`id`, `nama_forum`, `deskripsi`, `banner`) VALUES
@@ -188,76 +185,52 @@ INSERT INTO `forum` (`id`, `nama_forum`, `deskripsi`, `banner`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `likes`
+-- Table structure for table `likes`
 --
 
 CREATE TABLE `likes` (
-  `id_postingan` int(11) DEFAULT NULL,
-  `id_user` int(11) DEFAULT NULL,
+  `id_postingan` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
   `waktu` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `likes`
+-- Dumping data for table `likes`
 --
 
 INSERT INTO `likes` (`id_postingan`, `id_user`, `waktu`) VALUES
-(21, 17, '2022-10-10 02:59:32'),
-(20, 17, '2022-10-10 02:59:34'),
-(21, 17, '2022-10-10 02:59:36'),
-(20, 17, '2022-10-10 02:59:38'),
-(20, 17, '2022-10-10 03:00:02'),
-(20, 17, '2022-10-10 03:00:38'),
-(20, 17, '2022-10-10 03:01:08'),
-(21, 17, '2022-10-10 03:01:11'),
-(20, 17, '2022-10-10 03:02:25'),
-(20, 17, '2022-10-10 03:02:53'),
-(20, 17, '2022-10-10 03:03:57'),
-(21, 17, '2022-10-10 03:03:59'),
-(22, 17, '2022-10-10 03:04:01'),
-(22, 17, '2022-10-10 03:04:02'),
-(23, 17, '2022-10-10 03:04:06'),
-(24, 17, '2022-10-10 03:04:08'),
-(3, 17, '2022-10-10 03:04:11'),
-(24, 18, '2022-10-10 03:29:06'),
-(1, 18, '2022-10-10 03:30:28'),
-(2, 18, '2022-10-10 03:30:31'),
-(1, 18, '2022-10-10 03:30:34'),
-(20, 18, '2022-10-10 03:32:37'),
-(21, 18, '2022-10-10 03:32:39'),
-(22, 18, '2022-10-10 03:32:41'),
-(22, 18, '2022-10-10 03:32:43'),
-(22, 18, '2022-10-10 03:32:45'),
-(20, 18, '2022-10-10 03:33:13'),
-(20, 18, '2022-10-10 03:33:14'),
-(20, 19, '2022-10-10 03:37:23'),
-(20, 23, '2022-10-10 03:38:57'),
-(21, 23, '2022-10-10 03:39:45'),
-(8, 23, '2022-10-10 03:39:48'),
-(8, 23, '2022-10-10 03:39:50'),
-(8, 23, '2022-10-10 03:39:51'),
-(20, 22, '2022-10-10 03:45:36'),
-(21, 22, '2022-10-10 03:51:29'),
-(8, 22, '2022-10-10 03:51:33'),
-(18, 22, '2022-10-10 03:51:40'),
-(3, 22, '2022-10-10 03:55:17'),
-(17, 22, '2022-10-10 03:55:41'),
-(19, 22, '2022-10-10 04:31:10'),
-(1, 22, '2022-10-10 04:31:14'),
-(2, 22, '2022-10-10 04:31:16'),
-(20, 20, '2022-10-10 04:51:48'),
-(21, 20, '2022-10-10 04:51:50'),
-(22, 20, '2022-10-10 04:51:52'),
-(23, 20, '2022-10-10 04:51:54'),
 (1, 20, '2022-10-10 04:59:05'),
+(1, 22, '2022-10-10 04:31:14'),
+(2, 18, '2022-10-10 03:30:31'),
 (2, 20, '2022-10-10 04:59:10'),
+(2, 22, '2022-10-10 04:31:16'),
+(3, 17, '2022-10-10 03:04:11'),
+(3, 22, '2022-10-10 03:55:17'),
+(8, 22, '2022-10-10 03:51:33'),
+(17, 22, '2022-10-10 03:55:41'),
 (18, 20, '2022-10-10 04:59:14'),
-(25, 20, '2022-10-10 05:02:14');
+(18, 22, '2022-10-10 03:51:40'),
+(19, 22, '2022-10-10 04:31:10'),
+(20, 19, '2022-10-10 03:37:23'),
+(20, 20, '2022-10-10 04:51:48'),
+(20, 22, '2022-10-10 03:45:36'),
+(20, 23, '2022-10-10 03:38:57'),
+(21, 18, '2022-10-10 03:32:39'),
+(21, 20, '2022-10-10 04:51:50'),
+(21, 22, '2022-10-10 03:51:29'),
+(21, 23, '2022-10-10 03:39:45'),
+(22, 20, '2022-10-10 04:51:52'),
+(23, 17, '2022-10-10 03:04:06'),
+(23, 20, '2022-10-10 04:51:54'),
+(24, 17, '2022-10-10 03:04:08'),
+(24, 18, '2022-10-10 03:29:06'),
+(25, 20, '2022-10-10 05:02:14'),
+(25, 35, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `postingan`
+-- Table structure for table `postingan`
 --
 
 CREATE TABLE `postingan` (
@@ -272,7 +245,7 @@ CREATE TABLE `postingan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `postingan`
+-- Dumping data for table `postingan`
 --
 
 INSERT INTO `postingan` (`id`, `id_user`, `id_forum`, `postingan_gambar`, `postingan_text`, `tanggal_posting`, `jml_like`, `kategori`) VALUES
@@ -283,7 +256,7 @@ INSERT INTO `postingan` (`id`, `id_user`, `id_forum`, `postingan_gambar`, `posti
 (17, 5, 6, '-1', 'C++ adalah bahasa pemrograman komputer yang dibuat oleh Bjarne Stroustrup, yang merupakan perkembangan dari bahasa C dikembangkan di Bell Labs. Pada awal tahun 1970-an, bahasa itu merupakan peningkatan dari bahasa sebelumnya, yaitu B', '2022-10-08', NULL, 'c++'),
 (18, 5, 4, '-1', 'Saya lagi belajar Golang saat ini ternyata susah banget', '2022-10-08', NULL, 'golang'),
 (19, 5, 6, '-1', 'SELECT @@version', '2022-10-08', NULL, 'all'),
-(20, 5, 2, '-1', 'Belajar PHP sangat menyenangkan saya 1 hari cuman bengong doang hadepin soal web programming yg belum selesai', '2022-10-09', NULL, 'php'),
+(20, 5, 2, '-1', 'Belajar PHP sangat menyenangkan saya 1 hari cuman bengong doang hadepin soal web programming yg belum selesai', '2022-10-09', 3, 'php'),
 (21, 9, 3, '-1', 'Hari ini saya sedang belajar Java, OOP di java mudah melajari sangat cocok bagi orang-orang yang baru belajar OOP', '2022-10-09', NULL, 'java'),
 (22, 17, 4, '-1', 'Hari ini saya belajar golang secara otodidak melaui youtube', '2022-10-09', NULL, 'golang'),
 (23, 19, 1, '-1', 'Belajar javasript sangat menyenangkan', '2022-10-09', NULL, 'javascript'),
@@ -293,7 +266,7 @@ INSERT INTO `postingan` (`id`, `id_user`, `id_forum`, `postingan_gambar`, `posti
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -304,64 +277,70 @@ CREATE TABLE `user` (
   `email` varchar(30) NOT NULL,
   `password` varchar(120) NOT NULL,
   `foto_profil` varchar(120) NOT NULL,
-  `description` varchar(300) NOT NULL
+  `description` varchar(300) NOT NULL,
+  `is_banned` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `user`
+-- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `nama`, `usertype`, `email`, `password`, `foto_profil`, `description`) VALUES
-(5, 'renfredLeeman', 'Renfred ','admin', 'renfred@gmail.com', '$2y$10$Hd5hVkOrQvDQ3OdywCVvzejjsYhQsa1D8htc9nJ5zRDo09LbfDV8C', '4c468b3b16999fd9578189576d5f770cb4a16ad9fca0e798a251f00a54a87c5d.jpg', 'Nama saya Renfred Leeman domisili tangerang, saya suka belajar coding sejak SMA. Kali ini saya sedang memperdalam Php,Laravel, C++, Golang, serta tailwind.'),
-(7, 'dodidot', 'Dodi Kurniawan', 'user', 'dodi@gmail.com', '$2y$10$k1Oj8FUC8uwer3B/ZC1BUOS8PHpvaHJnNLKlde50vmWum9pz9fbH2', 'default-profile.png', ''),
-(8, 'm4y4cynkR3H4n', 'Maya', 'user', 'maya@gmail.com', '$2y$10$aPv1mMf5W8a6dlma9BElre/UZVA5uFNiXEAjuj9ZwGoBPWtAe58JS', 'default-profile.png', ''),
-(9, 'ditoAja', 'Dito', 'user', 'dito@gmail.com', '$2y$10$Jom1rI9KnZs4x57GzeRNfeZCVJmwvz0ZmUgxgTw0OwsylLFD5wnIC', 'default-profile.png', ''),
-(10, 'amandacryt', 'Amanda', 'user', 'amanda@gmail.com', '$2y$10$gNTD2K1fE.bXYBvzT8o7H.QcVu.eXWSPRAmL0zrtI9xjS7ErI0b4O', 'default-profile.png', ''),
-(12, 'aziz akmal', 'Aziz Akmal', 'user', 'aziz@gmail.com', '$2y$10$jZK9lPaC36f.9e8vtStrg.iwjb6XAuxebr8GuHKKHdHeB/4maRxIS', 'default-profile.png', ''),
-(14, 'gio oktada', 'Giofari', 'user', 'gio@gmail.com', '$2y$10$jdKGo/pM0Sw7U5TtGSkRoulF9.q76Bwr/Dc8/B8/WBfnGoxHSVYVe', 'default-profile.png', ''),
-(16, 'ahmad muad', 'ahmad', 'user', 'ahm@gmail.com', '$2y$10$K..ZNy9Rw7hhnaT949./FutG9ZQiimerv9316wRVJgJKVJjHhByca', 'default-profile.png', ''),
-(17, 'agus', 'Agus', 'agus@gmail.com', 'user', '$2y$10$0WHZlDsGHnP23zMv8A8DIuy/ZafhsbHipvfn8h/D8YBus2MMNE4rC', 'c1e926a877e1df4d7129440d1946eefb91e95fbdeaf922bb6bed853203f2fdcf.jpg', ''),
-(18, 'oktookto', 'okto', 'user', 'okto@gmail.com', '$2y$10$nsqQP2RbzwdPvrTRgTGZyufp/fxuFNVtr0DaYHY/IE4/zH3OGFIYm', 'default-profile.png', ''),
-(19, 'lauraAja', 'Laura', 'user', 'laur@gmail.com', '$2y$10$bFbUl9mUhkYESzBsmG1Xc.8WYwLafQk71Japnyk4nghqSEJWPX.Jq', 'default-profile.png', ''),
-(20, 'sudung', 'sudung', 'user', 'sud@gmail.com', '$2y$10$VJMSWkfzbdHgllkEelu9SeB2LFISn7JBUB3/Sww7/AK9Qrsqe7LbK', 'default-profile.png', ''),
-(21, 'ziziziz', 'zizi', 'user', 'zizizi@gmail.com', '$2y$10$KikYr8bZWzsFPtnVfzLR2eQcjhmXFq9.eUBGcvICxsqYtRKQ5mtzi', 'default-profile.png', ''),
-(22, 'lisalis', 'lisa', 'user', 'lisa@gmail.com', '$2y$10$mBNn7Ig3QfFMkcpYpY18lOYc.clIJhkhSKvrLf1iE7/vqH418cWYS', 'default-profile.png', ''),
-(23, 'hamdan', 'hamdan', 'user', 'hamdan@gmail.com', '$2y$10$TpYcF/iQO27tt/rnjv3Fg.tMhcSYYU2ckL/i8PEy66xEzXVyvJ9Nu', 'default-profile.png', '');
+INSERT INTO `user` (`id`, `username`, `nama`, `usertype`, `email`, `password`, `foto_profil`, `description`, `is_banned`) VALUES
+(5, 'renfredLeeman', 'Renfred ', 'admin', 'renfred@gmail.com', '$2y$10$Hd5hVkOrQvDQ3OdywCVvzejjsYhQsa1D8htc9nJ5zRDo09LbfDV8C', '4c468b3b16999fd9578189576d5f770cb4a16ad9fca0e798a251f00a54a87c5d.jpg', 'Nama saya Renfred Leeman domisili tangerang, saya suka belajar coding sejak SMA. Kali ini saya sedang memperdalam Php,Laravel, C++, Golang, serta tailwind.', 0),
+(7, 'dodidot', 'Dodi Kurniawan', 'user', 'dodi@gmail.com', '$2y$10$k1Oj8FUC8uwer3B/ZC1BUOS8PHpvaHJnNLKlde50vmWum9pz9fbH2', 'default-profile.png', '', 0),
+(8, 'm4y4cynkR3H4n', 'Maya', 'user', 'maya@gmail.com', '$2y$10$aPv1mMf5W8a6dlma9BElre/UZVA5uFNiXEAjuj9ZwGoBPWtAe58JS', 'default-profile.png', '', 0),
+(9, 'ditoAja', 'Dito', 'user', 'dito@gmail.com', '$2y$10$Jom1rI9KnZs4x57GzeRNfeZCVJmwvz0ZmUgxgTw0OwsylLFD5wnIC', 'default-profile.png', '', 0),
+(10, 'amandacryt', 'Amanda', 'user', 'amanda@gmail.com', '$2y$10$gNTD2K1fE.bXYBvzT8o7H.QcVu.eXWSPRAmL0zrtI9xjS7ErI0b4O', 'default-profile.png', '', 0),
+(12, 'aziz akmal', 'Aziz Akmal', 'user', 'aziz@gmail.com', '$2y$10$jZK9lPaC36f.9e8vtStrg.iwjb6XAuxebr8GuHKKHdHeB/4maRxIS', 'default-profile.png', '', 0),
+(14, 'gio oktada', 'Giofari', 'user', 'gio@gmail.com', '$2y$10$jdKGo/pM0Sw7U5TtGSkRoulF9.q76Bwr/Dc8/B8/WBfnGoxHSVYVe', 'default-profile.png', '', 0),
+(16, 'ahmad muad', 'ahmad', 'user', 'ahm@gmail.com', '$2y$10$K..ZNy9Rw7hhnaT949./FutG9ZQiimerv9316wRVJgJKVJjHhByca', 'default-profile.png', '', 0),
+(17, 'agus', 'Agus', 'agus@gmail.com', 'user', '$2y$10$0WHZlDsGHnP23zMv8A8DIuy/ZafhsbHipvfn8h/D8YBus2MMNE4rC', 'c1e926a877e1df4d7129440d1946eefb91e95fbdeaf922bb6bed853203f2fdcf.jpg', '', 0),
+(18, 'oktookto', 'okto', 'user', 'okto@gmail.com', '$2y$10$nsqQP2RbzwdPvrTRgTGZyufp/fxuFNVtr0DaYHY/IE4/zH3OGFIYm', 'default-profile.png', '', 0),
+(19, 'lauraAja', 'Laura', 'user', 'laur@gmail.com', '$2y$10$bFbUl9mUhkYESzBsmG1Xc.8WYwLafQk71Japnyk4nghqSEJWPX.Jq', 'default-profile.png', '', 0),
+(20, 'sudung', 'sudung', 'user', 'sud@gmail.com', '$2y$10$VJMSWkfzbdHgllkEelu9SeB2LFISn7JBUB3/Sww7/AK9Qrsqe7LbK', 'default-profile.png', '', 0),
+(21, 'ziziziz', 'zizi', 'user', 'zizizi@gmail.com', '$2y$10$KikYr8bZWzsFPtnVfzLR2eQcjhmXFq9.eUBGcvICxsqYtRKQ5mtzi', 'default-profile.png', '', 0),
+(22, 'lisalis', 'lisa', 'user', 'lisa@gmail.com', '$2y$10$mBNn7Ig3QfFMkcpYpY18lOYc.clIJhkhSKvrLf1iE7/vqH418cWYS', 'default-profile.png', '', 0),
+(23, 'hamdan', 'hamdan', 'user', 'hamdan@gmail.com', '$2y$10$TpYcF/iQO27tt/rnjv3Fg.tMhcSYYU2ckL/i8PEy66xEzXVyvJ9Nu', 'default-profile.png', '', 0),
+(35, 'jasonst', 'Jason S', 'admin', 'jason@gmail.com', '$2y$10$JrP6OdfCUygGSMUs71ctQuC6nnGLecpv.BxDjkOiCLvQubRny9si.', 'default-profile.png', 'Halo aku anak sgm', 0),
+(36, 'johnthor', 'John Thor', 'user', 'john@gmail.com', '$2y$10$GCTKA3WJTFbny/MRMqCkZ.a0Sm2m.tO3uBw/TJHolXi4Q/lCfv6U6', 'default-profile.png', '', 0);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `comment`
+-- Indexes for table `comment`
 --
 ALTER TABLE `comment`
   ADD KEY `id_postingan` (`id_postingan`),
   ADD KEY `id_user` (`id_user`);
 
 --
--- Indeks untuk tabel `follower`
+-- Indexes for table `follower`
 --
 ALTER TABLE `follower`
+  ADD PRIMARY KEY (`id_user`,`id_follower`),
   ADD KEY `id_user` (`id_user`),
   ADD KEY `id_follower` (`id_follower`);
 
 --
--- Indeks untuk tabel `forum`
+-- Indexes for table `forum`
 --
 ALTER TABLE `forum`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nama_forum` (`nama_forum`);
 
 --
--- Indeks untuk tabel `likes`
+-- Indexes for table `likes`
 --
 ALTER TABLE `likes`
+  ADD PRIMARY KEY (`id_postingan`,`id_user`),
+  ADD UNIQUE KEY `id_postingan_2` (`id_postingan`,`id_user`),
   ADD KEY `id_postingan` (`id_postingan`),
   ADD KEY `id_user` (`id_user`);
 
 --
--- Indeks untuk tabel `postingan`
+-- Indexes for table `postingan`
 --
 ALTER TABLE `postingan`
   ADD PRIMARY KEY (`id`),
@@ -369,61 +348,63 @@ ALTER TABLE `postingan`
   ADD KEY `id_forum` (`id_forum`);
 
 --
--- Indeks untuk tabel `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`);
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `username_2` (`username`),
+  ADD UNIQUE KEY `username_3` (`username`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `forum`
+-- AUTO_INCREMENT for table `forum`
 --
 ALTER TABLE `forum`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `postingan`
+-- AUTO_INCREMENT for table `postingan`
 --
 ALTER TABLE `postingan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT untuk tabel `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `comment`
+-- Constraints for table `comment`
 --
 ALTER TABLE `comment`
   ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`id_postingan`) REFERENCES `postingan` (`id`),
   ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `follower`
+-- Constraints for table `follower`
 --
 ALTER TABLE `follower`
   ADD CONSTRAINT `follower_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `follower_ibfk_2` FOREIGN KEY (`id_follower`) REFERENCES `user` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `likes`
+-- Constraints for table `likes`
 --
 ALTER TABLE `likes`
   ADD CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`id_postingan`) REFERENCES `postingan` (`id`),
   ADD CONSTRAINT `likes_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `postingan`
+-- Constraints for table `postingan`
 --
 ALTER TABLE `postingan`
   ADD CONSTRAINT `postingan_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`),

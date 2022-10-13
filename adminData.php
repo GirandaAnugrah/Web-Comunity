@@ -1,12 +1,14 @@
 <?php
 require 'functions.php';
 require_once __DIR__ . '/vendor/autoload.php';
-if (isset($_SESSION['user_type'])) {
-  if ($_SESSION['user_type'] !== 'admin') {
-    header("Location: index.php");
-  }
-} else {
+session_start();
+if (!isset($_SESSION['login'])) {
+  header("Location: profile.php");
+  die;
+}
+if ($_SESSION['user_type'] != 'admin') {
   header("Location: index.php");
+  die;
 }
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
