@@ -11,13 +11,19 @@ if (isset($_POST['deleteAction'])) {
   $idpostingan = $_POST['postID'];
   $query = "DELETE FROM likes WHERE id_postingan = $idpostingan";
   mysqli_query($conn, $query);
+  $res = query("SELECT * FROM comment WHERE id_postingan = '$idpostingan'");
+  foreach($res as $row){{
+    $idcdm = $row['id'];
+    $query = "DELETE FROM commentlike WHERE id_comment = '$idcdm'";
+    mysqli_query($conn, $query);
+  }}
   $query1 = "DELETE FROM comment WHERE id_postingan = '$idpostingan'";
   mysqli_query($conn, $query1);
   mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=0");
   $query2 = "DELETE FROM postingan WHERE id = '$idpostingan'";
   mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=1");
   mysqli_query($conn, $query2);
-  header("Location: index.php");
+  header('refresh:0');
   unset($_POST['deleteAction']);
 }
 

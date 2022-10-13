@@ -72,12 +72,7 @@ function postingan($id)
   </footer>
   <div class="container col-md-9 mt-5 row m-auto d-flex justify-content-between bg-white">
     <div id="adminOptions" class="col-md-12 mt-3 overflow-auto">
-      <h2 class="mt-3">Export Statistic Reports</h2>
-      <?php if (isset($_GET['message'])) : ?>
-        <div class="alert alert-success m-2" role="alert">
-          <?= $_GET['message']; ?>
-        </div>
-      <?php endif ?>
+      <h2 class="mt-3">Export Post Statistic Reports</h2>
       <form action="pdfHasilexport.php" method="POST">
         <select class="form-select" name="kategori" required>
           <option selected value="">Kategori</option>
@@ -90,8 +85,7 @@ function postingan($id)
         </select>
         <button type="submit" class="btn btn-primary mt-3">Export To PDF</button>
       </form>
-      <a href="adminData.php?setExel=true" class="btn btn-success text-decoration-none my-2">Export To Exel</a>
-      <h2 class="mt-3">Ban User</h2>
+      <h2 class="mt-3">User Stats</h2>
       <table id="userTable" class="table table-striped" style="width:100%">
         <thead>
           <tr>
@@ -129,6 +123,12 @@ function postingan($id)
           </tr>
         </tfoot>
       </table>
+      <?php if (isset($_GET['message'])) : ?>
+        <div class="alert alert-success m-2" role="alert">
+          <?= $_GET['message']; ?>
+        </div>
+      <?php endif ?>
+      <a href="adminData.php?setExel=true" class="btn btn-success text-decoration-none my-2">Export To Excel</a>
     </div>
   </div>
   <footer class="fixed-bottom d-xxl-none ">

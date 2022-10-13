@@ -10,7 +10,7 @@
                     <span style="opacity: 0.5;" class="m-2 fs-6"><?= selisihWaktu($val['tanggal_posting']); ?></span class="inline-block">
                 </div>
                 <?php if (isset($_SESSION['user_type'])) : ?>
-                    <?php if ($_SESSION['user_type'] == 'admin') : ?>
+                    <?php if ($_SESSION['user_type'] === 'admin' || $_SESSION['id_user'] === $val['id_user']) : ?>
                         <form action="#" class="bd-highlight ms-auto" method="post">
                             <button type="submit" class="btn btn-danger" name="deleteAction" value="Delete"><span class="bi bi-trash"></span></button>
                             <input type="hidden" name="postID" value="<?= $val['id'] ?>" />
