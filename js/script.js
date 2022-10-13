@@ -1,17 +1,9 @@
-$("#changeFotoProfile").hide();
-// $("#postingModal").hide();
-$("#foto-profil").click(function () {
-  $("#changeFotoProfile").toggle("slow");
-});
+// $("#changeFotoProfile").hide();
 
 $("#postingan_text").click(function () {
   $("#postingModal").modal("show");
 });
 
-$("#like").click(function () {
-  $("#like").addClass("text-danger");
-  console.log("Hello");
-});
 $(".posting").click(function () {
   const username = $(this).data("username");
   const id = $(this).data("id");
@@ -33,7 +25,6 @@ $(".posting").click(function () {
     $("#imgPosting").attr("src", "img/posting/" + img);
   }
   $("#detailUsername").html(username);
-  $("#tanggal").html(tgl);
   $("#detailProfile").attr("src", "img/profil/" + profil);
   $("#detailText").html(text);
   $("#detailPosting").modal("show", "slow");
@@ -44,11 +35,10 @@ $(".posting").click(function () {
   $("#modalComment").addClass(newContainer);
   // console.log(newClass);
   $("#modalComment").load("comment.php", { idPosting: id });
-  // $(".comment").html("<h1><?=$_SESSION['foto_profil'];?></h1>");
 });
 
 // media Query
-// $(document).load($(window).bind("resize", checkPosition));
-if (window.matchMedia("(max-width: 768px)").matches) {
+
+if ($(window).width() < 767) {
   $("#my-post").removeClass("overflow-auto");
 }

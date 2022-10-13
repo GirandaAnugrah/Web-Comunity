@@ -24,3 +24,6 @@ body {
 .prim {
   background-color: #0d2167;
 }
+.link-hover:hover {
+  text-shadow: yellow;
+}
