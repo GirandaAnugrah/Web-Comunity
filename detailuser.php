@@ -140,12 +140,12 @@ function selisihWaktu($time)
   $menit = $diff - $jam * (60 * 60);
   if ($jam > 24) {
     $now = floor($jam / 24);
-    return $now . " hari yang lalu";
+    return $now . " days ago";
   } else {
     if ($jam < 1) {
-      return floor($menit / 60) . " menit yang lalu";
+      return floor($menit / 60) . " minutes ago";
     }
-    return $jam . " jam Yang lalu";
+    return $jam . " hours ago";
   }
 }
 
