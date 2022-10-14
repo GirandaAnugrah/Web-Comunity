@@ -2,14 +2,30 @@
 require 'functions.php';
 session_start();
 if (isset($_POST['deleteAction'])) {
-  $idUser = $_POST['userID'];
-  if (deleteUser($idUser) > 0) {
-    header("Location: index.php");
-    die;
+  $idpostingan = $_POST['postID'];
+  $stmt = mysqli_prepare($conn, "DELETE FROM LIKES WHERE id_postingan = ?");
+  mysqli_stmt_bind_param($stmt, "s", $idpostingan);
+  mysqli_stmt_execute($stmt);
+  $stmt2 = mysqli_prepare($conn, "SELECT * FROM comment WHERE id_postingan = ?");
+  mysqli_stmt_bind_param($stmt2, "s", $idpostingan);
+  mysqli_stmt_execute($stmt2);
+  $res = mysqli_stmt_get_result($stmt2);
+  while ($row = mysqli_fetch_assoc($res)) { {
+      $idcdm = $row['id'];
+      $query = "DELETE FROM commentlike WHERE id_comment = '$idcdm'";
+      mysqli_query($conn, $query);
+    }
   }
-  header("Location: detailuser.php?id=$idUser");
+  $stmt3 = mysqli_prepare($conn, "DELETE FROM comment WHERE id_postingan = ?");
+  mysqli_stmt_bind_param($stmt3, "s", $idpostingan);
+  mysqli_stmt_execute($stmt3);
+  mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=0");
+  $stmt4 = mysqli_prepare($conn, "DELETE FROM postingan WHERE id = ?");
+  mysqli_stmt_bind_param($stmt4, "s", $idpostingan);
+  mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=1");
+  mysqli_stmt_execute($stmt4);
+  header('refresh:0');
   unset($_POST['deleteAction']);
-  die;
 }
 
 if (isset($_POST['banned'])) {
@@ -23,8 +39,6 @@ if (isset($_POST['unBanned'])) {
   $stmt = mysqli_prepare($conn, "UPDATE user SET status = NULL WHERE id = ?");
   mysqli_stmt_bind_param($stmt, "s", $id);
   mysqli_stmt_execute($stmt);
-  // $query = "UPDATE user SET status = NULL WHERE id = $id";
-  // mysqli_query($conn, $query);
   header("Location: detailuser.php?id=$id");
   die;
 }
