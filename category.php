@@ -19,11 +19,12 @@ if (isset($_POST['deleteAction'])) {
   mysqli_stmt_execute($stmt2);
   $res = mysqli_stmt_get_result($stmt2);
   // $res = query("SELECT * FROM comment WHERE id_postingan = '$idpostingan'");
-  while($row = mysqli_fetch_assoc($res)){{
-    $idcdm = $row['id'];
-    $query = "DELETE FROM commentlike WHERE id_comment = '$idcdm'";
-    mysqli_query($conn, $query);
-  }}
+  while ($row = mysqli_fetch_assoc($res)) { {
+      $idcdm = $row['id'];
+      $query = "DELETE FROM commentlike WHERE id_comment = '$idcdm'";
+      mysqli_query($conn, $query);
+    }
+  }
   $stmt3 = mysqli_prepare($conn, "DELETE FROM comment WHERE id_postingan = ?");
   mysqli_stmt_bind_param($stmt3, "s", $idpostingan);
   mysqli_stmt_execute($stmt3);
@@ -191,24 +192,26 @@ function getLove($id)
               <div id="gambarDt" class="col-md-7 overflow-auto">
                 <img style="height: 100%;width:100%;" id="imgPosting" class="m-auto" src="img/posting/2.jpg" alt="">
               </div>
-              <div id="sesuai" class="col-md-5 ms-auto">
-                <div class="username d-flex border-bottom">
+              <div id="sesuai" class="col-md-5 ms-auto ">
+                <div class="username d-flex border-bottom bd-highlight">
                   <img id="detailProfile" width="25px" height="25px" class="rounded-circle border border-secondary m-2" alt="">
                   <div class="user">
                     <p id="detailUsername" class="fw-bold mx-2 my-1"></p>
                     <span id="tanggal" style="opacity: 0.5;" class="mx-1 my-1 fs-6"></span>
                   </div>
+                  <p id="kategori" class="bd-highlight fw-bold ms-auto"></p>
                 </div>
                 <div class="detailtext">
                   <p id="detailText"></p>
                   <div style="height: 350px;" id="modalComment" class="mt-2  overflow-auto">
                   </div>
                   <div class="my-2">
+                    <p id="love" class="fw-bold"></p>
                     <form action="#" id="form" class="d-flex my-2 form" data-user="<?= $_SESSION['id_user']; ?>">
                       <?php if (isset($_SESSION['foto_profil'])) : ?>
                         <img width="30px" height="30px" class="rounded-circle border border-secondary m-2" src="img/profil/<?= $_SESSION['foto_profil']; ?>" alt="">
                       <?php endif ?>
-                      <input id="inputComment" class="form-control rounded-pill" type="text" placeholder="Comment..." aria-label="Comment" required/>
+                      <input id="inputComment" class="form-control rounded-pill" type="text" placeholder="Comment..." aria-label="Comment" required />
                       <button class="btn btn-info rounded-circle mx-2 sendComment" type="submit"><i class="bi bi-send-fill"></i></button>
                     </form>
                   </div>
