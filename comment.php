@@ -36,6 +36,7 @@ if (isset($_POST['newComment'])) {
         VALUES(?,?,?,?)");
 
     mysqli_stmt_bind_param($stmt, "iiss", $id_postingan, $id_user, $comment, $tanggal_comment);
+    echo $id_postingan;
     mysqli_stmt_execute($stmt);
     $query = "SELECT * FROM comment WHERE id_postingan = '$id_postingan' ORDER BY tanggal_comment";
 } else {

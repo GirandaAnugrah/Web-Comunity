@@ -34,13 +34,11 @@
         <span style="opacity: 0.5;" class="inline ms-auto fs-6 mt-2 bd-highlight"><?= getAmountCommentar($val['id']); ?> Comments</span>
     </div>
     <div class="d-flex border-top">
-
-
         <?php if (isset($_SESSION['login'])) : ?>
-            <div class="mx-4 my-auto"><a style="color: black;" class="like fs-3 <?= checkLikes($val['id'], $_SESSION['id_user']); ?>" data-id="<?php echo $val['id'] ?>" data-user="<?= $_SESSION['id_user']; ?>"><i class="bi <?= getLove($val['id']); ?>"></i></a></div>
+            <div class="mx-4 my-auto"><a style="color: black;" class="like fs-3 <?= checkLikes($val['id'], $_SESSION['id_user']); ?>" data-id="<?= $val['id'] ?>" data-user="<?= $_SESSION['id_user']; ?>"><i class="bi <?= getLove($val['id']); ?>"></i></a></div>
         <?php else : ?>
             <div class="mx-4 my-auto"><a class="fs-3 text-dark"><i class="bi bi-heart"></i></a></div>
         <?php endif ?>
-        <div class="ms-2 my-auto"><a class="fs-3 posting text-dark" data-img="<?= $val['postingan_gambar']; ?>" data-username="<?= getValue($val['id_user'], 'username'); ?>" data-profil="<?= getValue($val['id_user'], 'foto_profil'); ?>" data-text="<?= $val['postingan_text']; ?>" data-id="<?= $val['id']; ?>" data-kategori="<?= $val['kategori']; ?>" tgl="<?= $val['tanggal_posting']; ?>" love="<?= getJmlLike($val['id']); ?>"><i class="bi bi-chat"></i></a></div>
+        <div class="ms-2 my-auto"><a class="fs-3 posting text-dark" data-img="<?= $val['postingan_gambar']; ?>" data-username="<?= getValue($val['id_user'], 'username'); ?>" data-profil="<?= getValue($val['id_user'], 'foto_profil'); ?>" data-text="<?= $val['postingan_text']; ?>" dataPost="<?= $val['id']; ?>" data-kategori="<?= $val['kategori']; ?>" tgl="<?= $val['tanggal_posting']; ?>" love="<?= getJmlLike($val['id']); ?>"><i class="bi bi-chat"></i></a></div>
     </div>
 </div>

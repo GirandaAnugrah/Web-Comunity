@@ -29,10 +29,6 @@ if (isset($_POST['send_comment'])) {
           VALUES (?,?,?,?)");
   mysqli_stmt_bind_param($stmt, "ssss", $idpostingan, $iduser, $comment, $date);
   mysqli_stmt_execute($stmt);
-
-  // $query = "INSERT INTO comment(id_postingan,id_user,comment,tanggal_comment)
-  //           VALUES ('$idpostingan','$iduser','$comment','$date')";
-  // mysqli_query($conn, $query);
 }
 
 if (isset($_POST['deleteAction'])) {
@@ -56,10 +52,7 @@ if (isset($_POST['deleteAction'])) {
   $stmt3 = mysqli_prepare($conn, "DELETE FROM comment WHERE id_postingan = ?");
   mysqli_stmt_bind_param($stmt3, "s", $idpostingan);
   mysqli_stmt_execute($stmt3);
-  // $query1 = "DELETE FROM comment WHERE id_postingan = '$idpostingan'";
-  // mysqli_query($conn, $query1);
   mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=0");
-  // $query2 = "DELETE FROM postingan WHERE id = '$idpostingan'";
   $stmt4 = mysqli_prepare($conn, "DELETE FROM postingan WHERE id = ?");
   mysqli_stmt_bind_param($stmt4, "s", $idpostingan);
   mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=1");
@@ -218,14 +211,17 @@ function getLove($id)
   <!-- End Modal -->
   <script src="js/jquery-3.6.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
   <script type="text/javascript">
     $(document).ready(function() {
       $(".form").submit(function(event) {
-        const id = $(this).data("id");
+        const id = $(this).attr("idPost");
+        console.log("form " + id);
         const user = $(this).data("user");
         const key = ".comment" + id.toString();
         const com = $("#inputComment").val();
         const param = ".com" + id.toString();
+        console.log(id);
         $(param).load("comment.php", {
           newComment: com,
           idPosting: id,
@@ -267,6 +263,7 @@ function getLove($id)
     })
   </script>
   <script src="js/script.js"></script>
+
 </body>
 
 </html>

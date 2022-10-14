@@ -4,7 +4,8 @@ $("#postingan_text").click(function () {
 
 $(".posting").click(function () {
   const username = $(this).data("username");
-  const id = $(this).data("id");
+  const id = $(this).attr("dataPost");
+  console.log("ini id " + id);
   const img = $(this).data("img");
   const profil = $(this).data("profil");
   const text = $(this).data("text");
@@ -26,12 +27,11 @@ $(".posting").click(function () {
   $("#detailUsername").html(username);
   $("#tanggal").html(tgl);
   $("#kategori").html(kategori.toUpperCase());
-  console.log(love);
   $("#love").html(love);
   $("#detailProfile").attr("src", "img/profil/" + profil);
   $("#detailText").html(text);
   $("#detailPosting").modal("show", "slow");
-  $("#form").attr("data-id", id);
+  $("#form").attr("idPost", id);
   const newClass = "comment" + id.toString();
   const newContainer = "com" + id.toString();
   $("#inputComment").addClass(newClass);
