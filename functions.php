@@ -29,7 +29,12 @@ function signUp($data)
     $password2 = mysqli_real_escape_string($conn, $data["password2"]);
     $foto = 'default-profile.png';
     $user_type = 'user';
-    $res = mysqli_query($conn, "SELECT user FROM user WHERE username = '$username'");
+
+    $stmt = mysqli_prepare($conn, "SELECT username FROM user WHERE username = ?");
+    mysqli_stmt_bind_param($stmt, "s", $username);
+    mysqli_stmt_execute($stmt);
+    $res = mysqli_stmt_get_result($stmt);
+    
     if (mysqli_fetch_assoc($res)) {
         header("Location: profile.php?error-message=Username already used");
         die;
@@ -43,7 +48,11 @@ function signUp($data)
         die;
     }
     $password = password_hash($password, PASSWORD_BCRYPT);
-    mysqli_query($conn, "INSERT INTO user(username,nama,usertype,email,password,foto_profil)  VALUES('$username','$name','$user_type','$email','$password','$foto')");
+
+    $stmt = mysqli_prepare($conn, "INSERT INTO user(username,nama,usertype,email,password,foto_profil)  VALUES(?,?,?,?,?,?)");
+    mysqli_stmt_bind_param($stmt, "ssssss", $username,$name,$user_type,$email,$password,$foto);
+    mysqli_stmt_execute($stmt);
+
     return mysqli_affected_rows($conn);
 }
 
@@ -55,14 +64,17 @@ function editProfile($data)
     $nama = htmlspecialchars($data["name"]);
     $description = htmlspecialchars($data["description"]);
     $email = htmlspecialchars($data["email"]);
-    $query = "UPDATE user SET
-                 username = '$username',
-                 nama = '$nama',
-                 email = '$email',
-                 description = '$description'
-                 WHERE id = $id;
-                 ";
-    mysqli_query($conn, $query);
+
+    $stmt = mysqli_prepare($conn, "UPDATE user SET
+                                    username = ?,
+                                    nama = ?,
+                                    email = ?,
+                                    description = ?
+                                    WHERE id = ?");
+
+    mysqli_stmt_bind_param($stmt, "sssss", $username, $nama, $email, $description, $id);
+    mysqli_stmt_execute($stmt);
+
     return mysqli_affected_rows($conn);
 }
 
@@ -90,11 +102,11 @@ function changeFotoProfile($data)
         return false;
     }
     move_uploaded_file($tmpName, 'img/profil/' . $namafile);
-    $query = "UPDATE user SET
-             foto_profil = '$namafile'
-             WHERE id = $id;
-             ";
-    mysqli_query($conn, $query);
+
+    $stmt = mysqli_prepare($conn, "UPDATE user SET foto_profil = ? WHERE id = ?");
+    mysqli_stmt_bind_param($stmt, "ss", $namafile, $id);
+    mysqli_stmt_execute($stmt);
+
     return $namafile;
 }
 
@@ -140,9 +152,13 @@ function posting($data)
     else if ($kategori === 'ruby') $forum = 5;
     else $forum = 6;
     $file = uploadGambar();
-    $query = "INSERT INTO postingan(id_user,id_forum,postingan_gambar,postingan_text,tanggal_posting,kategori)
-                      VALUES ('$id','$forum','$file','$text','$dateNow','$kategori')";
-    mysqli_query($conn, $query);
+
+    $stmt = mysqli_prepare($conn, "INSERT INTO postingan(id_user,id_forum,postingan_gambar,postingan_text,tanggal_posting,kategori)
+                                    VALUES (?,?,?,?,?,?)");
+    mysqli_stmt_bind_param($stmt, "ssssss", $id, $forum, $file, $text, $dateNow, $kategori);
+    mysqli_stmt_execute($stmt);
+    // $query = "INSERT INTO postingan(id_user,id_forum,postingan_gambar,postingan_text,tanggal_posting,kategori)
+    //                   VALUES ('$id','$forum','$file','$text','$dateNow','$kategori')";
     return mysqli_affected_rows($conn);
     return mysqli_affected_rows($conn);
 }
@@ -151,15 +167,21 @@ function deleteLike($id)
 {
     global $conn;
     echo "Like masuk function ";
-    $query = "DELETE FROM likes WHERE id_user = '$id'";
-    mysqli_query($conn, $query);
+    $stmt = mysqli_prepare($conn, "DELETE FROM likes WHERE id_user = ?");
+    mysqli_stmt_bind_param($stmt, "s", $id);
+    mysqli_stmt_execute($stmt);
+    // $query = "DELETE FROM likes WHERE id_user = '$id'";
+    // mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
 }
 function deleteComment($id)
 {
     global $conn;
-    $query = "DELETE FROM comment WHERE id_user = '$id'";
-    mysqli_query($conn, $query);
+    $stmt = mysqli_prepare($conn, "DELETE FROM comment WHERE id_user = ?");
+    mysqli_stmt_bind_param($stmt, "s", $id);
+    mysqli_stmt_execute($stmt);
+    // $query = "DELETE FROM comment WHERE id_user = '$id'";
+    // mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
 }
 
@@ -172,8 +194,11 @@ function deletePostingan($id)
         if (deleteComment($id) >= 0) {
             echo "Comment masuk";
             mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=0");
-            $query = "DELETE FROM postingan WHERE id_user = '$id'";
-            mysqli_query($conn, $query);
+            $stmt = mysqli_prepare($conn, "DELETE FROM postingan WHERE id_user = ?");
+            mysqli_stmt_bind_param($stmt, "s", $id);
+            mysqli_stmt_execute($stmt);
+            // $query = "DELETE FROM postingan WHERE id_user = '$id'";
+            // mysqli_query($conn, $query);
             mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=1");
             return mysqli_affected_rows($conn);
         }
@@ -184,10 +209,16 @@ function deleteUser($id)
 {
     global $conn;
     if (deletePostingan($id) >= 0) {
-        $query = "DELETE FROM follower WHERE id_user = '$id' OR id_follower = '$id'";
-        mysqli_query($conn, $query);
-        $query = "DELETE FROM user WHERE id = '$id'";
-        mysqli_query($conn, $query);
+        $stmt = mysqli_prepare($conn, "DELETE FROM follower WHERE id_user = ? OR id_follower = ?");
+        mysqli_stmt_bind_param($stmt, "ss", $id, $id);
+        mysqli_stmt_execute($stmt);
+        $stmt2 = mysqli_prepare($conn, "DELETE FROM user WHERE id = ?");
+        mysqli_stmt_bind_param($stmt2, "s", $id);
+        mysqli_stmt_execute($stmt2);
+        // $query = "DELETE FROM follower WHERE id_user = '$id' OR id_follower = '$id'";
+        // mysqli_query($conn, $query);
+        // $query = "DELETE FROM user WHERE id = '$id'";
+        // mysqli_query($conn, $query);
         return mysqli_affected_rows($conn);
     }
 }
@@ -196,11 +227,14 @@ function banned($data)
 {
     global $conn;
     $id = $data['userID'];
-    $query = "UPDATE user SET
-                 status = 'true'
-                 WHERE id = $id;
-                 ";
-    mysqli_query($conn, $query);
+    $stmt = mysqli_prepare($conn, "UPDATE user SET status = 'true' WHERE id = ?");
+    mysqli_stmt_bind_param($stmt, "s", $id);
+    mysqli_stmt_execute($stmt);
+    // $query = "UPDATE user SET
+    //              status = 'true'
+    //              WHERE id = $id;
+    //              ";
+    // mysqli_query($conn, $query);
 }
 function temp_banned($data)
 {
@@ -209,29 +243,44 @@ function temp_banned($data)
     $date = $data['tmp-date'];
     $time = $data['tmp-time'];
     $dateFull = $date . ' ' . $time;
-    $query = "UPDATE user SET
-                 tmp_bann = '$dateFull'
-                 WHERE id = $id;
-                 ";
-    mysqli_query($conn, $query);
+    $stmt = mysqli_prepare($conn, "UPDATE user SET tmp_bann = ? WHERE id = ?");
+    mysqli_stmt_bind_param($stmt, "ss", $dateFull, $id);
+    mysqli_stmt_execute($stmt);
+    // $query = "UPDATE user SET
+    //              tmp_bann = '$dateFull'
+    //              WHERE id = $id;
+    //              ";
+    // mysqli_query($conn, $query);
 }
 
 function unBann_tmp($id)
 {
     global $conn;
-    $query = "UPDATE user SET
-                 tmp_bann = NULL
-                 WHERE id = $id;
-                 ";
-    mysqli_query($conn, $query);
+    $stmt = mysqli_prepare($conn, "UPDATE user SET tmp_bann = NULL WHERE id = ?");
+    mysqli_stmt_bind_param($stmt, "s", $id);
+    mysqli_stmt_execute($stmt);
+    // $query = "UPDATE user SET
+    //              tmp_bann = NULL
+    //              WHERE id = $id;
+    //              ";
+    // mysqli_query($conn, $query);
 }
 function getLike($id)
 {
     global $conn;
-    $query = query("SELECT * FROM likes WHERE id_postingan = '$id'");
+    $stmt = mysqli_prepare($conn, "SELECT * FROM likes WHERE id_postingan = ?");
+    mysqli_stmt_bind_param($stmt, "s", $id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
     $jml = 0;
-    foreach ($query as $val) {
+    while($val = mysqli_fetch_assoc($result)){
         $jml++;
     }
     return $jml;
+    // $query = query("SELECT * FROM likes WHERE id_postingan = '$id'");
+    // $jml = 0;
+    // foreach ($query as $val) {
+    //     $jml++;
+    // }
+    // return $jml;
 }

@@ -85,6 +85,11 @@ function postingan($id)
         </select>
         <button type="submit" class="btn btn-primary mt-3">Export To PDF</button>
       </form>
+      <?php if (isset($_GET['errorMessage'])) : ?>
+        <div class="alert alert-danger mt-3" role="alert">
+          <?= $_GET['errorMessage']; ?>
+        </div>
+      <?php endif ?>
       <h2 class="mt-3">User Stats</h2>
       <table id="userTable" class="table table-striped" style="width:100%">
         <thead>
