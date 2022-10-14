@@ -6,7 +6,10 @@ if (!isset($_SESSION['login'])) {
 }
 if (isset($_POST['key'])) {
   $id = $_POST['key'];
-  $result = mysqli_query($conn, "SELECT * FROM user WHERE id = '$id'");
+  $stmt = mysqli_prepare($conn, "SELECT * FROM user WHERE id = ?");
+  mysqli_stmt_bind_param($stmt, "s", $id);
+  mysqli_stmt_execute($stmt);
+  $result = mysqli_stmt_get_result($stmt);
   $row = mysqli_fetch_assoc($result);
 }
 

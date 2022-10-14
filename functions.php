@@ -34,7 +34,6 @@ function signUp($data)
     mysqli_stmt_bind_param($stmt, "s", $username);
     mysqli_stmt_execute($stmt);
     $res = mysqli_stmt_get_result($stmt);
-
     if (mysqli_fetch_assoc($res)) {
         header("Location: profile.php?error-message=Username already used");
         die;
@@ -160,6 +159,7 @@ function deleteLike($id)
     $stmt = mysqli_prepare($conn, "DELETE FROM likes WHERE id_user = ?");
     mysqli_stmt_bind_param($stmt, "s", $id);
     mysqli_stmt_execute($stmt);
+
     return mysqli_affected_rows($conn);
 }
 function deleteComment($id)
@@ -239,6 +239,7 @@ function getLike($id)
     $result = mysqli_stmt_get_result($stmt);
     $jml = 0;
     while ($val = mysqli_fetch_assoc($result)) {
+
         $jml++;
     }
     return $jml;

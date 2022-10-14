@@ -23,8 +23,12 @@ if (isset($_POST['delComment'])) {
 if (isset($_POST['likeComment'])) {
     $id_user = $_POST['idUser'];
     $id_comment = $_POST['idComment'];
-    $query = "INSERT INTO commentlike(id_comment,id_user) VALUES ('$id_comment','$id_user')";
-    mysqli_query($conn, $query);
+    $stmt = mysqli_prepare($conn, "INSERT INTO commentike(id_comment, id_user) VALUES (?,?)");
+    mysqli_stmt_bind_param($stmt, "ss", $id_comment, $id_user);
+    mysqli_stmt_execute($stmt);
+    // $query = "INSERT INTO commentlike(id_comment,id_user) VALUES ('$id_comment','$id_user')";
+    // mysqli_query($conn, $query);
+    unset($_POST['delComment']);
 }
 if (isset($_POST['newComment'])) {
     $com = htmlspecialchars($_POST['newComment']);
@@ -53,8 +57,12 @@ function getValue($id, $name)
 function checkLike($idU, $idC)
 {
     global $conn;
-    $query = "SELECT * FROM commentlike WHERE id_comment = '$idC' AND id_user = '$idU'";
-    $check = mysqli_query($conn, $query);
+    $stmt = mysqli_prepare($conn, "SELECT * FROM commentlike WHERE id_comment = ? AND id_user = ?");
+    mysqli_stmt_bind_param($stmt, "ss", $idC, $idU);
+    mysqli_stmt_execute($stmt);
+    $check = mysqli_stmt_get_result($stmt);
+    // $query = "SELECT * FROM commentlike WHERE id_comment = '$idC' AND id_user = '$idU'";
+    // $check = mysqli_query($conn, $query);
     $row = mysqli_fetch_assoc($check);
     if (empty($row)) {
         return 'text-dark';

@@ -12,9 +12,9 @@
         </div>
         <form  action="profile.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?= $row['id']; ?>" >
-            <textarea style="border: none; outline:none;" name="postingan_text" id="post_text" cols="53" rows="8" placeholder="What do you think now..." name="potingan_text"></textarea>
+            <textarea style="border: none; outline:none;" name="postingan_text" id="post_text" cols="53" rows="8" placeholder="What are you thinking about?" name="potingan_text"></textarea>
             <select id="category" class="rounded-2" required name="kategori">
-                <option value="all">All</option>
+                <option selected value="">Kategori</option>
                 <option value="javascript">Javascript</option>
                 <option value="php">Php</option>
                 <option value="java">Java</option>

@@ -25,9 +25,14 @@ if (isset($_POST['send_comment'])) {
   $comment = $_POST['comment'];
   $date = $dateNow = date("Y-m-d");
 
-  $query = "INSERT INTO comment(id_postingan,id_user,comment,tanggal_comment)
-            VALUES ('$idpostingan','$iduser','$comment','$date')";
-  mysqli_query($conn, $query);
+  $stmt = mysqli_prepare($conn, "INSERT INTO comment(id_postingan,id_user,comment,tanggal_comment)
+          VALUES (?,?,?,?)");
+  mysqli_stmt_bind_param($stmt, "ssss", $idpostingan, $iduser, $comment, $date);
+  mysqli_stmt_execute($stmt);
+
+  // $query = "INSERT INTO comment(id_postingan,id_user,comment,tanggal_comment)
+  //           VALUES ('$idpostingan','$iduser','$comment','$date')";
+  // mysqli_query($conn, $query);
 }
 
 if (isset($_POST['deleteAction'])) {
@@ -60,7 +65,7 @@ if (isset($_POST['deleteAction'])) {
   mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=1");
   mysqli_stmt_execute($stmt4);
   // mysqli_query($conn, $query2);
-  header("Refresh:0");
+  header('refresh:0');
   unset($_POST['deleteAction']);
 }
 
@@ -196,7 +201,7 @@ function getLove($id)
                       <?php if (isset($_SESSION['foto_profil'])) : ?>
                         <img width="30px" height="30px" class="rounded-circle border border-secondary m-2" src="img/profil/<?= $_SESSION['foto_profil']; ?>" alt="">
                       <?php endif ?>
-                      <input id="inputComment" class="form-control rounded-pill" type="text" placeholder="Comment..." aria-label="Comment">
+                      <input id="inputComment" class="form-control rounded-pill" type="text" placeholder="Comment..." aria-label="Comment" required />
                       <button class="btn btn-info rounded-circle mx-2 sendComment" type="submit"><i class="bi bi-send-fill"></i></button>
                     </form>
                   </div>

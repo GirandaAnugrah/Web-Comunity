@@ -44,6 +44,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $like = mysqli_stmt_get_result($stmtLike);
     $likeAmt = 0;
 
+
     while ($likerow = mysqli_fetch_assoc($like)) {
         $likeAmt++;
     }
@@ -53,6 +54,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     mysqli_stmt_execute($stmtCmnt);
     $cmt = mysqli_stmt_get_result($stmtCmnt);
     $cmtAmt = 0;
+
 
     while ($cmtrow = mysqli_fetch_assoc($cmt)) {
         $cmtAmt++;
