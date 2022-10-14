@@ -23,11 +23,8 @@ if (isset($_POST['delComment'])) {
 if (isset($_POST['likeComment'])) {
     $id_user = $_POST['idUser'];
     $id_comment = $_POST['idComment'];
-    $stmt = mysqli_prepare($conn, "INSERT INTO commentike(id_comment, id_user) VALUES (?,?)");
-    mysqli_stmt_bind_param($stmt, "ss", $id_comment, $id_user);
-    mysqli_stmt_execute($stmt);
-    // $query = "INSERT INTO commentlike(id_comment,id_user) VALUES ('$id_comment','$id_user')";
-    // mysqli_query($conn, $query);
+    $query = "INSERT INTO commentlike(id_comment,id_user) VALUES ('$id_comment','$id_user')";
+    mysqli_query($conn, $query);
     unset($_POST['delComment']);
 }
 if (isset($_POST['newComment'])) {
@@ -75,7 +72,7 @@ function checkLike($idU, $idC)
     <?php foreach ($myComment as $com) : ?>
         <div class="d-flex justify-content-between">
             <?php if (isset($_SESSION['user_type'])) : ?>
-                <?php if ($_SESSION['user_type'] === 'admin') : ?>
+                <?php if ($_SESSION['user_type'] === 'admin' || $_SESSION['id_user'] === $com['id_user']) : ?>
                     <a class="my-2 text-danger delCom" id="<?= $com['id']; ?>" Post="<?= $id_postingan; ?>" user="<?= $_SESSION['id_user']; ?>"><span class="bi bi-trash"></span></a>
                 <?php endif ?>
             <?php endif ?>

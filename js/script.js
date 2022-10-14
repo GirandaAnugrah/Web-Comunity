@@ -9,7 +9,7 @@ $(".posting").click(function () {
   const profil = $(this).data("profil");
   const text = $(this).data("text");
   const kategori = $(this).data("kategori");
-  console.log(kategori);
+  const tgl = $(this).attr("tgl");
   if (img == -1) {
     $("#gambarDt").addClass("visually-hidden");
     $("#besarModal").removeClass("modal-xl");
@@ -23,6 +23,8 @@ $(".posting").click(function () {
     $("#imgPosting").attr("src", "img/posting/" + img);
   }
   $("#detailUsername").html(username);
+  $("#tanggal").html(tgl);
+  $("#kategori").html(kategori.toUpperCase());
   $("#detailProfile").attr("src", "img/profil/" + profil);
   $("#detailText").html(text);
   $("#detailPosting").modal("show", "slow");

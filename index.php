@@ -185,12 +185,13 @@ function getLove($id)
                 <img style="height: 100%;width:100%;" id="imgPosting" class="m-auto" src="img/posting/2.jpg" alt="">
               </div>
               <div id="sesuai" class="col-md-5 ms-auto ">
-                <div class="username d-flex border-bottom">
+                <div class="username d-flex border-bottom bd-highlight">
                   <img id="detailProfile" width="25px" height="25px" class="rounded-circle border border-secondary m-2" alt="">
                   <div class="user">
                     <p id="detailUsername" class="fw-bold mx-2 my-1"></p>
                     <span id="tanggal" style="opacity: 0.5;" class="mx-1 my-1 fs-6"></span>
                   </div>
+                  <p id="kategori" class="bd-highlight fw-bold ms-auto"></p>
                 </div>
                 <div class="detailtext">
                   <p id="detailText"></p>
