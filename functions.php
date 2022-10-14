@@ -207,7 +207,7 @@ function banned($data)
 {
     global $conn;
     $id = $data['userID'];
-    $stmt = mysqli_prepare($conn, "UPDATE user SET status = 'true' WHERE id = ?");
+    $stmt = mysqli_prepare($conn, "UPDATE user SET status = true WHERE id = ?");
     mysqli_stmt_bind_param($stmt, "s", $id);
     mysqli_stmt_execute($stmt);
 }
