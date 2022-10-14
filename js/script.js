@@ -1,5 +1,3 @@
-// $("#changeFotoProfile").hide();
-
 $("#postingan_text").click(function () {
   $("#postingModal").modal("show");
 });

@@ -32,15 +32,35 @@ if (isset($_POST['send_comment'])) {
 
 if (isset($_POST['deleteAction'])) {
   $idpostingan = $_POST['postID'];
-  $query = "DELETE FROM likes WHERE id_postingan = $idpostingan";
-  mysqli_query($conn, $query);
-  $query1 = "DELETE FROM comment WHERE id_postingan = '$idpostingan'";
-  mysqli_query($conn, $query1);
+  $stmt = mysqli_prepare($conn, "DELETE FROM LIKES WHERE id_postingan = ?");
+  mysqli_stmt_bind_param($stmt, "s", $idpostingan);
+  mysqli_stmt_execute($stmt);
+  // $query = "DELETE FROM likes WHERE id_postingan = $idpostingan";
+  // mysqli_query($conn, $query);
+  $stmt2 = mysqli_prepare($conn, "SELECT * FROM comment WHERE id_postingan = ?");
+  mysqli_stmt_bind_param($stmt2, "s", $idpostingan);
+  mysqli_stmt_execute($stmt2);
+  $res = mysqli_stmt_get_result($stmt2);
+  // $res = query("SELECT * FROM comment WHERE id_postingan = '$idpostingan'");
+  while ($row = mysqli_fetch_assoc($res)) { {
+      $idcdm = $row['id'];
+      $query = "DELETE FROM commentlike WHERE id_comment = '$idcdm'";
+      mysqli_query($conn, $query);
+    }
+  }
+  $stmt3 = mysqli_prepare($conn, "DELETE FROM comment WHERE id_postingan = ?");
+  mysqli_stmt_bind_param($stmt3, "s", $idpostingan);
+  mysqli_stmt_execute($stmt3);
+  // $query1 = "DELETE FROM comment WHERE id_postingan = '$idpostingan'";
+  // mysqli_query($conn, $query1);
   mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=0");
-  $query2 = "DELETE FROM postingan WHERE id = '$idpostingan'";
+  // $query2 = "DELETE FROM postingan WHERE id = '$idpostingan'";
+  $stmt4 = mysqli_prepare($conn, "DELETE FROM postingan WHERE id = ?");
+  mysqli_stmt_bind_param($stmt4, "s", $idpostingan);
   mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=1");
-  mysqli_query($conn, $query2);
-  header("Location: index.php");
+  mysqli_stmt_execute($stmt4);
+  // mysqli_query($conn, $query2);
+  header("Refresh:0");
   unset($_POST['deleteAction']);
 }
 

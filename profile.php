@@ -13,7 +13,11 @@ if (isset($_POST['signUp'])) {
 if (isset($_POST['login'])) {
   $username = mysqli_real_escape_string($conn, $_POST['username']);
   $password = mysqli_real_escape_string($conn, $_POST['password']);
-  $result = mysqli_query($conn, "SELECT * FROM user WHERE username = '$username'");
+  $stmt = mysqli_prepare($conn, "SELECT * FROM user WHERE username = ?");
+
+  mysqli_stmt_bind_param($stmt, "s", $username);
+  mysqli_stmt_execute($stmt);
+  $result = mysqli_stmt_get_result($stmt);
   if (mysqli_num_rows($result)) {
     $row = mysqli_fetch_assoc($result);
     if ($row['status'] != NULL) {
@@ -261,7 +265,7 @@ if (isset($_GET['posting']) && isset($_SESSION['login'])) {
     <div class="row mb-3 d-flex flex-row justify-content-around bg-white border-bottom shadow-sm rounded-3">
       <div class="col-md-3 m-3 d-md-m-auto">
         <img id="foto-profil" width="150px" height="150px" class="rounded-circle border border-primary" src="img/profil/<?= $row['foto_profil']; ?>" alt="">
-        <form id="changeFotoProfile" class="visually-hidden" action="profile.php" method="post" enctype="multipart/form-data">
+        <form id="changeFotoProfile" action="profile.php" method="post" enctype="multipart/form-data">
           <input type="hidden" name="id" value="<?= $row['id']; ?>">
           <div class="col-8">
             <center><label for="formFileSm" class="form-label text-center">Change foto Profile</label></center>
@@ -423,7 +427,10 @@ if (isset($_GET['posting']) && isset($_SESSION['login'])) {
           $("#sesuai").addClass("col-md-12");
         }
       })
-
+      $("#changeFotoProfile").hide();
+      $("#foto-profil").on("click", function() {
+        $("#changeFotoProfile").toggle("slow");
+      });
     })
   </script>
   <script src="js/script.js"></script>

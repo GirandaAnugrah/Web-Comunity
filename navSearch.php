@@ -4,6 +4,7 @@ $id = mysqli_real_escape_string($conn, $_POST['key']);
 if ($_POST['key'] == NULL) {
     die;
 }
+
 $user = query("SELECT * FROM user WHERE username LIKE '%$id%' LIMIT 5");
 
 ?>

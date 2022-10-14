@@ -108,7 +108,7 @@ function postingan($id)
           <?php foreach ($userInfo as $val) : ?>
             <tr>
               <td><?= $val['id']; ?></td>
-              <td><?= $val['username']; ?></td>
+              <td><a class="text-decoration-none" href="detailuser.php?id=<?= $val['id']; ?>"><?= $val['username']; ?></a></td>
               <td><?= $val['nama']; ?></td>
               <td><?= $val['email']; ?></td>
               <td><?= handleLike($val['id']); ?></td>

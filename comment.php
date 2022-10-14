@@ -1,12 +1,24 @@
 <?php
 require 'functions.php';
 session_start();
-$idPosting = $_POST['idPosting'];
+$id_postingan = $_POST['idPosting'];
+
+function deletelikeComment($com, $user)
+{
+    global $conn;
+    $query = "DELETE FROM commentlike WHERE id_comment = $com AND id_user = $user";
+    $res = mysqli_query($conn, $query);
+    return mysqli_affected_rows($conn);
+}
 
 if (isset($_POST['delComment'])) {
     $idCom = $_POST['idComment'];
+    $iduser = $_POST['iduser'];
+    deletelikeComment($idCom, $iduser);
+    mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=0");
     $query = "DELETE FROM comment WHERE id = '$idCom'";
     mysqli_query($conn, $query);
+    mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=1");
 }
 if (isset($_POST['likeComment'])) {
     $id_user = $_POST['idUser'];
@@ -15,15 +27,18 @@ if (isset($_POST['likeComment'])) {
     mysqli_query($conn, $query);
 }
 if (isset($_POST['newComment'])) {
-    $comment = $_POST['newComment'];
-    $idUser = $_POST['idUser'];
-    $date = date("Y-m-d h:i:s");
-    $insert = "INSERT INTO comment(id_postingan,id_user,comment,tanggal_comment)
-            VALUES('$idPosting','$idUser','$comment','$date')";
-    mysqli_query($conn, $insert);
-    $query = "SELECT * FROM comment WHERE id_postingan = '$idPosting' ORDER BY tanggal_comment";
+    $com = htmlspecialchars($_POST['newComment']);
+    $comment = mysqli_real_escape_string($conn, $com);
+    $id_user = mysqli_real_escape_string($conn, $_POST['idUser']);
+    $tanggal_comment = date("Y-m-d h:i:s");
+    $stmt = mysqli_prepare($conn, "INSERT INTO comment(id_postingan,id_user,comment,tanggal_comment)
+        VALUES(?,?,?,?)");
+
+    mysqli_stmt_bind_param($stmt, "iiss", $id_postingan, $id_user, $comment, $tanggal_comment);
+    mysqli_stmt_execute($stmt);
+    $query = "SELECT * FROM comment WHERE id_postingan = '$id_postingan' ORDER BY tanggal_comment";
 } else {
-    $query = "SELECT * FROM comment WHERE id_postingan = '$idPosting' ORDER BY tanggal_comment";
+    $query = "SELECT * FROM comment WHERE id_postingan = '$id_postingan' ORDER BY tanggal_comment";
 }
 
 
@@ -53,7 +68,7 @@ function checkLike($idU, $idC)
         <div class="d-flex justify-content-between">
             <?php if (isset($_SESSION['user_type'])) : ?>
                 <?php if ($_SESSION['user_type'] === 'admin') : ?>
-                    <a class="my-2 text-danger delCom" id="<?= $com['id']; ?>" Post="<?= $idPosting; ?>"><span class="bi bi-trash"></span></a>
+                    <a class="my-2 text-danger delCom" id="<?= $com['id']; ?>" Post="<?= $id_postingan; ?>" user="<?= $_SESSION['id_user']; ?>"><span class="bi bi-trash"></span></a>
                 <?php endif ?>
             <?php endif ?>
             <div class="commment col-10 rounded-pill my-2">
@@ -63,7 +78,7 @@ function checkLike($idU, $idC)
             </div>
             <div class="hidden"></div>
             <div class="likeComment m-2">
-                <a style="color: black;" class="likeComm <?= checkLike($_SESSION['id_user'], $com['id']); ?>" idP="<?= $idPosting; ?>" idU="<?= $_SESSION['id_user']; ?>" idC="<?= $com['id']; ?>"><i class="bi bi-heart"></i></a>
+                <a style="color: black;" class="likeComm <?= checkLike($_SESSION['id_user'], $com['id']); ?>" idP="<?= $id_postingan; ?>" idU="<?= $_SESSION['id_user']; ?>" idC="<?= $com['id']; ?>"><i class="bi bi-heart"></i></a>
             </div>
         </div>
     <?php endforeach ?>
@@ -88,10 +103,11 @@ function checkLike($idU, $idC)
         $(".delCom").click(function() {
             const idU = $(this).attr("id");
             const idP = $(this).attr("Post");
-
+            const user = $(this).attr("user");
             $("#commen").load("comment.php", {
                 idPosting: idP,
                 idComment: idU,
+                iduser: user,
                 delComment: true
             });
         });

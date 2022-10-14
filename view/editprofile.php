@@ -50,7 +50,7 @@ if (isset($_POST['edit'])) {
 
 <body>
   <div class="container col-md-7 mt-5 p-3 rounded">
-    <center><img width="150px" height="150px" class="rounded-circle border border-primary" src="../img/profil/<?= $row['foto_profil']; ?>" alt=""></center>
+    <!-- <center><img width="150px" height="150px" class="rounded-circle border border-primary" src="../img/profil/<?= $row['foto_profil']; ?>" alt=""></center> -->
     <form action="editprofile.php" method="post" enctype="multipart/form-data">
       <input type="hidden" name="id" value="<?= $row['id']; ?>">
       <div class="mb-3">
