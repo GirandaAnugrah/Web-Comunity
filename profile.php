@@ -25,8 +25,9 @@ if (isset($_POST['login'])) {
       die;
     }
     if ($row['tmp_bann'] != NULL) {
-      $dateNow = date('Y-m-d h:i:s');
-      $send_date = date("Y-m-d h:i:s", strtotime($row['tmp_bann']));
+      date_default_timezone_set('Asia/Jakarta');
+      $dateNow = date('Y-m-d H:i:s');
+      $send_date = date("Y-m-d H:i:s", strtotime($row['tmp_bann']));
       if ($dateNow < $send_date) {
         header("Location: profile.php?error-message=Your account has been banned until $send_date");
         die;
