@@ -10,6 +10,7 @@ $(".posting").click(function () {
   const text = $(this).data("text");
   const kategori = $(this).data("kategori");
   const tgl = $(this).attr("tgl");
+  const love = $(this).attr("love") + " Likes";
   if (img == -1) {
     $("#gambarDt").addClass("visually-hidden");
     $("#besarModal").removeClass("modal-xl");
@@ -25,6 +26,8 @@ $(".posting").click(function () {
   $("#detailUsername").html(username);
   $("#tanggal").html(tgl);
   $("#kategori").html(kategori.toUpperCase());
+  console.log(love);
+  $("#love").html(love);
   $("#detailProfile").attr("src", "img/profil/" + profil);
   $("#detailText").html(text);
   $("#detailPosting").modal("show", "slow");

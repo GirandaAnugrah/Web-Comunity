@@ -41,6 +41,6 @@
         <?php else : ?>
             <div class="mx-4 my-auto"><a class="fs-3 text-dark"><i class="bi bi-heart"></i></a></div>
         <?php endif ?>
-        <div class="ms-2 my-auto"><a class="fs-3 posting text-dark" data-img="<?= $val['postingan_gambar']; ?>" data-username="<?= getValue($val['id_user'], 'username'); ?>" data-profil="<?= getValue($val['id_user'], 'foto_profil'); ?>" data-text="<?= $val['postingan_text']; ?>" data-id="<?= $val['id']; ?>" data-kategori="<?= $val['kategori']; ?>" tgl="<?= $val['tanggal_posting']; ?>"><i class="bi bi-chat"></i></a></div>
+        <div class="ms-2 my-auto"><a class="fs-3 posting text-dark" data-img="<?= $val['postingan_gambar']; ?>" data-username="<?= getValue($val['id_user'], 'username'); ?>" data-profil="<?= getValue($val['id_user'], 'foto_profil'); ?>" data-text="<?= $val['postingan_text']; ?>" data-id="<?= $val['id']; ?>" data-kategori="<?= $val['kategori']; ?>" tgl="<?= $val['tanggal_posting']; ?>" love="<?= getJmlLike($val['id']); ?>"><i class="bi bi-chat"></i></a></div>
     </div>
 </div>

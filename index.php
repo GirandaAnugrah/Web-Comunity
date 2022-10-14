@@ -198,6 +198,7 @@ function getLove($id)
                   <div style="height: 350px;" id="modalComment" class="mt-2  overflow-auto">
                   </div>
                   <div class="my-2">
+                    <p id="love" class="fw-bold"></p>
                     <form action="#" id="form" class="d-flex my-2 form" data-user="<?= $_SESSION['id_user']; ?>">
                       <?php if (isset($_SESSION['foto_profil'])) : ?>
                         <img width="30px" height="30px" class="rounded-circle border border-secondary m-2" src="img/profil/<?= $_SESSION['foto_profil']; ?>" alt="">
